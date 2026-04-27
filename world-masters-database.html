@@ -1,0 +1,1002 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>世界高手資料庫</title>
+  <style>
+    :root {
+      --bg: #f5f6f2;
+      --paper: #ffffff;
+      --ink: #18211f;
+      --muted: #65726d;
+      --line: #dce2dd;
+      --teal: #0f766e;
+      --teal-soft: #e4f3f1;
+      --coral: #c75f4a;
+      --coral-soft: #fdebe6;
+      --amber-soft: #fff3d8;
+      --shadow: 0 12px 30px rgba(24, 33, 31, 0.06);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
+      letter-spacing: 0;
+    }
+
+    button,
+    input,
+    textarea,
+    select {
+      font: inherit;
+    }
+
+    button {
+      min-height: 40px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 8px 12px;
+      background: var(--paper);
+      color: var(--ink);
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    button:hover,
+    button.is-active {
+      border-color: var(--teal);
+      background: var(--teal-soft);
+      color: #0b4f49;
+    }
+
+    button.primary {
+      border-color: var(--teal);
+      background: var(--teal);
+      color: #ffffff;
+    }
+
+    button.primary:hover {
+      background: #0b4f49;
+      color: #ffffff;
+    }
+
+    button.danger:hover {
+      border-color: var(--coral);
+      background: var(--coral-soft);
+      color: #8d3f31;
+    }
+
+    a {
+      color: var(--teal);
+      text-underline-offset: 3px;
+    }
+
+    .app {
+      min-height: 100vh;
+      display: grid;
+      grid-template-rows: auto 1fr;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: grid;
+      grid-template-columns: minmax(220px, auto) minmax(220px, 1fr) auto;
+      gap: 12px;
+      align-items: center;
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(245, 246, 242, 0.95);
+      backdrop-filter: blur(10px);
+    }
+
+    .brand {
+      display: grid;
+      gap: 2px;
+    }
+
+    .brand strong {
+      font-size: 18px;
+      line-height: 1.25;
+    }
+
+    .brand span {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .search {
+      width: 100%;
+      min-height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 8px 12px;
+      background: var(--paper);
+      color: var(--ink);
+    }
+
+    .top-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      justify-content: flex-end;
+      white-space: nowrap;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 330px minmax(0, 1fr);
+      gap: 18px;
+      width: min(1440px, calc(100% - 28px));
+      margin: 0 auto;
+      padding: 18px 0 40px;
+    }
+
+    .sidebar,
+    .main,
+    .panel,
+    .profile-card,
+    .episode-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+
+    .sidebar {
+      align-self: start;
+      position: sticky;
+      top: 82px;
+      overflow: hidden;
+    }
+
+    .sidebar-head,
+    .section-head {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin: 0;
+    }
+
+    h1 { font-size: 32px; line-height: 1.22; text-wrap: balance; }
+    h2 { font-size: 22px; line-height: 1.28; }
+    h3 { font-size: 17px; line-height: 1.35; }
+
+    .muted { color: var(--muted); }
+
+    .master-list {
+      display: grid;
+      gap: 8px;
+      padding: 12px;
+      max-height: calc(100vh - 244px);
+      overflow: auto;
+    }
+
+    .master-item {
+      display: grid;
+      grid-template-columns: 54px minmax(0, 1fr);
+      gap: 10px;
+      align-items: center;
+      width: 100%;
+      min-height: 72px;
+      text-align: left;
+      border-radius: 8px;
+      padding: 8px;
+    }
+
+    .avatar {
+      width: 54px;
+      height: 54px;
+      border-radius: 8px;
+      object-fit: cover;
+      background: #edf1ee;
+    }
+
+    .master-item span {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .sidebar-form {
+      display: grid;
+      gap: 10px;
+      padding: 14px;
+      border-top: 1px solid var(--line);
+      background: #fbfcfa;
+    }
+
+    label {
+      display: grid;
+      gap: 5px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 9px 10px;
+      background: #ffffff;
+      color: var(--ink);
+    }
+
+    textarea {
+      min-height: 84px;
+      resize: vertical;
+    }
+
+    .main {
+      overflow: hidden;
+    }
+
+    .profile-card {
+      display: grid;
+      grid-template-columns: 260px minmax(0, 1fr);
+      gap: 18px;
+      margin: 14px;
+      padding: 16px;
+      box-shadow: none;
+    }
+
+    .profile-image-wrap {
+      position: relative;
+      display: block;
+      min-height: 260px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+      background: #edf1ee;
+    }
+
+    .profile-image-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .profile-image-wrap span {
+      position: absolute;
+      left: 10px;
+      bottom: 10px;
+      border-radius: 999px;
+      padding: 3px 9px;
+      background: rgba(24, 33, 31, 0.78);
+      color: #ffffff;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .profile-copy {
+      display: grid;
+      align-content: start;
+      gap: 12px;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .tag {
+      display: inline-flex;
+      min-height: 26px;
+      align-items: center;
+      border-radius: 999px;
+      padding: 2px 9px;
+      background: #edf1ee;
+      color: #3f4d47;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .tag.hot {
+      background: var(--coral-soft);
+      color: #8d3f31;
+    }
+
+    .profile-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 2px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      padding: 0 14px 14px;
+    }
+
+    .stat {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+      background: #fbfcfa;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 22px;
+      line-height: 1.2;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(300px, 0.8fr);
+      gap: 14px;
+      padding: 0 14px 14px;
+    }
+
+    .episode-list {
+      display: grid;
+      gap: 12px;
+      padding: 14px;
+    }
+
+    .episode-card {
+      display: grid;
+      grid-template-columns: 180px minmax(0, 1fr);
+      gap: 14px;
+      padding: 12px;
+      box-shadow: none;
+    }
+
+    .episode-cover {
+      position: relative;
+      display: block;
+      aspect-ratio: 16 / 9;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+      background: #edf1ee;
+      text-decoration: none;
+    }
+
+    .episode-cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .episode-cover span {
+      position: absolute;
+      left: 8px;
+      top: 8px;
+      border-radius: 999px;
+      padding: 2px 8px;
+      background: rgba(255, 255, 255, 0.9);
+      color: #0b4f49;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .episode-copy {
+      display: grid;
+      gap: 8px;
+      align-content: start;
+    }
+
+    .episode-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 2px;
+    }
+
+    .panel {
+      box-shadow: none;
+      overflow: hidden;
+    }
+
+    .form-grid {
+      display: grid;
+      gap: 10px;
+      padding: 14px;
+    }
+
+    .two {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .manual-copy {
+      display: none;
+      min-height: 140px;
+      margin: 0 14px 14px;
+      font-size: 14px;
+    }
+
+    .manual-copy.is-visible { display: block; }
+
+    .empty {
+      padding: 28px 18px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    @media (max-width: 980px) {
+      .topbar {
+        grid-template-columns: 1fr;
+      }
+
+      .top-actions {
+        justify-content: start;
+        overflow-x: auto;
+      }
+
+      .layout,
+      .content-grid,
+      .profile-card {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        position: static;
+      }
+
+      .master-list {
+        max-height: 320px;
+      }
+
+      .stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 620px) {
+      .layout {
+        width: min(100% - 20px, 1440px);
+      }
+
+      .profile-card {
+        margin: 10px;
+        padding: 12px;
+      }
+
+      .profile-image-wrap {
+        min-height: 220px;
+      }
+
+      .episode-card {
+        grid-template-columns: 1fr;
+      }
+
+      .two,
+      .stats {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <strong>世界高手資料庫</strong>
+        <span>People · Ideas · Episodes · Sources</span>
+      </div>
+      <input id="search" class="search" type="search" placeholder="搜尋高手、領域、觀點、來源">
+      <div class="top-actions">
+        <button id="copy-system" type="button">複製整理 Prompt</button>
+        <button id="export-json" type="button">匯出 JSON</button>
+        <button id="import-json" type="button">匯入 JSON</button>
+        <button id="reset-sample" class="danger" type="button">重置範例</button>
+        <input id="import-file" type="file" accept="application/json" hidden>
+      </div>
+    </header>
+
+    <main class="layout">
+      <aside class="sidebar">
+        <div class="sidebar-head">
+          <h2>高手清單</h2>
+          <span id="master-count" class="tag"></span>
+        </div>
+        <div id="master-list" class="master-list"></div>
+        <form id="master-form" class="sidebar-form">
+          <h3>新增高手</h3>
+          <label>姓名
+            <input name="name" required placeholder="例如：Naval Ravikant">
+          </label>
+          <label>定位
+            <input name="positioning" required placeholder="例如：投資人 / 思想家 / 創業者">
+          </label>
+          <label>領域標籤
+            <input name="tags" placeholder="用逗號分隔：AI, 投資, 寫作">
+          </label>
+          <label>照片 URL
+            <input name="photo" placeholder="https://...">
+          </label>
+          <label>一句話摘要
+            <textarea name="summary" placeholder="他最值得研究的是什麼？"></textarea>
+          </label>
+          <button class="primary" type="submit">新增人物</button>
+        </form>
+      </aside>
+
+      <section class="main">
+        <div id="profile"></div>
+        <div id="stats" class="stats"></div>
+        <div class="content-grid">
+          <section class="panel">
+            <div class="section-head">
+              <h2>內容集數</h2>
+              <span id="episode-count" class="tag"></span>
+            </div>
+            <div id="episode-list" class="episode-list"></div>
+          </section>
+
+          <aside class="panel">
+            <div class="section-head">
+              <h2>新增內容</h2>
+              <span class="tag hot">Episode</span>
+            </div>
+            <form id="episode-form" class="form-grid">
+              <label>標題
+                <input name="title" required placeholder="影片 / 文章 / Podcast 標題">
+              </label>
+              <div class="two">
+                <label>類型
+                  <select name="type">
+                    <option>影片</option>
+                    <option>文章</option>
+                    <option>Podcast</option>
+                    <option>書籍</option>
+                    <option>課程</option>
+                  </select>
+                </label>
+                <label>狀態
+                  <select name="status">
+                    <option>待研究</option>
+                    <option>已摘要</option>
+                    <option>可發文</option>
+                    <option>已發布</option>
+                  </select>
+                </label>
+              </div>
+              <label>封面 URL
+                <input name="cover" placeholder="YouTube thumbnail / image URL">
+              </label>
+              <label>來源連結
+                <input name="source" placeholder="https://...">
+              </label>
+              <label>核心觀點
+                <textarea name="lesson" required placeholder="這集最值得留下來的一句話"></textarea>
+              </label>
+              <label>我可以怎麼用
+                <textarea name="action" placeholder="轉成貼文、服務、模板、產品、短影音"></textarea>
+              </label>
+              <button class="primary" type="submit">新增內容</button>
+            </form>
+            <textarea id="manual-copy" class="manual-copy" readonly></textarea>
+          </aside>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const STORAGE_KEY = "worldMastersDatabase.v1";
+    const seed = {
+      selectedId: "dan-koe",
+      masters: [
+        {
+          id: "dan-koe",
+          name: "Dan Koe",
+          positioning: "作者 / 創作者 / Eden 共同創辦人",
+          country: "United States",
+          tags: ["一人事業", "寫作", "AI", "個人品牌", "創作者經濟"],
+          photo: "https://thedankoe.com/wp-content/uploads/2023/10/1-square-768x768.jpg",
+          summary: "Dan Koe 的核心價值不是單純教發文，而是把學習、觀點、內容、產品與 AI 工作流整理成一套可累積的個人事業系統。",
+          whyStudy: "適合研究：一人事業、寫作變現、內容系統、AI 時代個人品牌。",
+          links: [
+            { label: "官方網站", url: "https://thedankoe.com/" },
+            { label: "YouTube", url: "https://www.youtube.com/@DanKoeTalks" },
+            { label: "The Koe Cast", url: "https://podcasts.apple.com/us/podcast/the-koe-cast/id1566479559" },
+            { label: "Eden", url: "https://eden.so/" }
+          ],
+          episodes: [
+            {
+              id: "dk-001",
+              type: "影片",
+              status: "可發文",
+              title: "I'm begging you to start writing essays (even if you hate writing)",
+              cover: "https://i.ytimg.com/vi/3rNqNvwNcrM/maxresdefault.jpg",
+              source: "https://www.youtube.com/watch?v=3rNqNvwNcrM",
+              lesson: "寫作不是文青技能，而是把想法變清楚、讓市場看懂你的能力。",
+              action: "可轉成一篇：寫作為什麼是現代商業底層能力。"
+            },
+            {
+              id: "dk-002",
+              type: "影片",
+              status: "待研究",
+              title: "How To Build A $1M One-Person Business Faster With AI",
+              cover: "https://i.ytimg.com/vi/VXgusdDbsQE/maxresdefault.jpg",
+              source: "https://www.youtube.com/watch?v=VXgusdDbsQE",
+              lesson: "AI 放大的是已有方向的人；沒有主題與觀點，只會產出更多普通內容。",
+              action: "可轉成短影音：AI 是放大器，不是方向盤。"
+            },
+            {
+              id: "dk-003",
+              type: "影片",
+              status: "待研究",
+              title: "The Future Of Work (& The New High-Income Skill Stack)",
+              cover: "https://i.ytimg.com/vi/vCoGfisdS8Y/maxresdefault.jpg",
+              source: "https://www.youtube.com/watch?v=vCoGfisdS8Y",
+              lesson: "未來的高價值能力不是單點技能，而是寫作、行銷、銷售、技術理解與個人興趣的組合。",
+              action: "可做成技能盤點表。"
+            }
+          ]
+        }
+      ]
+    };
+
+    let db = loadDb();
+    let selectedId = db.selectedId || db.masters[0]?.id;
+
+    const els = {
+      search: document.querySelector("#search"),
+      masterList: document.querySelector("#master-list"),
+      masterCount: document.querySelector("#master-count"),
+      profile: document.querySelector("#profile"),
+      stats: document.querySelector("#stats"),
+      episodeList: document.querySelector("#episode-list"),
+      episodeCount: document.querySelector("#episode-count"),
+      masterForm: document.querySelector("#master-form"),
+      episodeForm: document.querySelector("#episode-form"),
+      manualCopy: document.querySelector("#manual-copy"),
+      importFile: document.querySelector("#import-file")
+    };
+
+    function loadDb() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) return JSON.parse(raw);
+      } catch (error) {
+        console.warn(error);
+      }
+      return structuredClone(seed);
+    }
+
+    function saveDb() {
+      db.selectedId = selectedId;
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(db));
+    }
+
+    function uid(prefix) {
+      return `${prefix}-${Math.random().toString(36).slice(2, 9)}`;
+    }
+
+    function normalizeTags(value) {
+      return String(value || "")
+        .split(/[，,]/)
+        .map((item) => item.trim())
+        .filter(Boolean);
+    }
+
+    function currentMaster() {
+      return db.masters.find((item) => item.id === selectedId) || db.masters[0];
+    }
+
+    function safeUrl(value) {
+      try {
+        const url = new URL(value);
+        if (url.protocol === "http:" || url.protocol === "https:") return url.href;
+      } catch (error) {
+        return "";
+      }
+      return "";
+    }
+
+    function fallbackImage(title) {
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 405"><rect width="720" height="405" fill="#e4f3f1"/><rect x="34" y="34" width="652" height="337" rx="22" fill="#fff" opacity=".72"/><text x="62" y="196" font-family="Arial" font-size="34" font-weight="700" fill="#0b4f49">No Cover</text><text x="62" y="244" font-family="Arial" font-size="22" fill="#66736d">${String(title).replace(/[<>&"]/g, "")}</text></svg>`;
+      return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
+    }
+
+    function render() {
+      const query = els.search.value.trim().toLowerCase();
+      const filtered = db.masters.filter((master) => {
+        const haystack = [
+          master.name,
+          master.positioning,
+          master.summary,
+          master.whyStudy,
+          ...(master.tags || []),
+          ...(master.episodes || []).map((ep) => ep.title).join(" ")
+        ].join(" ").toLowerCase();
+        return !query || haystack.includes(query);
+      });
+
+      if (!filtered.some((item) => item.id === selectedId) && filtered[0]) {
+        selectedId = filtered[0].id;
+      }
+
+      els.masterCount.textContent = `${filtered.length} 位`;
+      els.masterList.innerHTML = filtered.map((master) => `
+        <button class="master-item ${master.id === selectedId ? "is-active" : ""}" type="button" data-id="${master.id}">
+          <img class="avatar" src="${safeUrl(master.photo) || fallbackImage(master.name)}" alt="${escapeHtml(master.name)}">
+          <span><strong>${escapeHtml(master.name)}</strong></span>
+          <span>${escapeHtml(master.positioning)}</span>
+        </button>
+      `).join("") || `<div class="empty">沒有符合的高手</div>`;
+
+      els.masterList.querySelectorAll("[data-id]").forEach((button) => {
+        button.addEventListener("click", () => {
+          selectedId = button.dataset.id;
+          saveDb();
+          render();
+        });
+      });
+
+      renderProfile();
+    }
+
+    function renderProfile() {
+      const master = currentMaster();
+      if (!master) {
+        els.profile.innerHTML = `<div class="empty">先新增一位高手</div>`;
+        els.stats.innerHTML = "";
+        els.episodeList.innerHTML = "";
+        return;
+      }
+
+      const links = (master.links || []).map((link) => `<a href="${safeUrl(link.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(link.label)}</a>`).join("");
+      els.profile.innerHTML = `
+        <section class="profile-card">
+          <a class="profile-image-wrap" href="${safeUrl(master.links?.[0]?.url) || "#"}" target="_blank" rel="noopener noreferrer">
+            <img src="${safeUrl(master.photo) || fallbackImage(master.name)}" alt="${escapeHtml(master.name)}">
+            <span>人物主視覺</span>
+          </a>
+          <div class="profile-copy">
+            <p class="muted">${escapeHtml(master.country || "Global")}</p>
+            <h1>${escapeHtml(master.name)}</h1>
+            <h2>${escapeHtml(master.positioning)}</h2>
+            <p>${escapeHtml(master.summary || "")}</p>
+            <p class="muted">${escapeHtml(master.whyStudy || "")}</p>
+            <div class="tag-row">${(master.tags || []).map((tag) => `<span class="tag">${escapeHtml(tag)}</span>`).join("")}</div>
+            <div class="profile-actions">
+              ${links}
+              <button type="button" data-copy="master">複製人物摘要</button>
+              <button type="button" data-copy="research">複製研究 Prompt</button>
+            </div>
+          </div>
+        </section>
+      `;
+
+      const episodes = master.episodes || [];
+      const ready = episodes.filter((ep) => ep.status === "可發文" || ep.status === "已摘要").length;
+      els.stats.innerHTML = `
+        <div class="stat"><strong>${episodes.length}</strong><span>內容集數</span></div>
+        <div class="stat"><strong>${(master.tags || []).length}</strong><span>領域標籤</span></div>
+        <div class="stat"><strong>${ready}</strong><span>可輸出</span></div>
+        <div class="stat"><strong>${(master.links || []).length}</strong><span>來源連結</span></div>
+      `;
+
+      els.episodeCount.textContent = `${episodes.length} 集`;
+      els.episodeList.innerHTML = episodes.map((ep, index) => `
+        <article class="episode-card">
+          <a class="episode-cover" href="${safeUrl(ep.source) || "#"}" target="_blank" rel="noopener noreferrer">
+            <img src="${safeUrl(ep.cover) || fallbackImage(ep.title)}" alt="${escapeHtml(ep.title)}" loading="lazy">
+            <span>EP ${String(index + 1).padStart(2, "0")}</span>
+          </a>
+          <div class="episode-copy">
+            <div class="tag-row">
+              <span class="tag">${escapeHtml(ep.type || "內容")}</span>
+              <span class="tag hot">${escapeHtml(ep.status || "待研究")}</span>
+            </div>
+            <h3>${escapeHtml(ep.title)}</h3>
+            <p>${escapeHtml(ep.lesson || "")}</p>
+            <p class="muted">${escapeHtml(ep.action || "")}</p>
+            <div class="episode-actions">
+              <button type="button" data-copy-episode="${ep.id}">複製集數筆記</button>
+              <button type="button" data-copy-post="${ep.id}">複製發文 Prompt</button>
+              <button class="danger" type="button" data-delete-episode="${ep.id}">刪除</button>
+            </div>
+          </div>
+        </article>
+      `).join("") || `<div class="empty">還沒有內容集數</div>`;
+
+      document.querySelectorAll("[data-copy]").forEach((button) => {
+        button.addEventListener("click", () => {
+          if (button.dataset.copy === "master") copyOut(masterSummary(master));
+          if (button.dataset.copy === "research") copyOut(researchPrompt(master));
+        });
+      });
+
+      document.querySelectorAll("[data-copy-episode]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const ep = episodes.find((item) => item.id === button.dataset.copyEpisode);
+          copyOut(episodeSummary(master, ep));
+        });
+      });
+
+      document.querySelectorAll("[data-copy-post]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const ep = episodes.find((item) => item.id === button.dataset.copyPost);
+          copyOut(postPrompt(master, ep));
+        });
+      });
+
+      document.querySelectorAll("[data-delete-episode]").forEach((button) => {
+        button.addEventListener("click", () => {
+          master.episodes = episodes.filter((item) => item.id !== button.dataset.deleteEpisode);
+          saveDb();
+          render();
+        });
+      });
+    }
+
+    function masterSummary(master) {
+      return `${master.name}\n${master.positioning}\n\n${master.summary}\n\n值得研究：${master.whyStudy}\n\n領域：${(master.tags || []).join("、")}\n來源：${(master.links || []).map((link) => `${link.label} ${link.url}`).join("\\n")}`;
+    }
+
+    function episodeSummary(master, ep) {
+      return `${master.name}｜${ep.title}\n\n類型：${ep.type}\n狀態：${ep.status}\n核心觀點：${ep.lesson}\n我可以怎麼用：${ep.action}\n來源：${ep.source}\n封面：${ep.cover}`;
+    }
+
+    function researchPrompt(master) {
+      return `你是繁體中文研究助理。請幫我研究這位高手，整理成可放入資料庫的內容。\n\n人物：${master.name}\n定位：${master.positioning}\n領域：${(master.tags || []).join("、")}\n\n請輸出：\n1. 一句話定位\n2. 人物簡介\n3. 主要思想\n4. 代表作品/影片/文章\n5. 我可以學的 10 個框架\n6. 可發文的 10 個切片\n7. 來源連結\n\n限制：不要神化人物，不要成功學，請用台灣觀眾看得懂的繁體中文。`;
+    }
+
+    function postPrompt(master, ep) {
+      return `你是台灣繁體中文社群編輯。請把以下高手資料改成一篇社群貼文。\n\n人物：${master.name}\n內容：${ep.title}\n核心觀點：${ep.lesson}\n我可以怎麼用：${ep.action}\n來源：${ep.source}\n\n限制：不要翻譯腔，不要成功學，不要神化人物。要用台灣上班族、學生、接案者或小品牌聽得懂的例子。\n\n輸出：\n1. Threads 版本\n2. IG caption\n3. 30 秒短影音腳本\n4. 圖片/封面 prompt\n5. CTA`;
+    }
+
+    function escapeHtml(value) {
+      return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
+    async function copyOut(text) {
+      els.manualCopy.classList.remove("is-visible");
+      els.manualCopy.value = text;
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(text);
+          return;
+        }
+        const temp = document.createElement("textarea");
+        temp.value = text;
+        temp.setAttribute("readonly", "");
+        temp.style.position = "fixed";
+        temp.style.left = "-9999px";
+        document.body.appendChild(temp);
+        temp.select();
+        const ok = document.execCommand("copy");
+        temp.remove();
+        if (ok) return;
+      } catch (error) {}
+      els.manualCopy.classList.add("is-visible");
+      els.manualCopy.focus();
+      els.manualCopy.select();
+    }
+
+    els.search.addEventListener("input", render);
+
+    els.masterForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const fd = new FormData(event.currentTarget);
+      const master = {
+        id: uid("master"),
+        name: fd.get("name").trim(),
+        positioning: fd.get("positioning").trim(),
+        country: "Global",
+        tags: normalizeTags(fd.get("tags")),
+        photo: fd.get("photo").trim(),
+        summary: fd.get("summary").trim(),
+        whyStudy: "",
+        links: [],
+        episodes: []
+      };
+      db.masters.unshift(master);
+      selectedId = master.id;
+      event.currentTarget.reset();
+      saveDb();
+      render();
+    });
+
+    els.episodeForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const master = currentMaster();
+      if (!master) return;
+      const fd = new FormData(event.currentTarget);
+      master.episodes = master.episodes || [];
+      master.episodes.unshift({
+        id: uid("ep"),
+        title: fd.get("title").trim(),
+        type: fd.get("type"),
+        status: fd.get("status"),
+        cover: fd.get("cover").trim(),
+        source: fd.get("source").trim(),
+        lesson: fd.get("lesson").trim(),
+        action: fd.get("action").trim()
+      });
+      event.currentTarget.reset();
+      saveDb();
+      render();
+    });
+
+    document.querySelector("#export-json").addEventListener("click", () => {
+      const blob = new Blob([JSON.stringify(db, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `world-masters-database-${new Date().toISOString().slice(0, 10)}.json`;
+      link.click();
+      URL.revokeObjectURL(url);
+    });
+
+    document.querySelector("#import-json").addEventListener("click", () => {
+      els.importFile.click();
+    });
+
+    els.importFile.addEventListener("change", async (event) => {
+      const file = event.target.files[0];
+      if (!file) return;
+      const text = await file.text();
+      const imported = JSON.parse(text);
+      if (!Array.isArray(imported.masters)) throw new Error("Invalid database");
+      db = imported;
+      selectedId = db.selectedId || db.masters[0]?.id;
+      saveDb();
+      render();
+      event.target.value = "";
+    });
+
+    document.querySelector("#reset-sample").addEventListener("click", () => {
+      db = structuredClone(seed);
+      selectedId = db.selectedId;
+      saveDb();
+      render();
+    });
+
+    document.querySelector("#copy-system").addEventListener("click", () => {
+      copyOut(`你是我的世界高手資料庫研究助理。請用繁體中文整理一位高手。\n\n輸入：人物姓名、官方網站、YouTube/Podcast/書籍/文章來源。\n\n請輸出 JSON 欄位：name, positioning, country, tags, photo, summary, whyStudy, links, episodes。每個 episode 要包含 title, type, status, cover, source, lesson, action。\n\n規則：\n1. 優先使用官方來源。\n2. 不要神化人物。\n3. 把抽象思想翻成台灣觀眾能懂的例子。\n4. 每個內容都要能轉成貼文、短影音或產品筆記。`);
+    });
+
+    render();
+  </script>
+</body>
+</html>
+

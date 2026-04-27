@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>世界高手資料庫入口</title>
+  <style>
+    :root {
+      --bg: #f5f6f2;
+      --paper: #ffffff;
+      --ink: #17201d;
+      --muted: #66736d;
+      --line: #dce2dd;
+      --teal: #0f766e;
+      --teal-soft: #e4f3f1;
+      --coral-soft: #fdebe6;
+      --shadow: 0 12px 30px rgba(23, 32, 29, 0.06);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+      line-height: 1.7;
+      letter-spacing: 0;
+    }
+
+    main {
+      width: min(960px, calc(100% - 28px));
+      margin: 0 auto;
+      padding: 42px 0 64px;
+    }
+
+    header {
+      display: grid;
+      gap: 12px;
+      margin-bottom: 22px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .eyebrow {
+      margin: 0;
+      color: var(--teal);
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 40px;
+      line-height: 1.2;
+      text-wrap: balance;
+    }
+
+    p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      display: grid;
+      gap: 12px;
+      min-height: 210px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 18px;
+      background: var(--paper);
+      box-shadow: var(--shadow);
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .card:hover {
+      border-color: var(--teal);
+      background: var(--teal-soft);
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 24px;
+      line-height: 1.28;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: auto;
+    }
+
+    .tag {
+      display: inline-flex;
+      min-height: 26px;
+      align-items: center;
+      border-radius: 999px;
+      padding: 2px 9px;
+      background: #edf1ee;
+      color: #3f4d47;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .notice {
+      margin-top: 18px;
+      border-left: 4px solid var(--teal);
+      border-radius: 8px;
+      padding: 14px 16px;
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+
+    .notice strong {
+      color: var(--ink);
+    }
+
+    .notice code {
+      color: var(--teal);
+      font-weight: 900;
+    }
+
+    @media (max-width: 720px) {
+      main { padding-top: 26px; }
+      h1 { font-size: 31px; }
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <p class="eyebrow">可發布的靜態網站入口</p>
+      <h1>世界高手資料庫</h1>
+      <p>把世界上的高手整理成同一套格式：人物簡介、內容集數、封面照、來源連結、核心觀點、可發文 Prompt。</p>
+    </header>
+
+    <section class="grid" aria-label="資料庫頁面">
+      <a class="card" href="world-masters-database.html">
+        <h2>通用高手資料庫</h2>
+        <p>用來新增任何高手，整理人物、來源、影片封面、內容筆記，並支援 JSON 匯入/匯出。</p>
+        <div class="tag-row">
+          <span class="tag">人物資料庫</span>
+          <span class="tag">可匯出 JSON</span>
+          <span class="tag">適合長期整理</span>
+        </div>
+      </a>
+
+      <a class="card" href="dan-koe-database/post-slices-readable.html">
+        <h2>Dan Koe 專頁</h2>
+        <p>已整理 Dan Koe 人物簡介、15 集內容卡、YouTube 封面照、貼文與短影音 Prompt。</p>
+        <div class="tag-row">
+          <span class="tag">Dan Koe</span>
+          <span class="tag">YouTube 封面</span>
+          <span class="tag">AI Prompt 工作台</span>
+        </div>
+      </a>
+    </section>
+
+    <div class="notice">
+      <p><strong>分享提醒：</strong>現在如果網址開頭是 <code>file://</code>，只有你這台電腦能看。要傳給別人，需要把這個資料夾部署到 GitHub Pages、Netlify 或 Vercel，公開網址請記到 <code>share-registry.json</code>。</p>
+    </div>
+  </main>
+</body>
+</html>
+

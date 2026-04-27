@@ -1,0 +1,30 @@
+{
+  "updated_at": "2026-04-28",
+  "default_entry": {
+    "title": "世界高手資料庫入口",
+    "local_url": "file:///Users/linyuchen/Documents/New%20project/index.html",
+    "public_url": "",
+    "status": "local_only",
+    "notes": "部署後把公開首頁網址填到 public_url。"
+  },
+  "pages": [
+    {
+      "id": "world-masters",
+      "title": "世界高手資料庫",
+      "local_path": "world-masters-database.html",
+      "local_url": "file:///Users/linyuchen/Documents/New%20project/world-masters-database.html",
+      "public_url": "",
+      "status": "local_only",
+      "notes": "通用版，可整理世界所有高手。"
+    },
+    {
+      "id": "dan-koe",
+      "title": "Dan Koe 專頁",
+      "local_path": "dan-koe-database/post-slices-readable.html",
+      "local_url": "file:///Users/linyuchen/Documents/New%20project/dan-koe-database/post-slices-readable.html",
+      "public_url": "",
+      "status": "local_only",
+      "notes": "Dan Koe 人物簡介、YouTube 封面、內容切片與 AI Prompt 工作台。"
+    }
+  ]
+}
