@@ -129,6 +129,12 @@
       font-weight: 900;
     }
 
+    .notice a {
+      color: var(--teal);
+      font-weight: 900;
+      overflow-wrap: anywhere;
+    }
+
     @media (max-width: 720px) {
       main { padding-top: 26px; }
       h1 { font-size: 31px; }
@@ -139,7 +145,7 @@
 <body>
   <main>
     <header>
-      <p class="eyebrow">可發布的靜態網站入口</p>
+      <p class="eyebrow">GitHub Pages 公開分享入口</p>
       <h1>世界高手資料庫</h1>
       <p>把世界上的高手整理成同一套格式：人物簡介、內容集數、封面照、來源連結、核心觀點、可發文 Prompt。</p>
     </header>
@@ -167,9 +173,8 @@
     </section>
 
     <div class="notice">
-      <p><strong>分享提醒：</strong>現在如果網址開頭是 <code>file://</code>，只有你這台電腦能看。要傳給別人，需要把這個資料夾部署到 GitHub Pages、Netlify 或 Vercel，公開網址請記到 <code>share-registry.json</code>。</p>
+      <p><strong>公開網址：</strong><a href="https://zhaipinghao.github.io/world-masters-database/">https://zhaipinghao.github.io/world-masters-database/</a>。這個網址已記錄在 <code>share-registry.json</code>，可以直接傳給別人。</p>
     </div>
   </main>
 </body>
 </html>
-
