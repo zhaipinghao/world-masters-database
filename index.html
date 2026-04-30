@@ -3,178 +3,825 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>世界高手資料庫入口</title>
+  <title>知識視覺工作室</title>
   <style>
     :root {
-      --bg: #f5f6f2;
+      --bg: #f3f1ea;
       --paper: #ffffff;
       --ink: #17201d;
       --muted: #66736d;
-      --line: #dce2dd;
+      --line: #d8ded8;
       --teal: #0f766e;
+      --teal-dark: #083f3b;
       --teal-soft: #e4f3f1;
-      --coral-soft: #fdebe6;
-      --shadow: 0 12px 30px rgba(23, 32, 29, 0.06);
+      --gold: #b6842c;
+      --gold-soft: #f8eedc;
+      --clay: #b86b54;
+      --amber-soft: #fff3d8;
+      --blue-soft: #e8f0fb;
+      --shadow: 0 22px 60px rgba(23, 32, 29, 0.12);
+      --soft-shadow: 0 12px 32px rgba(23, 32, 29, 0.08);
     }
 
     * { box-sizing: border-box; }
 
     body {
       margin: 0;
-      background: var(--bg);
+      background:
+        linear-gradient(180deg, #f8f6ef 0%, var(--bg) 42%, #eef2ed 100%);
       color: var(--ink);
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
       line-height: 1.7;
       letter-spacing: 0;
     }
 
-    main {
-      width: min(960px, calc(100% - 28px));
-      margin: 0 auto;
-      padding: 42px 0 64px;
+    a { color: inherit; }
+
+    .site {
+      min-height: 100vh;
     }
 
-    header {
+    .hero {
+      position: relative;
+      min-height: min(720px, 84vh);
       display: grid;
-      gap: 12px;
-      margin-bottom: 22px;
-      padding-bottom: 20px;
-      border-bottom: 1px solid var(--line);
+      align-items: end;
+      overflow: hidden;
+      background: #17201d;
+      color: #ffffff;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      linear-gradient(90deg, rgba(7, 17, 15, 0.96), rgba(7, 17, 15, 0.72) 46%, rgba(7, 17, 15, 0.36)),
+      linear-gradient(180deg, rgba(10, 31, 28, 0.42), rgba(7, 17, 15, 0.88)),
+      repeating-linear-gradient(90deg, rgba(223, 247, 242, 0.06) 0 1px, transparent 1px 96px),
+      repeating-linear-gradient(180deg, rgba(223, 247, 242, 0.05) 0 1px, transparent 1px 96px),
+      linear-gradient(135deg, #081412 0%, #17332f 54%, #433123 100%);
+    }
+
+    .topbar {
+      position: absolute;
+      inset: 0 0 auto;
+      z-index: 2;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(8, 18, 16, 0.28);
+      backdrop-filter: blur(14px);
+    }
+
+    .topbar-inner {
+      width: min(1180px, calc(100% - 36px));
+      min-height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin: 0 auto;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 950;
+      text-decoration: none;
+    }
+
+    .brand-mark {
+      display: inline-grid;
+      width: 34px;
+      height: 34px;
+      place-items: center;
+      border: 1px solid rgba(155, 226, 218, 0.48);
+      border-radius: 8px;
+      background: rgba(155, 226, 218, 0.18);
+      color: #9be2da;
+      font-weight: 950;
+    }
+
+    .top-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: flex-end;
+    }
+
+    .top-links a {
+      min-height: 34px;
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 999px;
+      padding: 5px 12px;
+      color: rgba(255, 255, 255, 0.86);
+      font-size: 13px;
+      font-weight: 850;
+      text-decoration: none;
+    }
+
+    .top-links a:hover {
+      border-color: #9be2da;
+      color: #ffffff;
+      background: rgba(155, 226, 218, 0.12);
+    }
+
+    .hero-inner,
+    .section {
+      width: min(1180px, calc(100% - 36px));
+      margin: 0 auto;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(330px, 430px);
+      gap: 20px;
+      align-items: end;
+      padding: 132px 0 72px;
+    }
+
+    .hero-copy {
+      display: grid;
+      gap: 20px;
+      align-content: end;
     }
 
     .eyebrow {
       margin: 0;
-      color: var(--teal);
+      width: fit-content;
+      border: 1px solid rgba(155, 226, 218, 0.28);
+      border-radius: 999px;
+      padding: 5px 12px;
+      background: rgba(155, 226, 218, 0.12);
+      color: #bff4ed;
       font-size: 14px;
       font-weight: 900;
     }
 
     h1 {
+      max-width: 1040px;
       margin: 0;
-      font-size: 40px;
-      line-height: 1.2;
+      font-size: clamp(42px, 7vw, 96px);
+      line-height: 1.05;
       text-wrap: balance;
+    }
+
+    .lead {
+      max-width: 960px;
+      margin: 0;
+      color: rgba(255, 255, 255, 0.84);
+      font-size: clamp(18px, 2.2vw, 25px);
+      font-weight: 750;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .button {
+      display: inline-flex;
+      min-height: 44px;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(255, 255, 255, 0.26);
+      border-radius: 999px;
+      padding: 9px 18px;
+      background: rgba(255, 255, 255, 0.12);
+      color: #ffffff;
+      font-weight: 900;
+      text-decoration: none;
+      backdrop-filter: blur(10px);
+    }
+
+    .button:hover {
+      transform: translateY(-1px);
+      border-color: rgba(255, 255, 255, 0.5);
+      background: rgba(255, 255, 255, 0.18);
+    }
+
+    .button.is-primary {
+      border-color: #9be2da;
+      background: #9be2da;
+      color: #063f3b;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 176px));
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .stat {
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 10px;
+      padding: 14px 15px;
+      background: rgba(255, 255, 255, 0.11);
+      backdrop-filter: blur(10px);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 28px;
+      line-height: 1;
+    }
+
+    .stat span {
+      color: rgba(255, 255, 255, 0.76);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .hero-visual {
+      position: relative;
+      min-height: 430px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 22px;
+      padding: 22px;
+      background:
+        linear-gradient(145deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.06)),
+        rgba(8, 18, 16, 0.26);
+      box-shadow: 0 28px 80px rgba(0, 0, 0, 0.28);
+      backdrop-filter: blur(14px);
+      overflow: hidden;
+    }
+
+    .hero-visual::before {
+      content: "";
+      position: absolute;
+      inset: 18px;
+      border: 1px solid rgba(155, 226, 218, 0.28);
+      border-radius: 18px;
+      pointer-events: none;
+    }
+
+    .studio-showcase {
+      position: relative;
+      z-index: 1;
+      display: block;
+      width: 100%;
+      margin-top: 18px;
+      border-radius: 18px;
+      box-shadow: 0 20px 54px rgba(0, 0, 0, 0.28);
+    }
+
+    .signature-tags {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .signature-tags span {
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 999px;
+      padding: 6px 10px;
+      background: rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.86);
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .visual-title {
+      position: relative;
+      z-index: 1;
+      margin: 0;
+      color: rgba(255, 255, 255, 0.88);
+      font-size: 15px;
+      font-weight: 950;
+    }
+
+    .knowledge-map {
+      position: relative;
+      height: 330px;
+      margin-top: 22px;
+    }
+
+    .map-node {
+      position: absolute;
+      display: grid;
+      place-items: center;
+      width: 108px;
+      height: 108px;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.12);
+      box-shadow: 0 16px 34px rgba(0, 0, 0, 0.18);
+      color: #ffffff;
+      text-align: center;
+      font-size: 15px;
+      font-weight: 950;
+      line-height: 1.25;
+    }
+
+    .map-node strong {
+      display: block;
+      color: #9be2da;
+      font-size: 26px;
+      line-height: 1;
+    }
+
+    .map-node.is-main {
+      left: 50%;
+      top: 50%;
+      width: 132px;
+      height: 132px;
+      transform: translate(-50%, -50%);
+      background: #9be2da;
+      color: #063f3b;
+    }
+
+    .map-node.is-main strong {
+      color: #063f3b;
+    }
+
+    .map-node.is-books { left: 0; top: 18px; }
+    .map-node.is-creator { right: 0; top: 32px; }
+    .map-node.is-posts { left: 24px; bottom: 0; }
+    .map-node.is-masters { right: 20px; bottom: 8px; }
+
+    .map-line {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 36%;
+      height: 1px;
+      background: rgba(155, 226, 218, 0.38);
+      transform-origin: left center;
+    }
+
+    .map-line.one { transform: rotate(210deg); }
+    .map-line.two { transform: rotate(325deg); }
+    .map-line.three { transform: rotate(145deg); }
+    .map-line.four { transform: rotate(38deg); }
+
+    .section {
+      padding: 34px 0 70px;
+    }
+
+    .portal-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: -92px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .card {
+      position: relative;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: 18px;
+      min-height: 300px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 22px;
+      background: rgba(255, 255, 255, 0.96);
+      box-shadow: var(--shadow);
+      text-decoration: none;
+      overflow: hidden;
+      transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto;
+      height: 4px;
+      background: var(--teal);
+    }
+
+    .card:nth-child(2)::before { background: var(--gold); }
+    .card:nth-child(3)::before { background: var(--clay); }
+
+    .card::after {
+      content: "";
+      position: absolute;
+      inset: auto 22px 84px 22px;
+      height: 1px;
+      background: var(--line);
+      opacity: 0.72;
+      pointer-events: none;
+    }
+
+    .card:hover {
+      border-color: var(--teal);
+      transform: translateY(-4px);
+      box-shadow: 0 28px 70px rgba(23, 32, 29, 0.16);
+    }
+
+    .card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .icon {
+      display: inline-flex;
+      width: 48px;
+      height: 48px;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      background: var(--teal-soft);
+      color: var(--teal);
+      font-weight: 950;
+    }
+
+    .card:nth-child(2) .icon {
+      background: var(--gold-soft);
+      color: #7a5317;
+    }
+
+    .card:nth-child(3) .icon {
+      background: #f5e8e2;
+      color: #8f4838;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 28px;
+      line-height: 1.25;
     }
 
     p {
       margin: 0;
       color: var(--muted);
       font-size: 17px;
+      font-weight: 720;
     }
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 16px;
-    }
-
-    .card {
-      display: grid;
-      gap: 12px;
-      min-height: 210px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 18px;
-      background: var(--paper);
-      box-shadow: var(--shadow);
-      text-decoration: none;
-      color: inherit;
-    }
-
-    .card:hover {
-      border-color: var(--teal);
-      background: var(--teal-soft);
-    }
-
-    h2 {
-      margin: 0;
-      font-size: 24px;
-      line-height: 1.28;
+    .card p {
+      margin-top: 10px;
     }
 
     .tag-row {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin-top: auto;
     }
 
     .tag {
       display: inline-flex;
-      min-height: 26px;
+      min-height: 28px;
       align-items: center;
       border-radius: 999px;
-      padding: 2px 9px;
+      padding: 4px 11px;
       background: #edf1ee;
       color: #3f4d47;
       font-size: 12px;
       font-weight: 900;
     }
 
-    .notice {
-      margin-top: 18px;
-      border-left: 4px solid var(--teal);
-      border-radius: 8px;
-      padding: 14px 16px;
-      background: var(--paper);
-      box-shadow: var(--shadow);
+    .proof-board {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+      gap: 18px;
+      align-items: stretch;
+      margin-top: 24px;
     }
 
-    .notice strong {
-      color: var(--ink);
+    .proof-copy,
+    .proof-stack {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.96);
+      box-shadow: var(--soft-shadow);
     }
 
-    .notice code {
+    .proof-copy {
+      display: grid;
+      gap: 14px;
+      padding: 22px;
+    }
+
+    .proof-copy .eyebrow {
+      border-color: rgba(15, 118, 110, 0.16);
+      background: var(--teal-soft);
       color: var(--teal);
-      font-weight: 900;
     }
 
-    .notice a {
+    .proof-copy h2 {
+      font-size: clamp(30px, 4.2vw, 56px);
+      line-height: 1.04;
+    }
+
+    .proof-stack {
+      display: grid;
+      gap: 12px;
+      padding: 18px;
+      background:
+        linear-gradient(135deg, rgba(23, 32, 29, 0.04), rgba(15, 118, 110, 0.08)),
+        #ffffff;
+    }
+
+    .proof-item {
+      display: grid;
+      grid-template-columns: 74px minmax(0, 1fr);
+      gap: 14px;
+      align-items: center;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px;
+      background: #fbfcfa;
+    }
+
+    .proof-thumb {
+      display: grid;
+      width: 74px;
+      height: 74px;
+      place-items: center;
+      border-radius: 16px;
+      background: #17312e;
+      color: #9be2da;
+      font-size: 24px;
+      font-weight: 950;
+    }
+
+    .proof-item:nth-child(2) .proof-thumb {
+      background: #fff2d4;
+      color: #8a5a0d;
+    }
+
+    .proof-item:nth-child(3) .proof-thumb {
+      background: #fdebe6;
+      color: #8f4838;
+    }
+
+    .proof-item strong {
+      display: block;
+      font-size: 18px;
+      line-height: 1.35;
+    }
+
+    .proof-item span {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 780;
+    }
+
+    .share-box {
+      position: relative;
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      gap: 16px;
+      align-items: center;
+      margin-top: 24px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 20px;
+      background:
+        linear-gradient(135deg, rgba(228, 243, 241, 0.92), rgba(255, 255, 255, 0.96) 42%, rgba(248, 238, 220, 0.82)),
+        var(--paper);
+      box-shadow: var(--soft-shadow);
+      overflow: hidden;
+    }
+
+    .share-box::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 5px;
+      background: linear-gradient(180deg, var(--teal), var(--gold));
+    }
+
+    .share-icon {
+      position: relative;
+      display: grid;
+      width: 56px;
+      height: 56px;
+      place-items: center;
+      border-radius: 16px;
+      background: var(--teal);
+      color: #ffffff;
+      font-size: 24px;
+      font-weight: 950;
+    }
+
+    .share-copy {
+      min-width: 0;
+    }
+
+    .share-box strong {
+      display: block;
+      margin-bottom: 2px;
+      font-size: 16px;
+    }
+
+    .share-box p {
+      margin: 0 0 8px;
+      font-size: 14px;
+      font-weight: 760;
+    }
+
+    .share-box a {
       color: var(--teal);
-      font-weight: 900;
+      font-size: 18px;
+      font-weight: 950;
       overflow-wrap: anywhere;
     }
 
-    @media (max-width: 720px) {
-      main { padding-top: 26px; }
-      h1 { font-size: 31px; }
-      .grid { grid-template-columns: 1fr; }
+    .copy {
+      min-height: 40px;
+      border: 1px solid var(--teal);
+      border-radius: 999px;
+      padding: 8px 16px;
+      background: var(--teal);
+      color: #ffffff;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .copy:hover {
+      background: var(--teal-dark);
+      border-color: var(--teal-dark);
+    }
+
+    .status {
+      min-height: 22px;
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    @media (max-width: 880px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-visual { min-height: 360px; }
+      .portal-grid { grid-template-columns: 1fr; margin-top: -54px; }
+      .stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .share-box { grid-template-columns: 1fr; }
+      .proof-board { grid-template-columns: 1fr; }
+      .copy { justify-self: start; }
+      .topbar-inner { min-height: 62px; }
+      .top-links { display: none; }
+    }
+
+    @media (max-width: 560px) {
+      .hero { min-height: 780px; }
+      .hero-inner,
+      .section { width: min(100% - 24px, 1180px); }
+      .stats { grid-template-columns: 1fr; }
+      .hero-visual { display: none; }
+      .card { min-height: 240px; }
+      .proof-item { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
-  <main>
-    <header>
-      <p class="eyebrow">GitHub Pages 公開分享入口</p>
-      <h1>世界高手資料庫</h1>
-      <p>把世界上的高手整理成同一套格式：人物簡介、內容集數、封面照、來源連結、核心觀點、可發文 Prompt。</p>
-    </header>
-
-    <section class="grid" aria-label="資料庫頁面">
-      <a class="card" href="world-masters-database.html">
-        <h2>通用高手資料庫</h2>
-        <p>用來新增任何高手，整理人物、來源、影片封面、內容筆記，並支援 JSON 匯入/匯出。</p>
-        <div class="tag-row">
-          <span class="tag">人物資料庫</span>
-          <span class="tag">可匯出 JSON</span>
-          <span class="tag">適合長期整理</span>
+  <main class="site">
+    <section class="hero">
+      <nav class="topbar" aria-label="首頁導覽">
+        <div class="topbar-inner">
+          <a class="brand" href="index.html">
+            <span class="brand-mark">P</span>
+            <span>知識視覺工作室</span>
+          </a>
+          <div class="top-links">
+            <a href="reading-library.html">閱讀書單</a>
+            <a href="dan-koe-database/post-slices-readable.html">一人公司大神</a>
+            <a href="world-masters-database.html">高手資料庫</a>
+          </div>
         </div>
-      </a>
-
-      <a class="card" href="dan-koe-database/post-slices-readable.html">
-        <h2>Dan Koe 專頁</h2>
-        <p>已整理 Dan Koe 人物簡介、15 集內容卡、YouTube 封面照、貼文與短影音 Prompt。</p>
-        <div class="tag-row">
-          <span class="tag">Dan Koe</span>
-          <span class="tag">YouTube 封面</span>
-          <span class="tag">AI Prompt 工作台</span>
+      </nav>
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <p class="eyebrow">知識視覺工作室</p>
+          <h1>把知識做成一眼能懂的圖片與網站</h1>
+          <p class="lead">把高手、書籍、影片與人生問題整理成有辨識度的封面、圖卡、貼文素材與可分享頁面。這不是套版書單，而是一套可以拿去給朋友、客戶與社群看的作品系統。</p>
+          <div class="hero-actions">
+            <a class="button is-primary" href="reading-library.html">看知識圖卡作品</a>
+            <a class="button" href="dan-koe-database/post-slices-readable.html">看一人公司案例</a>
+          </div>
+          <div class="stats" aria-label="資料庫統計">
+            <div class="stat"><strong>195</strong><span>張知識圖卡</span></div>
+            <div class="stat"><strong>15</strong><span>一人事業中文化筆記</span></div>
+            <div class="stat"><strong>3</strong><span>公開作品入口</span></div>
+          </div>
         </div>
-      </a>
+        <aside class="hero-visual" aria-label="知識策展室視覺圖">
+          <p class="visual-title">自製視覺系統：把一本書、一位高手、一段影片，變成能被看懂的畫面</p>
+          <img class="studio-showcase" src="assets/knowledge-studio-showcase.svg" alt="知識視覺工作室作品展示">
+          <div class="signature-tags" aria-label="視覺能力">
+            <span>自製封面</span>
+            <span>知識圖卡</span>
+            <span>短影音腳本</span>
+            <span>可分享網站</span>
+          </div>
+        </aside>
+      </div>
     </section>
 
-    <div class="notice">
-      <p><strong>公開網址：</strong><a href="https://zhaipinghao.github.io/world-masters-database/">https://zhaipinghao.github.io/world-masters-database/</a>。這個網址已記錄在 <code>share-registry.json</code>，可以直接傳給別人。</p>
-    </div>
+    <section class="section">
+      <div class="portal-grid" aria-label="資料庫頁面">
+        <a class="card" href="world-masters-database.html">
+          <div class="card-top">
+            <span class="icon">01</span>
+            <span class="tag">Master DB</span>
+          </div>
+          <div>
+            <h2>通用高手資料庫</h2>
+            <p>新增任何高手，整理人物定位、來源、內容筆記、核心觀點與可輸出的 Prompt。</p>
+          </div>
+          <div class="tag-row">
+            <span class="tag">人物資料庫</span>
+            <span class="tag">JSON 匯入/匯出</span>
+            <span class="tag">長期整理</span>
+          </div>
+        </a>
+
+        <a class="card" href="dan-koe-database/post-slices-readable.html">
+          <div class="card-top">
+            <span class="icon">02</span>
+            <span class="tag">一人公司</span>
+          </div>
+          <div>
+            <h2>一人公司大神 Dan Koe</h2>
+            <p>Dan Koe 是國外一位一人事業與個人品牌創作者，這裡把英文內容整理成台灣人看得懂的筆記。</p>
+          </div>
+          <div class="tag-row">
+            <span class="tag">國外創作者</span>
+            <span class="tag">一人事業</span>
+            <span class="tag">短影音 Prompt</span>
+          </div>
+        </a>
+
+        <a class="card" href="reading-library.html">
+          <div class="card-top">
+            <span class="icon">03</span>
+            <span class="tag">Books</span>
+          </div>
+          <div>
+            <h2>閱讀策展筆記</h2>
+            <p>把 Notion 書單整理成學習路線、觀念卡、行動卡與社群內容素材。</p>
+          </div>
+          <div class="tag-row">
+            <span class="tag">2025/2026 書單</span>
+            <span class="tag">187 真書封</span>
+            <span class="tag">可發文切片</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="proof-board" aria-label="視覺化服務展示">
+        <div class="proof-copy">
+          <p class="eyebrow">Image-first Knowledge</p>
+          <h2>我做的不是摘要，是有風格的知識圖片系統。</h2>
+          <p>客戶不一定會看完一篇長文，但會先被一張清楚、有質感、有主張的圖吸引。這個網站要展示的就是：我能把複雜內容整理、設計、包裝成能發文、能簡報、能賣服務的素材。</p>
+        </div>
+        <div class="proof-stack">
+          <div class="proof-item">
+            <span class="proof-thumb">封</span>
+            <div><strong>封面與主視覺</strong><span>每個主題都有自己的視覺語氣，不靠隨機配圖撐場。</span></div>
+          </div>
+          <div class="proof-item">
+            <span class="proof-thumb">卡</span>
+            <div><strong>輪播圖與知識卡</strong><span>把一本書拆成一句話核心、適合誰、今天能做什麼。</span></div>
+          </div>
+          <div class="proof-item">
+            <span class="proof-thumb">影</span>
+            <div><strong>短影音與貼文素材</strong><span>從觀念變成標題、腳本、分鏡與社群發布素材。</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="share-box">
+        <div class="share-icon" aria-hidden="true">↗</div>
+        <div class="share-copy">
+          <strong>公開作品網址</strong>
+          <p>這個網址可以直接傳給朋友或客戶，讓對方看到你不是只會整理資料，而是能把資料做成作品。</p>
+          <a id="public-url" href="https://zhaipinghao.github.io/world-masters-database/">https://zhaipinghao.github.io/world-masters-database/</a>
+          <div id="copy-status" class="status" aria-live="polite"></div>
+        </div>
+        <button id="copy-url" class="copy" type="button">一鍵複製</button>
+      </div>
+    </section>
   </main>
+
+  <script>
+    document.querySelector("#copy-url").addEventListener("click", async () => {
+      const url = document.querySelector("#public-url").href;
+      const status = document.querySelector("#copy-status");
+      try {
+        await navigator.clipboard.writeText(url);
+        status.textContent = "已複製公開網址。";
+      } catch (error) {
+        status.textContent = "瀏覽器阻擋自動複製，可直接選取上方網址。";
+      }
+    });
+  </script>
 </body>
 </html>

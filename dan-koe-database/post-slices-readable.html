@@ -56,6 +56,49 @@
       border-bottom: 1px solid var(--line);
     }
 
+    .page-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .page-action {
+      display: inline-flex;
+      min-height: 38px;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 6px 12px;
+      background: var(--paper);
+      color: var(--teal);
+      font-size: 14px;
+      font-weight: 900;
+      text-decoration: none;
+    }
+
+    .page-action:hover {
+      border-color: var(--teal);
+      background: var(--teal-soft);
+    }
+
+    .toolbar .page-action {
+      flex: 0 0 auto;
+      min-height: 40px;
+      border-radius: 8px;
+      padding: 8px 14px;
+      background: var(--teal);
+      color: #ffffff;
+      border-color: var(--teal);
+    }
+
+    .toolbar .page-action:hover {
+      background: #0b4f49;
+      border-color: #0b4f49;
+      color: #ffffff;
+    }
+
     .eyebrow {
       margin: 0;
       color: var(--teal);
@@ -693,6 +736,10 @@
 <body>
   <main class="wrap">
     <header>
+      <nav class="page-actions" aria-label="頁面導覽">
+        <a class="page-action" href="../index.html">回首頁</a>
+        <a class="page-action" href="../reading-library.html">閱讀書庫</a>
+      </nav>
       <p class="eyebrow">Dan Koe 資料庫｜貼文切片閱讀版</p>
       <h1>一人事業、個人品牌、寫作變現，從入門到進階</h1>
       <p class="intro">這份版本把原本的研究資料改成台灣觀眾比較容易閱讀的貼文卡片。每張卡片都可以展開、複製，並依照難度篩選；每集封面可以點開，直接看對應 YouTube 影片。</p>
@@ -727,6 +774,7 @@
     </section>
 
     <nav class="toolbar" aria-label="貼文難度篩選">
+      <a class="page-action toolbar-home" href="../index.html">回首頁</a>
       <button class="filter is-active" type="button" data-filter="all" aria-pressed="true">全部</button>
       <button class="filter" type="button" data-filter="1" aria-pressed="false">入門</button>
       <button class="filter" type="button" data-filter="2" aria-pressed="false">初階到中階</button>

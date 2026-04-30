@@ -1,0 +1,4682 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>閱讀策展筆記｜閱讀書庫</title>
+  <style>
+    :root {
+      --bg: #f6f5ef;
+      --paper: #ffffff;
+      --ink: #17201d;
+      --muted: #66736d;
+      --line: #dce2dd;
+      --teal: #0f766e;
+      --teal-soft: #e3f3f1;
+      --coral: #bd5b48;
+      --coral-soft: #fdebe6;
+      --amber: #a66b12;
+      --amber-soft: #fff2d4;
+      --blue: #315d8c;
+      --blue-soft: #e6eef8;
+      --violet: #7253a6;
+      --violet-soft: #eee8f8;
+      --green: #4d7c38;
+      --green-soft: #eaf2e4;
+      --shadow: 0 14px 34px rgba(23, 32, 29, 0.07);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      letter-spacing: 0;
+    }
+
+    button,
+    input,
+    textarea,
+    select {
+      font: inherit;
+    }
+
+    a {
+      color: var(--teal);
+      text-underline-offset: 3px;
+    }
+
+    button,
+    .button-link {
+      display: inline-flex;
+      min-height: 40px;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 8px 12px;
+      background: var(--paper);
+      color: var(--ink);
+      font-weight: 850;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    button:hover,
+    .button-link:hover,
+    button.is-active {
+      border-color: var(--teal);
+      background: var(--teal-soft);
+      color: #0b4f49;
+    }
+
+    button.primary {
+      border-color: var(--teal);
+      background: var(--teal);
+      color: #ffffff;
+    }
+
+    button.primary:hover {
+      background: #0b4f49;
+      color: #ffffff;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 9px 10px;
+      background: #ffffff;
+      color: var(--ink);
+    }
+
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin: 0;
+    }
+
+    h1 {
+      font-size: 38px;
+      line-height: 1.18;
+      text-wrap: balance;
+    }
+
+    h2 {
+      font-size: 23px;
+      line-height: 1.28;
+    }
+
+    h3 {
+      font-size: 18px;
+      line-height: 1.35;
+    }
+
+    .app {
+      min-height: 100vh;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: grid;
+      grid-template-columns: minmax(220px, auto) minmax(240px, 1fr) auto;
+      gap: 12px;
+      align-items: center;
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(246, 245, 239, 0.95);
+      backdrop-filter: blur(10px);
+    }
+
+    .brand {
+      display: grid;
+      gap: 2px;
+    }
+
+    .brand strong {
+      font-size: 18px;
+      line-height: 1.25;
+    }
+
+    .brand span {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 750;
+    }
+
+    .top-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      justify-content: flex-end;
+      white-space: nowrap;
+    }
+
+    .search {
+      min-height: 42px;
+    }
+
+    .shell {
+      width: min(1440px, calc(100% - 28px));
+      margin: 0 auto;
+      padding: 18px 0 44px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+      gap: 18px;
+      align-items: stretch;
+      margin-bottom: 18px;
+    }
+
+    .commercial-hero {
+      grid-template-columns: minmax(0, 0.95fr) minmax(340px, 1.05fr);
+      margin-bottom: 14px;
+    }
+
+    .hero-copy,
+    .hero-media,
+    .panel,
+    .book-card,
+    .detail,
+    .form-panel {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-copy {
+      display: grid;
+      align-content: center;
+      gap: 14px;
+      padding: 22px;
+    }
+
+    .hero-copy h1 {
+      max-width: 760px;
+      font-size: clamp(34px, 4.8vw, 72px);
+      line-height: 1.04;
+    }
+
+    .hero-lead {
+      max-width: 760px;
+      color: var(--muted);
+      font-size: 18px;
+      font-weight: 800;
+      line-height: 1.72;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 2px;
+    }
+
+    .value-pill {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: 8px 12px;
+      background: #f4f7f4;
+      color: #3f4d47;
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .eyebrow {
+      color: var(--teal);
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .hero-media {
+      min-height: 260px;
+      overflow: hidden;
+      position: relative;
+      background: #edf1ee;
+    }
+
+    .hero-media img {
+      width: 100%;
+      height: 100%;
+      min-height: 260px;
+      object-fit: cover;
+      display: block;
+      filter: saturate(0.92) contrast(1.02);
+    }
+
+    .media-label {
+      position: absolute;
+      left: 14px;
+      bottom: 14px;
+      border-radius: 999px;
+      padding: 4px 10px;
+      background: rgba(23, 32, 29, 0.78);
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .visual-signature {
+      border-color: rgba(15, 118, 110, 0.24);
+      background:
+        radial-gradient(circle at 18% 18%, rgba(145, 221, 211, 0.22), transparent 28%),
+        linear-gradient(135deg, #10211f, #f7f3e8);
+    }
+
+    .visual-signature img {
+      object-fit: contain;
+      padding: 14px;
+      background: transparent;
+      filter: none;
+    }
+
+    .business-strip {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .business-card {
+      display: grid;
+      gap: 8px;
+      min-height: 150px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 15px;
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+
+    .business-card strong {
+      font-size: 17px;
+      line-height: 1.35;
+    }
+
+    .business-card p {
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 760;
+      line-height: 1.65;
+    }
+
+    .workflow {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .step {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+      background: #fbfcfa;
+    }
+
+    .step strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 310px minmax(0, 1fr) 360px;
+      gap: 14px;
+      align-items: start;
+    }
+
+    .panel,
+    .form-panel {
+      overflow: hidden;
+    }
+
+    .layout > .panel:first-child {
+      position: sticky;
+      top: 86px;
+      max-height: calc(100vh - 102px);
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .panel-head {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .filters,
+    .guide-summary,
+    .form-grid {
+      display: grid;
+      gap: 10px;
+      padding: 14px;
+    }
+
+    label {
+      display: grid;
+      gap: 5px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .guide-summary {
+      padding-bottom: 0;
+    }
+
+    .guide-summary p {
+      margin: 0;
+      color: var(--muted);
+      font-weight: 780;
+      line-height: 1.65;
+    }
+
+    .source-stat-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .source-stat-grid span {
+      display: grid;
+      gap: 2px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 9px;
+      background: #fbfcfa;
+    }
+
+    .source-stat-grid strong {
+      color: var(--ink);
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    .source-stat-grid small {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 850;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .tag {
+      display: inline-flex;
+      min-height: 26px;
+      align-items: center;
+      border-radius: 999px;
+      padding: 2px 9px;
+      background: #edf1ee;
+      color: #3f4d47;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .tag[data-tone="teal"] { background: var(--teal-soft); color: #0b4f49; }
+    .tag[data-tone="coral"] { background: var(--coral-soft); color: #8d3f31; }
+    .tag[data-tone="amber"] { background: var(--amber-soft); color: #754b0d; }
+    .tag[data-tone="blue"] { background: var(--blue-soft); color: #24486f; }
+    .tag[data-tone="violet"] { background: var(--violet-soft); color: #523b79; }
+    .tag[data-tone="green"] { background: var(--green-soft); color: #3d642b; }
+
+    .book-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      padding: 14px;
+      scroll-margin-top: 96px;
+    }
+
+    .pagination {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      justify-content: center;
+      padding: 0 14px 14px;
+    }
+
+    .page-button,
+    .page-info {
+      min-height: 34px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 5px 12px;
+      background: #ffffff;
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .page-button {
+      cursor: pointer;
+    }
+
+    .page-button:hover,
+    .page-button.is-active {
+      border-color: var(--teal);
+      background: var(--teal-soft);
+      color: var(--teal);
+    }
+
+    .page-button:disabled {
+      cursor: not-allowed;
+      opacity: 0.45;
+    }
+
+    .page-info {
+      color: var(--muted);
+    }
+
+    .book-card {
+      display: grid;
+      grid-template-columns: 94px minmax(0, 1fr);
+      gap: 12px;
+      width: 100%;
+      min-height: 170px;
+      padding: 12px;
+      align-items: stretch;
+      border: 1px solid var(--line);
+      background: var(--paper);
+      color: inherit;
+      text-align: left;
+      cursor: pointer;
+      box-shadow: none;
+      appearance: none;
+    }
+
+    .book-card:hover,
+    .book-card.is-active {
+      border-color: var(--teal);
+      background: #fbfffe;
+    }
+
+    .book-card:focus-visible {
+      outline: 3px solid rgba(15, 118, 110, 0.28);
+      outline-offset: 2px;
+    }
+
+    .book-cover {
+      min-height: 146px;
+      border-radius: 7px;
+      color: #ffffff;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(140deg, #18211f, #66736d);
+      pointer-events: none;
+    }
+
+    .book-cover-image,
+    .detail-cover img {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 8px;
+      background: #f4f1ea;
+    }
+
+    .book-cover-fallback {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      display: grid;
+      align-content: space-between;
+      padding: 10px;
+      background: inherit;
+    }
+
+    .book-cover:not(.has-image) .book-cover-fallback,
+    .detail-cover:not(.has-image) .book-cover-fallback {
+      z-index: 3;
+    }
+
+    .book-cover.has-fallback .book-cover-fallback,
+    .detail-cover.has-fallback .book-cover-fallback {
+      z-index: 3;
+    }
+
+    .book-cover-fallback strong {
+      font-size: 15px;
+      line-height: 1.25;
+      word-break: break-word;
+    }
+
+    .book-cover-fallback span {
+      font-size: 11px;
+      font-weight: 900;
+      opacity: 0.88;
+    }
+
+    .cover-source {
+      position: absolute;
+      right: 6px;
+      bottom: 6px;
+      z-index: 4;
+      border-radius: 999px;
+      padding: 3px 7px;
+      background: rgba(23, 32, 29, 0.78);
+      color: #ffffff;
+      font-size: 10px;
+      font-weight: 900;
+      backdrop-filter: blur(5px);
+      pointer-events: none;
+    }
+
+    .filter-block {
+      display: grid;
+      gap: 8px;
+    }
+
+    .filter-title {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .chip-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      max-height: 210px;
+      overflow-x: hidden;
+      overflow-y: auto;
+      padding-right: 2px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .chip-grid.is-compact {
+      max-height: 150px;
+    }
+
+    .filter-chip {
+      min-height: 34px;
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 13px;
+      line-height: 1.2;
+      white-space: normal;
+    }
+
+    .filter-chip .count {
+      margin-left: 5px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .cover-0 { background: linear-gradient(140deg, #0f766e, #315d8c); }
+    .cover-1 { background: linear-gradient(140deg, #bd5b48, #a66b12); }
+    .cover-2 { background: linear-gradient(140deg, #315d8c, #7253a6); }
+    .cover-3 { background: linear-gradient(140deg, #4d7c38, #0f766e); }
+    .cover-4 { background: linear-gradient(140deg, #18211f, #66736d); }
+
+    .book-copy {
+      display: grid;
+      gap: 8px;
+      align-content: start;
+    }
+
+    .book-copy p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .detail {
+      position: sticky;
+      top: 86px;
+      display: flex;
+      max-height: calc(100vh - 102px);
+      flex-direction: column;
+      overflow: hidden;
+      scroll-margin-top: 96px;
+    }
+
+    .detail-body {
+      display: grid;
+      gap: 13px;
+      padding: 14px;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .detail.is-collapsed .detail-body {
+      display: none;
+    }
+
+    .detail-cover {
+      position: relative;
+      min-height: 260px;
+      border-radius: 8px;
+      overflow: hidden;
+      color: #ffffff;
+      background: linear-gradient(140deg, #18211f, #66736d);
+    }
+
+    .detail-cover:not(.has-image) {
+      min-height: 190px;
+    }
+
+    .detail-meta {
+      display: grid;
+      gap: 8px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px;
+      background: #fbfcfa;
+      font-size: 14px;
+    }
+
+    .detail-link-grid {
+      display: grid;
+      gap: 8px;
+    }
+
+    .detail-link-grid a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 8px 10px;
+      background: #ffffff;
+      font-weight: 850;
+      text-decoration: none;
+    }
+
+    .detail-section {
+      display: grid;
+      gap: 7px;
+      padding: 11px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .detail-section:first-of-type {
+      padding-top: 0;
+      border-top: 0;
+    }
+
+    .detail-section strong {
+      display: inline-flex;
+      width: fit-content;
+      align-items: center;
+      border-radius: 999px;
+      padding: 3px 9px;
+      background: var(--teal-soft);
+      color: #0b4f49;
+      font-size: 12px;
+      line-height: 1.25;
+      font-weight: 900;
+    }
+
+    .detail-section p {
+      color: var(--ink);
+      font-size: 15px;
+      line-height: 1.68;
+    }
+
+    .copy-actions {
+      display: grid;
+      gap: 8px;
+    }
+
+    .manual-copy {
+      display: none;
+      min-height: 160px;
+      margin-top: 2px;
+      font-size: 14px;
+    }
+
+    .manual-copy.is-visible {
+      display: block;
+    }
+
+    .copy-status {
+      min-height: 22px;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .privacy-note {
+      border-left: 4px solid var(--amber);
+      border-radius: 8px;
+      padding: 12px 14px;
+      background: var(--amber-soft);
+      color: #5f410c;
+      font-size: 14px;
+      font-weight: 750;
+    }
+
+    .quality-note {
+      border-left-color: var(--teal);
+      background: var(--teal-soft);
+      color: #0b4f49;
+    }
+
+    .empty {
+      padding: 26px 18px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    @media (max-width: 1180px) {
+      .layout {
+        grid-template-columns: 300px minmax(0, 1fr);
+      }
+
+      .detail {
+        position: static;
+        grid-column: 1 / -1;
+        max-height: none;
+      }
+
+      .layout > .panel:first-child {
+        position: static;
+        max-height: none;
+        overflow: hidden;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .topbar,
+      .hero,
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .business-strip {
+        grid-template-columns: 1fr;
+      }
+
+      .top-actions {
+        justify-content: start;
+        overflow-x: auto;
+      }
+
+      .workflow,
+      .book-list {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .shell {
+        width: min(100% - 20px, 1440px);
+      }
+
+      h1 {
+        font-size: 30px;
+      }
+
+      .hero-copy h1 {
+        font-size: 38px;
+      }
+
+      .hero-lead {
+        font-size: 16px;
+      }
+
+      .book-card {
+        grid-template-columns: 1fr;
+      }
+
+      .book-cover {
+        min-height: 210px;
+      }
+
+      .detail-body {
+        gap: 12px;
+        padding: 12px;
+      }
+
+      .detail-section {
+        gap: 5px;
+        padding: 9px 0;
+      }
+
+      .detail-section p {
+        font-size: 15px;
+        line-height: 1.7;
+      }
+
+      .chip-grid {
+        max-height: 170px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <strong>閱讀書庫</strong>
+        <span>Books · Ideas · Actions · Posts</span>
+      </div>
+      <input id="search" class="search" type="search" placeholder="搜尋書名、作者、分類、路線、觀念、貼文角度">
+      <div class="top-actions">
+        <a class="button-link" href="index.html">回首頁</a>
+      </div>
+    </header>
+
+    <main class="shell">
+      <section class="hero commercial-hero" aria-label="閱讀策展筆記商業化展示">
+        <div class="hero-copy">
+          <p class="eyebrow">Knowledge Visual Studio</p>
+          <h1>把書、高手觀點與人生問題，做成有辨識度的知識圖卡。</h1>
+          <p class="hero-lead">這裡不是收藏書單，而是一套圖片優先的知識產品原型：每本書都有封面、路線、核心句、行動建議與貼文角度。客戶一打開就要知道，這不是套版，是能把複雜內容做成畫面的能力。</p>
+          <div class="hero-actions" aria-label="核心能力">
+            <span class="value-pill">自製封面規格</span>
+            <span class="value-pill">知識圖卡</span>
+            <span class="value-pill">貼文切片</span>
+            <span class="value-pill">學習路線</span>
+          </div>
+        </div>
+        <div class="hero-media visual-signature">
+          <img src="assets/knowledge-visual-system.svg" alt="知識視覺系統示意圖">
+          <span class="media-label">自製視覺，不是套版書單</span>
+        </div>
+      </section>
+
+      <section class="business-strip" aria-label="商業化方向">
+        <div class="business-card">
+          <span class="tag" data-tone="teal">給個人</span>
+          <strong>把閱讀變成可執行的人生操作手冊</strong>
+          <p>賣點不是摘要，而是把書轉成決策、習慣、親子、財商與職涯路線，讓人少走彎路。</p>
+        </div>
+        <div class="business-card">
+          <span class="tag" data-tone="amber">給創作者</span>
+          <strong>把書與高手內容變成可發文素材庫</strong>
+          <p>每本書都能拆成一句話核心、短影音腳本、輪播圖大綱與台灣觀眾看得懂的例子。</p>
+        </div>
+        <div class="business-card">
+          <span class="tag" data-tone="coral">給客戶</span>
+          <strong>幫品牌做知識整理與圖片化包裝</strong>
+          <p>把複雜產品、課程、專業知識整理成網站、簡報、封面、貼文與銷售說明。</p>
+        </div>
+      </section>
+
+      <section class="layout">
+        <aside class="panel">
+          <div class="panel-head">
+            <h2>閱讀導航</h2>
+            <span class="tag" data-tone="teal">Guide</span>
+          </div>
+          <div class="guide-summary">
+            <p>先選學習路線，再挑書卡；右側會變成回讀筆記，可以直接複製摘要或貼文 Prompt。</p>
+            <div class="source-stat-grid" aria-label="書庫統計">
+              <span><strong id="library-total">195</strong><small>總書籍</small></span>
+              <span><strong id="library-routes">9</strong><small>路線</small></span>
+              <span><strong id="library-found">187</strong><small>真書封</small></span>
+              <span><strong id="library-pending">8</strong><small>待補真書封</small></span>
+            </div>
+          </div>
+          <div class="filters">
+            <div id="cover-quality-note" class="privacy-note quality-note">正在檢查封面品質。</div>
+            <div class="filter-block">
+              <div class="filter-title">學習路線</div>
+              <div id="path-filter" class="chip-grid"></div>
+            </div>
+            <div class="filter-block">
+              <div class="filter-title">分類</div>
+              <div id="category-filter" class="chip-grid"></div>
+            </div>
+            <div class="filter-block">
+              <div class="filter-title">難度</div>
+              <div id="level-filter" class="chip-grid is-compact"></div>
+            </div>
+            <div class="filter-block">
+              <div class="filter-title">來源</div>
+              <div id="source-filter" class="chip-grid is-compact"></div>
+            </div>
+            <div class="filter-block">
+              <div class="filter-title">封面狀態</div>
+              <div id="cover-filter" class="chip-grid is-compact"></div>
+            </div>
+            <button id="copy-system" class="primary" type="button">複製書庫整理 Prompt</button>
+          </div>
+        </aside>
+
+        <section class="panel">
+          <div class="panel-head">
+            <h2>書籍觀念卡</h2>
+            <span id="book-count" class="tag"></span>
+          </div>
+          <div id="book-list" class="book-list"></div>
+          <div id="pagination" class="pagination" aria-label="書籍分頁"></div>
+        </section>
+
+        <aside class="detail">
+          <div class="panel-head">
+            <h2>回讀筆記</h2>
+            <div class="tag-row">
+              <span id="selected-level" class="tag" data-tone="coral"></span>
+              <button id="detail-toggle" class="filter-chip" type="button">收起</button>
+            </div>
+          </div>
+          <div id="detail-body" class="detail-body"></div>
+        </aside>
+      </section>
+
+      <section class="form-panel" style="margin-top: 14px;">
+        <div class="panel-head">
+          <h2>新增一本書</h2>
+          <span class="tag" data-tone="green">Local</span>
+        </div>
+        <form id="book-form" class="form-grid">
+          <label>書名
+            <input name="title" required placeholder="例如：原子習慣">
+          </label>
+          <label>分類
+            <input name="category" required placeholder="例如：自我管理 / 行銷 / 決策">
+          </label>
+          <label>作者
+            <input name="author" placeholder="不知道可先留空，之後可以再補作者">
+          </label>
+          <label>難度
+            <select name="level">
+              <option>入門</option>
+              <option>進階</option>
+              <option>硬核</option>
+            </select>
+          </label>
+          <label>一句話核心
+            <textarea name="core" required placeholder="這本書最值得留下來的一句話"></textarea>
+          </label>
+          <label>我可以怎麼用
+            <textarea name="action" placeholder="把觀念接到生活、工作、產品或內容"></textarea>
+          </label>
+          <label>貼文角度
+            <textarea name="postAngle" placeholder="可以發成什麼貼文 / 短影音"></textarea>
+          </label>
+          <button class="primary" type="submit">新增到書庫</button>
+        </form>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const STORAGE_KEY = "worldMastersReadingLibrary.v7";
+    const LEGACY_STORAGE_KEYS = ["worldMastersReadingLibrary.v6", "worldMastersReadingLibrary.v5", "worldMastersReadingLibrary.v4"];
+    const PAGE_SIZE = 24;
+
+    const sourcePages = [
+      {
+            "id": "2026",
+            "label": "2026書",
+            "type": "Notion 書摘",
+            "status": "已完整灌入原本 145 筆"
+      },
+      {
+            "id": "2025",
+            "label": "2025已讀完書",
+            "type": "Notion 已讀",
+            "status": "已補入目前抓到的書名與重點"
+      },
+      {
+            "id": "audio",
+            "label": "聽完書清單",
+            "type": "聽書/概念",
+            "status": "已補入可回讀的書名與概念筆記"
+      },
+      {
+            "id": "manual",
+            "label": "手動新增",
+            "type": "手動補充",
+            "status": "新增測試與臨時補書"
+      }
+];
+
+    const rawBookTitles = [
+      "整合",
+      "管理十誡",
+      "談判思考的技術",
+      "高勝算決策",
+      "超強掌控",
+      "極簡工作法",
+      "清單革命",
+      "遠程工作法",
+      "何以為父",
+      "如果父母老後難想處",
+      "超級學習者",
+      "創業36條軍規",
+      "硅谷超級家長課",
+      "我們為什麼吃太多",
+      "吃的真相",
+      "做自己擅長的事還是喜歡的是",
+      "領導力",
+      "時間人格",
+      "注意力曲線",
+      "終生成長",
+      "爆款",
+      "心流",
+      "自律力",
+      "韌性",
+      "團隊協作的五大障礙",
+      "設計你的工作和人生",
+      "為什麼學生不喜歡上學",
+      "重來更為簡單有效的商業思維",
+      "良性增長",
+      "認識自己接納自己",
+      "心智",
+      "夢的解析",
+      "冥想",
+      "微習慣",
+      "細節營銷",
+      "如何學習",
+      "管理成就生活",
+      "我是媽媽我需要鉑金包",
+      "佛洛伊德的使命",
+      "最強身心",
+      "大器晚成教你的事",
+      "富人的邏輯",
+      "ＡＩ生成如和改變世界",
+      "注意力商人",
+      "心靈的七種兵器",
+      "有錢人和你想的不一樣",
+      "認知操控",
+      "聰明人的個人成長",
+      "高效人生的12的關鍵點",
+      "天才假象",
+      "納瓦爾寶典",
+      "孩子是如何學習的",
+      "自控力",
+      "深度工作",
+      "品牌洗腦",
+      "管理實踐",
+      "我就是風口",
+      "暗網",
+      "馬斯克：世界上最酷的人",
+      "為什麼偉大不能被計劃",
+      "生活不是擲骰子",
+      "自驅型成長",
+      "關羽",
+      "睡個好覺",
+      "給久座的12堂體態糾正課",
+      "伊隆馬斯克傳",
+      "奇特的一生",
+      "李光耀觀天下",
+      "堅持一種可以培養的習慣",
+      "麥肯錫晉升法則",
+      "ibm帝國締造者",
+      "原則",
+      "迪士尼體驗",
+      "成功的真諦零售的哲學",
+      "永樂帝",
+      "名創優品沒有秘密",
+      "記憶",
+      "像間諜一樣觀察",
+      "為什麼佛學是真的",
+      "野蠻進化",
+      "淺規則",
+      "好好說話",
+      "網飛傳奇",
+      "拖延心理學",
+      "史蒂夫喬布斯傳",
+      "規訓與逞罰",
+      "華杉講透孫子兵法",
+      "未來的處方",
+      "任天堂哲學",
+      "索尼秘史",
+      "騰訊傳",
+      "學會花錢",
+      "系統之美",
+      "重新思考",
+      "可口可樂傳",
+      "2049",
+      "完美博弈",
+      "下一個倒下的會不會是華為",
+      "阿米巴經營",
+      "論三國人物",
+      "創業艱難",
+      "特斯拉自傳",
+      "美國困局",
+      "像哲學家一樣生活",
+      "富爸爸投資指南",
+      "無價",
+      "交換之物",
+      "美國黑幫",
+      "屍檢報告",
+      "日本為何選擇戰爭",
+      "空王冠",
+      "摩根財團",
+      "流媒體時代",
+      "足球經濟學",
+      "1929大崩盤",
+      "彼得林奇的成功投資",
+      "劉邦",
+      "Ｂ選項",
+      "朱元璋",
+      "三國演義的世界",
+      "三國誌的世界",
+      "學習力腦科學",
+      "日本漫畫60年",
+      "莫札特的成敗",
+      "發現心流",
+      "錦衣衛",
+      "杜月笙正傳",
+      "突破天性",
+      "隱形惡人",
+      "梳毛.八卦語言的進化",
+      "稀缺",
+      "被劫持的私生活",
+      "親密關係的購買",
+      "神奇女俠秘史",
+      "千面英雄",
+      "真實的幸福",
+      "富爸爸窮爸爸",
+      "壞血",
+      "99%的人一看就會的理財書",
+      "弦理論",
+      "臥底經濟學",
+      "我得應許之地",
+      "超級符號就是超級創意",
+      "烹飪菜餚與階級",
+      "沈思錄"
+];
+
+    const extraBookEntries = [
+      {
+            "title": "股票作手回憶錄",
+            "originalTitle": "做手回憶錄",
+            "sourcePage": "2025已讀完書",
+            "sourceType": "已讀書",
+            "author": "Edwin Lefevre"
+      },
+      {
+            "title": "提問的藝術",
+            "sourcePage": "2025已讀完書",
+            "sourceType": "已讀書"
+      },
+      {
+            "title": "探詢式領導",
+            "sourcePage": "2025已讀完書",
+            "sourceType": "已讀書",
+            "author": "Michael J. Marquardt"
+      },
+      {
+            "title": "學會提問",
+            "sourcePage": "2025已讀完書",
+            "sourceType": "已讀書",
+            "author": "M. Neil Browne / Stuart M. Keeley"
+      },
+      {
+            "title": "夜腦",
+            "sourcePage": "2025已讀完書",
+            "sourceType": "已讀書"
+      },
+      {
+            "title": "錢：七步創造收入",
+            "sourcePage": "2025已讀完書",
+            "sourceType": "已讀書",
+            "author": "Tony Robbins"
+      },
+      {
+            "title": "狼的智慧",
+            "sourcePage": "2025已讀完書",
+            "sourceType": "已讀書"
+      },
+      {
+            "title": "英偉達之道",
+            "sourcePage": "2025已讀完書",
+            "sourceType": "已讀書"
+      },
+      {
+            "title": "張忠謀自傳",
+            "sourcePage": "2025已讀完書",
+            "sourceType": "已讀書",
+            "author": "張忠謀"
+      },
+      {
+            "title": "馬斯克：世界上最酷的人",
+            "sourcePage": "2025已讀完書",
+            "sourceType": "已讀書"
+      },
+      {
+            "title": "華杉講透孫子兵法",
+            "sourcePage": "2025已讀完書",
+            "sourceType": "已讀書",
+            "author": "華杉"
+      },
+      {
+            "title": "福特自傳",
+            "sourcePage": "2025已讀完書",
+            "sourceType": "已讀書",
+            "author": "Henry Ford"
+      },
+      {
+            "title": "提姆庫克",
+            "sourcePage": "2025已讀完書",
+            "sourceType": "已讀書"
+      },
+      {
+            "title": "給人好印象的秘訣",
+            "sourcePage": "2025已讀完書",
+            "sourceType": "已讀書"
+      },
+      {
+            "title": "如何管理24小時",
+            "sourcePage": "2025已讀完書",
+            "sourceType": "已讀書",
+            "author": "Arnold Bennett"
+      },
+      {
+            "title": "一網打盡",
+            "originalTitle": "亞馬遜（一網打盡）",
+            "sourcePage": "2025已讀完書",
+            "sourceType": "已讀書",
+            "author": "Brad Stone"
+      },
+      {
+            "title": "黑金世界",
+            "sourcePage": "2025已讀完書",
+            "sourceType": "已讀書",
+            "author": "Javier Blas / Jack Farchy"
+      },
+      {
+            "title": "人性的弱點",
+            "sourcePage": "2025已讀完書",
+            "sourceType": "已讀書",
+            "author": "Dale Carnegie"
+      },
+      {
+            "title": "查理芒格",
+            "sourcePage": "2025已讀完書",
+            "sourceType": "已讀書"
+      },
+      {
+            "title": "黑天鵝",
+            "sourcePage": "2025已讀完書",
+            "sourceType": "已讀書",
+            "author": "Nassim Nicholas Taleb"
+      },
+      {
+            "title": "矽谷鋼鐵俠",
+            "originalTitle": "硅谷鋼鐵俠",
+            "sourcePage": "2025已讀完書",
+            "sourceType": "已讀書",
+            "author": "Ashlee Vance"
+      },
+      {
+            "title": "為什麼佛學是真的",
+            "originalTitle": "佛學是真的",
+            "sourcePage": "2025已讀完書",
+            "sourceType": "已讀書",
+            "author": "Robert Wright"
+      },
+      {
+            "title": "洗腦術",
+            "sourcePage": "聽完書清單",
+            "sourceType": "聽書/概念"
+      },
+      {
+            "title": "幹法",
+            "sourcePage": "聽完書清單",
+            "sourceType": "聽書/概念",
+            "author": "稻盛和夫"
+      },
+      {
+            "title": "高效管理者",
+            "sourcePage": "聽完書清單",
+            "sourceType": "聽書/概念"
+      },
+      {
+            "title": "成功者的大腦",
+            "sourcePage": "聽完書清單",
+            "sourceType": "聽書/概念"
+      },
+      {
+            "title": "每天最重要的兩小時",
+            "sourcePage": "聽完書清單",
+            "sourceType": "聽書/概念",
+            "author": "Josh Davis"
+      },
+      {
+            "title": "劉邦",
+            "sourcePage": "聽完書清單",
+            "sourceType": "人物筆記"
+      },
+      {
+            "title": "松下幸之助",
+            "sourcePage": "聽完書清單",
+            "sourceType": "人物筆記"
+      },
+      {
+            "title": "豐田傳",
+            "sourcePage": "聽完書清單",
+            "sourceType": "聽書/概念"
+      },
+      {
+            "title": "窮查理寶典",
+            "sourcePage": "聽完書清單",
+            "sourceType": "聽書/概念",
+            "author": "Peter D. Kaufman / Charlie Munger"
+      },
+      {
+            "title": "勇士王朝",
+            "sourcePage": "聽完書清單",
+            "sourceType": "聽書/概念"
+      },
+      {
+            "title": "二八法則 × 機會成本",
+            "sourcePage": "聽完書清單",
+            "sourceType": "概念筆記"
+      },
+      {
+            "title": "男女童心理",
+            "originalTitle": "男女童心裡",
+            "sourcePage": "聽完書清單",
+            "sourceType": "概念筆記"
+      },
+      {
+            "title": "看見孩子",
+            "sourcePage": "聽完書清單",
+            "sourceType": "聽書/概念"
+      },
+      {
+            "title": "反向提問 高效思維",
+            "sourcePage": "聽完書清單",
+            "sourceType": "概念筆記"
+      },
+      {
+            "title": "馬斯洛需求層次",
+            "sourcePage": "聽完書清單",
+            "sourceType": "概念筆記"
+      },
+      {
+            "title": "牛頓力學",
+            "sourcePage": "聽完書清單",
+            "sourceType": "概念筆記"
+      },
+      {
+            "title": "商業模型",
+            "sourcePage": "聽完書清單",
+            "sourceType": "概念筆記"
+      },
+      {
+            "title": "機會成本",
+            "sourcePage": "聽完書清單",
+            "sourceType": "概念筆記"
+      },
+      {
+            "title": "二八法則",
+            "sourcePage": "聽完書清單",
+            "sourceType": "概念筆記"
+      },
+      {
+            "title": "演化論",
+            "sourcePage": "聽完書清單",
+            "sourceType": "概念筆記"
+      },
+      {
+            "title": "復盤高手",
+            "sourcePage": "聽完書清單",
+            "sourceType": "聽書/概念"
+      },
+      {
+            "title": "輕營銷",
+            "sourcePage": "聽完書清單",
+            "sourceType": "聽書/概念"
+      },
+      {
+            "title": "零售的哲學",
+            "sourcePage": "聽完書清單",
+            "sourceType": "聽書/概念"
+      },
+      {
+            "title": "巨人的工具",
+            "sourcePage": "聽完書清單",
+            "sourceType": "聽書/概念",
+            "author": "Tim Ferriss"
+      },
+      {
+            "title": "智商/智慧",
+            "sourcePage": "聽完書清單",
+            "sourceType": "概念筆記"
+      },
+      {
+            "title": "大腦",
+            "sourcePage": "聽完書清單",
+            "sourceType": "概念筆記"
+      },
+      {
+            "title": "10 句口頭禪",
+            "sourcePage": "聽完書清單",
+            "sourceType": "概念筆記"
+      },
+      {
+            "title": "好奇心",
+            "sourcePage": "聽完書清單",
+            "sourceType": "概念筆記"
+      },
+      {
+            "title": "癌症的真相",
+            "sourcePage": "聽完書清單",
+            "sourceType": "概念筆記"
+      },
+      {
+            "title": "3-5歲為什麼會問個不停",
+            "sourcePage": "聽完書清單",
+            "sourceType": "概念筆記"
+      },
+      {
+            "title": "宮古島，沖繩",
+            "sourcePage": "聽完書清單",
+            "sourceType": "生活知識"
+      },
+      {
+            "title": "刻意練習",
+            "sourcePage": "手動新增",
+            "sourceType": "新增書籍",
+            "author": "安德斯・艾瑞克森 / 羅伯特・普爾"
+      }
+];
+
+    const authorOverrides = {
+      "自控力": "Kelly McGonigal",
+      "深度工作": "Cal Newport",
+      "納瓦爾寶典": "Eric Jorgenson",
+      "富爸爸窮爸爸": "Robert T. Kiyosaki",
+      "彼得林奇的成功投資": "Peter Lynch",
+      "原則": "Ray Dalio",
+      "沈思錄": "Marcus Aurelius",
+      "冥想": "Marcus Aurelius",
+      "人性的弱點": "Dale Carnegie",
+      "黑天鵝": "Nassim Nicholas Taleb",
+      "矽谷鋼鐵俠": "Ashlee Vance",
+      "華杉講透孫子兵法": "華杉",
+      "一網打盡": "Brad Stone",
+      "巨人的工具": "Tim Ferriss",
+      "為什麼佛學是真的": "Robert Wright",
+      "張忠謀自傳": "張忠謀",
+      "錢：七步創造收入": "Tony Robbins",
+      "股票作手回憶錄": "Edwin Lefevre",
+      "學會提問": "M. Neil Browne / Stuart M. Keeley",
+      "刻意練習": "安德斯・艾瑞克森 / 羅伯特・普爾",
+      "每天最重要的兩小時": "Josh Davis",
+      "幹法": "稻盛和夫",
+      "硅谷超級家長課": "Esther Wojcicki",
+      "做自己擅長的事還是喜歡的事": "Aljoscha Neubauer",
+      "團隊協作的五大障礙": "Patrick Lencioni",
+      "設計你的工作和人生": "Bill Burnett / Dave Evans",
+      "為什麼學生不喜歡上學": "Daniel T. Willingham",
+      "重來更為簡單有效的商業思維": "Jason Fried / David Heinemeier Hansson",
+      "良性增長": "Ram Charan / Noel M. Tichy",
+      "心智": "John Brockman",
+      "夢的解析": "Sigmund Freud",
+      "微習慣": "Stephen Guise",
+      "細節營銷": "Willem Burgers",
+      "如何學習": "Benedict Carey",
+      "管理成就生活": "Fredmund F. Malik",
+      "我是媽媽我需要鉑金包": "Wednesday Martin",
+      "佛洛伊德的使命": "Erich Fromm",
+      "最強身心": "山田知生",
+      "大器晚成教你的事": "Henry Oliver",
+      "富人的邏輯": "Rainer Zitelmann",
+      "注意力商人": "Tim Wu",
+      "心靈的七種兵器": "武志紅",
+      "有錢人和你想的不一樣": "T. Harv Eker",
+      "認知操控": "Christopher Wylie",
+      "聰明人的個人成長": "Steve Pavlina",
+      "高效人生的 12 個關鍵點": "Brian Tracy",
+      "天才假象": "Matthew Syed",
+      "孩子是如何學習的": "John Holt",
+      "品牌洗腦": "Martin Lindstrom",
+      "管理實踐": "Peter F. Drucker",
+      "我就是風口": "Richard Branson",
+      "暗網": "Jamie Bartlett",
+      "馬斯克：世界上最酷的人": "Ashlee Vance",
+      "為什麼偉大不能被計劃": "Kenneth O. Stanley / Joel Lehman",
+      "生活不是擲骰子": "劉雪峰",
+      "自驅型成長": "William Stixrud / Ned Johnson",
+      "關羽": "田海",
+      "伊隆馬斯克傳": "Ashlee Vance",
+      "奇特的一生": "Daniil Granin",
+      "李光耀觀天下": "李光耀",
+      "堅持一種可以培養的習慣": "古川武士",
+      "麥肯錫晉升法則": "服部周作",
+      "IBM 帝國締造者": "Thomas J. Watson Jr.",
+      "迪士尼體驗": "The Disney Institute / Theodore Kinni",
+      "成功的真諦零售的哲學": "鈴木敏文",
+      "永樂帝": "檀上寬",
+      "名創優品沒有秘密": "杜博奇",
+      "記憶": "Hermann Ebbinghaus",
+      "像間諜一樣觀察": "Jack Schafer / Marvin Karlins",
+      "野蠻進化": "Tim S. Grover",
+      "淺規則": "吳思",
+      "好好說話": "馬東 / 馬薇薇 / 黃執中 / 周玄毅",
+      "網飛傳奇": "Gina Keating",
+      "拖延心理學": "Jane B. Burka / Lenora M. Yuen",
+      "史蒂夫喬布斯傳": "Walter Isaacson",
+      "規訓與懲罰": "Michel Foucault",
+      "未來的處方": "Ezekiel J. Emanuel",
+      "任天堂哲學": "井上理",
+      "索尼秘史": "John Nathan",
+      "騰訊傳": "吳曉波",
+      "學會花錢": "野口真人",
+      "系統之美": "Donella H. Meadows",
+      "重新思考": "Adam Grant",
+      "可口可樂傳": "Mark Pendergrast",
+      "2049": "Michael Pillsbury",
+      "完美博弈": "Adam Kucharski",
+      "下一個倒下的會不會是華為": "田濤 / 吳春波",
+      "阿米巴經營": "稻盛和夫",
+      "論三國人物": "方詩銘",
+      "創業艱難": "Ben Horowitz",
+      "特斯拉自傳": "Nikola Tesla",
+      "美國困局": "強舸",
+      "像哲學家一樣生活": "緣中源",
+      "富爸爸投資指南": "Robert T. Kiyosaki",
+      "無價": "William Poundstone",
+      "交換之物": "Harold J. Cook",
+      "美國黑幫": "Bill O'Reilly / Martin Dugard",
+      "屍檢報告": "Carla Valentine",
+      "日本為何選擇戰爭": "加藤陽子",
+      "空王冠": "Dan Jones",
+      "摩根財團": "Ron Chernow",
+      "流媒體時代": "Michael D. Smith / Rahul Telang",
+      "足球經濟學": "Simon Kuper / Stefan Szymanski",
+      "1929大崩盤": "John Kenneth Galbraith",
+      "劉邦": "陳文德",
+      "B 選項": "Sheryl Sandberg / Adam Grant",
+      "朱元璋": "吳晗",
+      "三國演義的世界": "金文京",
+      "三國誌的世界": "金文京",
+      "日本漫畫60年": "Paul Gravett",
+      "莫札特的成敗": "Norbert Elias（Michael Schröter 編）",
+      "發現心流": "Mihaly Csikszentmihalyi",
+      "杜月笙正傳": "徐成",
+      "突破天性": "Brian R. Little",
+      "隱形惡人": "Philip Zimbardo",
+      "梳毛、八卦、語言的進化": "Robin Dunbar",
+      "稀缺": "Sendhil Mullainathan / Eldar Shafir",
+      "被劫持的私生活": "肉唐僧",
+      "親密關係的購買": "Viviana A. Zelizer",
+      "神奇女俠秘史": "Jill Lepore",
+      "千面英雄": "Joseph Campbell",
+      "真實的幸福": "Martin E. P. Seligman",
+      "壞血": "John Carreyrou",
+      "99%的人一看就會的理財書": "Carl Richards",
+      "臥底經濟學": "Tim Harford",
+      "我得應許之地": "Ari Shavit",
+      "超級符號就是超級創意": "華杉",
+      "烹飪菜餚與階級": "Jack Goody",
+      "夜腦": "Guy Leschziner",
+      "狼的智慧": "Elli H. Radinger",
+      "英偉達之道": "Tae Kim",
+      "提姆庫克": "Leander Kahney",
+      "成功者的大腦": "Jeff Brown / Mark Fenske",
+      "松下幸之助": "趙凡禹",
+      "豐田傳": "Jeffrey K. Liker",
+      "勇士王朝": "Ethan Sherwood Strauss",
+      "商業模型": "Alexander Osterwalder / Yves Pigneur",
+      "演化論": "Charles Darwin",
+      "零售的哲學": "鈴木敏文",
+      "癌症的真相": "李治中（菠蘿）",
+      "好奇心": "Brian Grazer / Charles Fishman",
+      "認識自己接納自己": "Martin E. P. Seligman",
+      "睡個好覺": "Lawrence J. Epstein / Steven Mardon",
+      "給久座的12堂體態糾正課": "Vinh Pham / Jeff O'Connell",
+      "學習力腦科學": "陳立翰",
+      "錦衣衛": "熊劍平",
+      "弦理論": "David Foster Wallace",
+      "提問的藝術": "Andrew Sobel / Jerold Panas",
+      "給人好印象的秘訣": "Heidi Grant Halvorson",
+      "查理芒格": "林郁 主編",
+      "洗腦術": "李民傑 / 江健勇",
+      "高效管理者": "孫繼濱",
+      "看見孩子": "Becky Kennedy",
+      "復盤高手": "鄭強",
+      "輕營銷": "費楚中"
+};
+
+    const learningPaths = [
+      {
+            "id": "negotiation",
+            "label": "談判溝通",
+            "keywords": [
+                  "談判",
+                  "提問",
+                  "說話",
+                  "人性",
+                  "好印象",
+                  "孫子",
+                  "淺規則",
+                  "間諜",
+                  "溝通",
+                  "上兵伐謀"
+            ],
+            "categories": [
+                  "溝通談判"
+            ]
+      },
+      {
+            "id": "decision",
+            "label": "決策模型",
+            "keywords": [
+                  "決策",
+                  "黑天鵝",
+                  "二八",
+                  "機會成本",
+                  "系統",
+                  "原則",
+                  "博弈",
+                  "重新思考",
+                  "高勝算",
+                  "模型"
+            ],
+            "categories": [
+                  "決策思維",
+                  "科學經濟"
+            ]
+      },
+      {
+            "id": "self",
+            "label": "自我管理",
+            "keywords": [
+                  "自控",
+                  "自律",
+                  "時間",
+                  "專注",
+                  "深度工作",
+                  "微習慣",
+                  "拖延",
+                  "心流",
+                  "兩小時",
+                  "復盤",
+                  "掌控"
+            ],
+            "categories": [
+                  "自我管理",
+                  "工作方法",
+                  "流程系統"
+            ]
+      },
+      {
+            "id": "leadership",
+            "label": "管理領導",
+            "keywords": [
+                  "管理",
+                  "領導",
+                  "團隊",
+                  "阿米巴",
+                  "高效管理",
+                  "劉邦",
+                  "松下",
+                  "豐田",
+                  "福特",
+                  "庫克"
+            ],
+            "categories": [
+                  "管理經營",
+                  "歷史人物"
+            ]
+      },
+      {
+            "id": "wealth",
+            "label": "財商投資",
+            "keywords": [
+                  "富爸爸",
+                  "投資",
+                  "錢",
+                  "股票",
+                  "彼得林奇",
+                  "芒格",
+                  "黑金",
+                  "理財",
+                  "有錢",
+                  "花錢",
+                  "1929"
+            ],
+            "categories": [
+                  "財商投資"
+            ]
+      },
+      {
+            "id": "family",
+            "label": "親子家庭",
+            "keywords": [
+                  "父",
+                  "母",
+                  "孩子",
+                  "家長",
+                  "媽媽",
+                  "男女童",
+                  "看見孩子",
+                  "3-5歲"
+            ],
+            "categories": [
+                  "家庭親子"
+            ]
+      },
+      {
+            "id": "learning",
+            "label": "學習成長",
+            "keywords": [
+                  "學習",
+                  "練習",
+                  "技能",
+                  "回饋",
+                  "成長",
+                  "刻意練習",
+                  "終生成長",
+                  "超級學習者",
+                  "如何學習"
+            ],
+            "categories": [
+                  "學習教育"
+            ]
+      },
+      {
+            "id": "business",
+            "label": "商業創業",
+            "keywords": [
+                  "創業",
+                  "商業",
+                  "行銷",
+                  "品牌",
+                  "零售",
+                  "亞馬遜",
+                  "英偉達",
+                  "馬斯克",
+                  "張忠謀",
+                  "網飛",
+                  "騰訊",
+                  "任天堂",
+                  "符號"
+            ],
+            "categories": [
+                  "創業商業",
+                  "行銷品牌"
+            ]
+      },
+      {
+            "id": "mind",
+            "label": "心理哲學",
+            "keywords": [
+                  "心理學",
+                  "心理哲學",
+                  "冥想",
+                  "佛學",
+                  "沈思錄",
+                  "幸福",
+                  "佛洛伊德",
+                  "夢",
+                  "心智",
+                  "正向心理",
+                  "馬斯洛"
+            ],
+            "categories": [
+                  "心理哲學"
+            ]
+      }
+];
+
+    const detailedBooks = {
+      "整合": {
+            "id": "book-integration",
+            "title": "整合",
+            "category": "系統思維",
+            "level": "入門",
+            "core": "真正的高手不是什麼都自己做，而是整合資訊、人脈與資源，找到組合的槓桿點。",
+            "action": "把每個目標拆成三欄：我已有什麼、誰能幫我、有哪些平台或工具能放大成果。",
+            "postAngle": "一人公司不是一個人硬撐，而是一個人當整合者。",
+            "related": [
+                  "Dan Koe",
+                  "一人事業",
+                  "AI 工作流"
+            ],
+            "tone": 0
+      },
+      "管理十誡": {
+            "id": "book-management-ten",
+            "title": "管理十誡",
+            "category": "管理",
+            "level": "入門",
+            "core": "管理不是控制人，而是讓人和事有秩序地往前走。",
+            "action": "每天用 10 分鐘確認：今天的任務有沒有推進核心目標，誰需要被授權或支援。",
+            "postAngle": "很多老闆卡住，不是能力不夠，是還停在超級員工模式。",
+            "related": [
+                  "團隊管理",
+                  "授權",
+                  "制度"
+            ],
+            "tone": 1
+      },
+      "談判思考的技術": {
+            "id": "book-negotiation-thinking",
+            "title": "談判思考的技術",
+            "category": "溝通談判",
+            "level": "入門",
+            "core": "談判不是嘴巴贏，而是先理解雙方利益，再找到可交換的方案。",
+            "action": "談價格、合作、家庭行程前，先寫下：我的底線、對方真正想要的、可交換選項。",
+            "postAngle": "不要急著反駁，先問出對方真正想買的是什麼。",
+            "related": [
+                  "銷售",
+                  "合作",
+                  "家庭溝通"
+            ],
+            "tone": 2
+      },
+      "高勝算決策": {
+            "id": "book-high-odds",
+            "title": "高勝算決策",
+            "category": "決策",
+            "level": "進階",
+            "core": "好決策先定義問題，再抓關鍵 20%，最後用小實驗降低失敗成本。",
+            "action": "重大選擇前問三題：什麼條件下會成功、最可能怎麼失敗、能不能先小規模測試。",
+            "postAngle": "普通人做決策最常輸在：還沒定義問題，就開始找答案。",
+            "related": [
+                  "創業",
+                  "投資判斷",
+                  "產品測試"
+            ],
+            "tone": 3
+      },
+      "超強掌控": {
+            "id": "book-control",
+            "title": "超強掌控",
+            "category": "自我管理",
+            "level": "入門",
+            "core": "真正的掌控力不是控制別人，而是先管理情緒、注意力、時間與局勢判斷。",
+            "action": "每天列一張不做清單，遇到情緒先停 5 秒，再決定要不要回應。",
+            "postAngle": "你不是沒時間，你是沒有保護自己的注意力。",
+            "related": [
+                  "專注",
+                  "情緒管理",
+                  "長期主義"
+            ],
+            "tone": 4
+      },
+      "極簡工作法": {
+            "id": "book-minimal-work",
+            "title": "極簡工作法",
+            "category": "工作方法",
+            "level": "入門",
+            "core": "少做，但把少數最重要的事做到極致。",
+            "action": "每天只列三件完成後就值得的一天，其他任務先降級成支線。",
+            "postAngle": "忙不是能力，能刪掉不重要的事才是能力。",
+            "related": [
+                  "深度工作",
+                  "一人公司",
+                  "效率"
+            ],
+            "tone": 0
+      },
+      "清單革命": {
+            "id": "book-checklist",
+            "title": "清單革命",
+            "category": "流程系統",
+            "level": "入門",
+            "core": "清單不是笨方法，而是專業者用來抵抗大腦疏忽的工具。",
+            "action": "把常出錯的流程做成 5 到 9 步防漏清單，開會、出貨、拍片都能用。",
+            "postAngle": "真正可靠的人，不是記性好，而是有防漏系統。",
+            "related": [
+                  "SOP",
+                  "團隊協作",
+                  "後台流程"
+            ],
+            "tone": 1
+      },
+      "遠程工作法": {
+            "id": "book-remote",
+            "title": "遠程工作法",
+            "category": "工作方法",
+            "level": "進階",
+            "core": "遠距工作的核心不是在家上班，而是信任、工具、非同步溝通與成果導向。",
+            "action": "把每日打卡改成每日成果回報，用 Notion 或文件留下決策和下一步。",
+            "postAngle": "遠距不是少管理，而是管理方式從盯人變成看交付。",
+            "related": [
+                  "遠距團隊",
+                  "Notion",
+                  "非同步"
+            ],
+            "tone": 2
+      },
+      "何以為父": {
+            "id": "book-father",
+            "title": "何以為父",
+            "category": "家庭",
+            "level": "入門",
+            "core": "父親不是供養機器，而是孩子生命裡的陪伴者、榜樣與情感支柱。",
+            "action": "每天留 10 分鐘不看手機，只聽孩子說話，建立固定陪伴儀式。",
+            "postAngle": "當爸爸不需要完美，但需要被孩子感覺到你在。",
+            "related": [
+                  "親子",
+                  "陪伴",
+                  "自我修行"
+            ],
+            "tone": 3
+      },
+      "如果父母老後難相處": {
+            "id": "book-aging-parents",
+            "title": "如果父母老後難相處",
+            "category": "家庭",
+            "level": "進階",
+            "core": "父母變得難相處，常是老化帶來的不安；子女要在理解與界線之間取得平衡。",
+            "action": "先承認感受，再提供選項；例如不是命令就醫，而是給兩個可選時間。",
+            "postAngle": "孝順不是無條件犧牲，而是有界線地長期陪伴。",
+            "related": [
+                  "照護",
+                  "溝通",
+                  "界線"
+            ],
+            "tone": 4
+      },
+      "超級學習者": {
+            "id": "book-ultralearning",
+            "title": "超級學習者",
+            "category": "學習方法",
+            "level": "進階",
+            "core": "快速自學不是狂看教材，而是先設計路徑、直接練核心、用回饋修正。",
+            "action": "學新技能前先做一頁學習地圖：目標、輸出物、瓶頸、練習方式、回饋來源。",
+            "postAngle": "想學得快，不是多收藏課程，而是更早開始輸出。",
+            "related": [
+                  "自學",
+                  "AI 學習",
+                  "技能堆疊"
+            ],
+            "tone": 0
+      },
+      "刻意練習": {
+            "id": "book-deliberate-practice",
+            "title": "刻意練習",
+            "category": "學習教育",
+            "level": "進階",
+            "core": "高手不是靠天分自然長出來，而是靠明確目標、即時回饋、離開舒適圈與長期修正。",
+            "action": "選一個想進步的技能，拆成一個 30 分鐘練習單元：目標、錯誤點、回饋來源、下一次調整。",
+            "postAngle": "努力不一定會進步，只有帶著回饋的練習才會讓人變強。",
+            "related": [
+                  "技能養成",
+                  "自學",
+                  "練習回饋",
+                  "長期主義"
+            ],
+            "tone": 2
+      },
+      "親密關係的購買": {
+            "id": "book-intimacy-market",
+            "title": "親密關係的購買",
+            "category": "社會觀察",
+            "level": "硬核",
+            "core": "愛與錢並非完全分開，親密關係裡也存在交換、規則與社會包裝。",
+            "action": "觀察一段關係或服務時，分開看情感語言、金錢流向、權力位置與社會規範。",
+            "postAngle": "有些關係不是不純粹，而是我們不習慣承認它也有交換。",
+            "related": [
+                  "社會學",
+                  "關係",
+                  "金錢觀"
+            ],
+            "tone": 1
+      },
+      "神奇女俠秘史": {
+            "id": "book-wonder-woman",
+            "title": "神奇女俠秘史",
+            "category": "文化故事",
+            "level": "進階",
+            "core": "一個流行角色背後，可能藏著心理學、女性主義與時代文化的交會。",
+            "action": "拆任何 IP 時，不只看角色，還要看創作者、時代背景、符號與社會需求。",
+            "postAngle": "為什麼好角色不是被設計出來，而是被一個時代召喚出來。",
+            "related": [
+                  "IP",
+                  "女性主義",
+                  "文化史"
+            ],
+            "tone": 2
+      },
+      "千面英雄": {
+            "id": "book-hero",
+            "title": "千面英雄",
+            "category": "故事力",
+            "level": "進階",
+            "core": "所有偉大故事都在講普通人經歷召喚、試煉、轉化，再帶著禮物回來。",
+            "action": "寫品牌或個人故事時，把使用者當英雄，你的產品只是導師或工具。",
+            "postAngle": "好行銷不是吹產品，而是讓用戶看見自己的英雄旅程。",
+            "related": [
+                  "品牌敘事",
+                  "短影音腳本",
+                  "創作"
+            ],
+            "tone": 3
+      },
+      "真實的幸福": {
+            "id": "book-happiness",
+            "title": "真實的幸福",
+            "category": "心理學",
+            "level": "入門",
+            "core": "幸福不是單純快樂，而是投入、優勢、人際與意義可以被練習出來。",
+            "action": "每天記三件好事，並把一個個人優勢用在工作或家庭裡。",
+            "postAngle": "幸福不是等生活變順，而是把自己的優勢用在有意義的地方。",
+            "related": [
+                  "正向心理學",
+                  "家庭",
+                  "自我認識"
+            ],
+            "tone": 4
+      },
+      "富爸爸窮爸爸": {
+            "id": "book-rich-dad",
+            "title": "富爸爸窮爸爸",
+            "category": "財商",
+            "level": "入門",
+            "core": "財務自由的第一步，是分清楚資產與負債，並學會讓錢替自己工作。",
+            "action": "檢視每筆大支出：它會把錢放進口袋，還是把錢拿出口袋。",
+            "postAngle": "高薪不等於有錢，財務知識才是安全感的底層。",
+            "related": [
+                  "財商",
+                  "資產",
+                  "現金流"
+            ],
+            "tone": 0
+      },
+      "壞血": {
+            "id": "book-bad-blood",
+            "title": "壞血",
+            "category": "商業警示",
+            "level": "進階",
+            "core": "再漂亮的創業故事，如果沒有可驗證的成果，也可能只是泡沫。",
+            "action": "研究公司或合作案時，不只看願景和創辦人魅力，要看驗證、透明度與治理機制。",
+            "postAngle": "別被改變世界的故事迷住，先問：它真的做到了什麼？",
+            "related": [
+                  "創業",
+                  "投資判斷",
+                  "公司治理"
+            ],
+            "tone": 1
+      },
+      "99%的人一看就會的理財書": {
+            "id": "book-easy-finance",
+            "title": "99%的人一看就會的理財書",
+            "category": "財商",
+            "level": "入門",
+            "core": "普通人理財不需要複雜，先分生活費、緊急金、長期投資，再避免不懂的風險。",
+            "action": "把錢分成三個桶：生活、備用、成長；任何投資前先問自己是否真的理解。",
+            "postAngle": "理財不是變聰明，而是少犯大錯、長期做對基本動作。",
+            "related": [
+                  "新手理財",
+                  "風險",
+                  "長期主義"
+            ],
+            "tone": 2
+      },
+      "弦理論": {
+            "id": "book-string-theory",
+            "title": "弦理論",
+            "category": "科學思維",
+            "level": "硬核",
+            "core": "有些難題不是靠修補舊框架，而是要換一套更底層的理解方式。",
+            "action": "遇到卡住的問題時，問：我是不是用錯層級看問題，而不是方法不夠努力。",
+            "postAngle": "真正的創新，常常不是新答案，而是新框架。",
+            "related": [
+                  "科學",
+                  "模型思維",
+                  "框架轉換"
+            ],
+            "tone": 3
+      },
+      "臥底經濟學": {
+            "id": "book-undercover-economist",
+            "title": "臥底經濟學",
+            "category": "經濟學",
+            "level": "進階",
+            "core": "生活裡的價格、選址、促銷與制度，背後都藏著稀缺、誘因與資訊不對稱。",
+            "action": "看一個市場時，先找三件事：誰掌握稀缺、誰資訊更多、誘因會讓人怎麼反應。",
+            "postAngle": "你以為咖啡賣的是味道，其實很多時候賣的是地段稀缺。",
+            "related": [
+                  "商業觀察",
+                  "定價",
+                  "市場機制"
+            ],
+            "tone": 4
+      },
+      "我得應許之地": {
+            "id": "book-promised-land",
+            "title": "我得應許之地",
+            "category": "領導力",
+            "level": "硬核",
+            "core": "領導是在理想與現實之間持續取捨，還能保住核心價值與敘事能力。",
+            "action": "做決策時寫下：我真正不想放棄的原則是什麼，哪些地方可以妥協。",
+            "postAngle": "成熟的領導不是永遠強硬，而是知道什麼不能退、什麼可以談。",
+            "related": [
+                  "政治",
+                  "領導",
+                  "敘事"
+            ],
+            "tone": 0
+      },
+      "超級符號就是超級創意": {
+            "id": "book-super-symbol",
+            "title": "超級符號就是超級創意",
+            "category": "行銷品牌",
+            "level": "入門",
+            "core": "品牌最強的不是一大串文案，而是能被一眼記住、重複使用的符號。",
+            "action": "替自己的產品或個人品牌設計一個可複製的視覺、語句或儀式。",
+            "postAngle": "如果你的品牌不能被一眼認出，就很難被反覆想起。",
+            "related": [
+                  "品牌",
+                  "視覺符號",
+                  "廣告"
+            ],
+            "tone": 1
+      },
+      "烹飪菜餚與階級": {
+            "id": "book-cuisine-class",
+            "title": "烹飪菜餚與階級",
+            "category": "社會觀察",
+            "level": "硬核",
+            "core": "食物不只是營養，它也是階級、身份與文化秩序的表演。",
+            "action": "觀察餐飲品牌時，不只看菜色，也看它讓顧客表演哪一種身份。",
+            "postAngle": "餐廳賣的不只是食物，也賣你想成為的那種人。",
+            "related": [
+                  "餐飲品牌",
+                  "階級",
+                  "文化"
+            ],
+            "tone": 2
+      },
+      "沈思錄": {
+            "id": "book-meditations",
+            "title": "沈思錄",
+            "category": "哲學",
+            "level": "入門",
+            "core": "不要把心力浪費在不能控制的事，把注意力放回自己的判斷與行動。",
+            "action": "每天遇到煩心事時，先分兩欄：我能控制、我不能控制；只處理前者。",
+            "postAngle": "斯多噶不是冷漠，而是把人生主控權拿回來。",
+            "related": [
+                  "情緒管理",
+                  "領導",
+                  "長期修行"
+            ],
+            "tone": 3
+      }
+};
+
+    const coverData = {
+      "2049": {
+            "url": "https://covers.openlibrary.org/b/id/999767-L.jpg",
+            "source": "Open Library",
+            "pageUrl": "https://openlibrary.org/works/OL9058580W",
+            "status": "found",
+            "matchedTitle": "2049"
+      },
+      "如果父母老後難相處": {
+            "url": "https://books.google.com/books/content?id=A2vDEAAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api",
+            "source": "Google Books",
+            "pageUrl": "https://play.google.com/store/books/details?id=A2vDEAAAQBAJ",
+            "status": "found",
+            "matchedTitle": "如果父母老後難相處（二版）"
+      },
+      "吃的真相": {
+            "url": "https://books.google.com/books/content?id=pQCoCgAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api",
+            "source": "Google Books",
+            "pageUrl": "https://books.google.com/books/about/%E5%90%83%E7%9A%84%E7%9C%9F%E7%9B%B8.html?hl=&id=pQCoCgAAQBAJ",
+            "status": "found",
+            "matchedTitle": "吃的真相"
+      },
+      "自律力": {
+            "url": "https://books.google.com/books/content?id=yEt3EQAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api",
+            "source": "Google Books",
+            "pageUrl": "https://play.google.com/store/books/details?id=yEt3EQAAQBAJ",
+            "status": "found",
+            "matchedTitle": "自驅力：懂時間管理的孩子更自律"
+      },
+      "夢的解析": {
+            "url": "https://books.google.com/books/content?id=NDHZAwAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api",
+            "source": "Google Books",
+            "pageUrl": "https://play.google.com/store/books/details?id=NDHZAwAAQBAJ",
+            "status": "found",
+            "matchedTitle": "夢的解析"
+      },
+      "微習慣": {
+            "url": "https://books.google.com/books/content?id=xUTrEAAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api",
+            "source": "Google Books",
+            "pageUrl": "https://play.google.com/store/books/details?id=xUTrEAAAQBAJ",
+            "status": "found",
+            "matchedTitle": "拖延根除的微自律小習慣"
+      },
+      "最強身心": {
+            "url": "https://books.google.com/books/content?id=eraFEAAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api",
+            "source": "Google Books",
+            "pageUrl": "https://play.google.com/store/books/details?id=eraFEAAAQBAJ",
+            "status": "found",
+            "matchedTitle": "史丹佛大學 最強身心鍛鍊術"
+      },
+      "納瓦爾寶典": {
+            "url": "https://books.google.com/books/content?id=-LvrEAAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api",
+            "source": "Google Books",
+            "pageUrl": "https://play.google.com/store/books/details?id=-LvrEAAAQBAJ",
+            "status": "found",
+            "matchedTitle": "納瓦爾寶典"
+      },
+      "自控力": {
+            "url": "https://books.google.com/books/content?id=evc6jaibNd8C&printsec=frontcover&img=1&zoom=1&source=gbs_api",
+            "source": "Google Books",
+            "pageUrl": "https://play.google.com/store/books/details?id=evc6jaibNd8C",
+            "status": "found",
+            "matchedTitle": "The Willpower Instinct"
+      },
+      "深度工作": {
+            "url": "https://books.google.com/books/content?id=hNiUCwAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api",
+            "source": "Google Books",
+            "pageUrl": "https://play.google.com/store/books/details?id=hNiUCwAAQBAJ",
+            "status": "found",
+            "matchedTitle": "深度工作術"
+      },
+      "睡個好覺": {
+            "url": "https://covers.openlibrary.org/b/id/10460902-L.jpg",
+            "source": "Open Library",
+            "pageUrl": "https://openlibrary.org/works/OL22443555W",
+            "status": "found",
+            "matchedTitle": "How to Build a Healthy Brain By Kimberley Wilson & Why We Sleep The New Science of Sleep and Dreams By Matthew Walker 2 Books Collection Set"
+      },
+      "淺規則": {
+            "url": "https://covers.openlibrary.org/b/id/14911145-L.jpg",
+            "source": "Open Library",
+            "pageUrl": "https://openlibrary.org/works/OL27903945W",
+            "status": "found",
+            "matchedTitle": "Summary of the 48 Laws of Power by Robert Greene"
+      },
+      "特斯拉自傳": {
+            "url": "https://covers.openlibrary.org/b/id/12538813-L.jpg",
+            "source": "Open Library",
+            "pageUrl": "https://openlibrary.org/works/OL27032021W",
+            "status": "found",
+            "matchedTitle": "My Inventions – Nikola Tesla's Autobiography"
+      },
+      "美國困局": {
+            "url": "https://covers.openlibrary.org/b/id/9735217-L.jpg",
+            "source": "Open Library",
+            "pageUrl": "https://openlibrary.org/works/OL60355W",
+            "status": "found",
+            "matchedTitle": "American crisis"
+      },
+      "彼得林奇的成功投資": {
+            "url": "https://covers.openlibrary.org/b/id/13244351-L.jpg",
+            "source": "Open Library",
+            "pageUrl": "https://openlibrary.org/works/OL27958702W",
+            "status": "found",
+            "matchedTitle": "Summary of Peter Lynch’s One Up on Wall Street by Swift Reads"
+      },
+      "富爸爸窮爸爸": {
+            "url": "https://covers.openlibrary.org/b/id/9237082-L.jpg",
+            "source": "Open Library",
+            "pageUrl": "https://openlibrary.org/works/OL20596158W",
+            "status": "found",
+            "matchedTitle": "Summary of Rich Dad Poor Dad by Robert Kiyosaki"
+      },
+      "烹飪菜餚與階級": {
+            "url": "https://covers.openlibrary.org/b/id/13887077-L.jpg",
+            "source": "Open Library",
+            "pageUrl": "https://openlibrary.org/works/OL21109039W",
+            "status": "found",
+            "matchedTitle": "Pierre Bourdieu et la Distinction Sociale"
+      },
+      "沈思錄": {
+            "url": "https://covers.openlibrary.org/b/id/15157092-L.jpg",
+            "source": "Open Library",
+            "pageUrl": "https://openlibrary.org/works/OL41026993W",
+            "status": "found",
+            "matchedTitle": "Meditations Marcus Aurelius"
+      }
+};
+
+    const booksComCoverData = {
+      "整合": {
+            "url": "https://www.books.com.tw/img/001/090/93/0010909374.jpg",
+            "source": "博客來",
+            "pageUrl": "https://www.books.com.tw/products/0010909374",
+            "status": "candidate",
+            "matchedTitle": "整合學習的34個教學筆記",
+            "author": "劉佳傑 徐珮菡",
+            "score": 0.97,
+            "searchUrl": "https://search.books.com.tw/search/query/key/%E6%95%B4%E5%90%88/cat/all"
+      },
+      "管理十誡": {
+            "url": "https://www.books.com.tw/img/CN1/014/37/CN10143763.jpg",
+            "source": "博客來",
+            "pageUrl": "https://www.books.com.tw/products/CN10143763",
+            "status": "found",
+            "matchedTitle": "管理十誡",
+            "author": "[美]唐納德‧基奧（Donald R．Keough） 蔣旭峰 璩靜",
+            "score": 1,
+            "searchUrl": "https://search.books.com.tw/search/query/key/%E7%AE%A1%E7%90%86%E5%8D%81%E8%AA%A1/cat/all"
+      },
+      "談判思考的技術": {
+            "url": "https://www.books.com.tw/img/CN1/137/74/CN11377402.jpg",
+            "source": "博客來",
+            "pageUrl": "https://www.books.com.tw/products/CN11377402",
+            "status": "found",
+            "matchedTitle": "談判思考的技術：六堂課解決談判「痛點」",
+            "author": "（日）瀧本哲史",
+            "score": 0.97,
+            "searchUrl": "https://search.books.com.tw/search/query/key/%E8%AB%87%E5%88%A4%E6%80%9D%E8%80%83%E7%9A%84%E6%8A%80%E8%A1%93/cat/all"
+      },
+      "高勝算決策": {
+            "url": "https://www.books.com.tw/img/001/080/29/0010802907.jpg",
+            "source": "博客來",
+            "pageUrl": "https://www.books.com.tw/products/0010802907",
+            "status": "found",
+            "matchedTitle": "高勝算決策：如何在面對決定時，降低失誤，每次出手成功率都比對手高?",
+            "author": "安妮．杜克 吳煒聲",
+            "score": 0.97,
+            "searchUrl": "https://search.books.com.tw/search/query/key/%E9%AB%98%E5%8B%9D%E7%AE%97%E6%B1%BA%E7%AD%96/cat/all"
+      },
+      "超強掌控": {
+            "url": "https://www.books.com.tw/img/CN1/161/77/CN11617705.jpg",
+            "source": "博客來",
+            "pageUrl": "https://www.books.com.tw/products/CN11617705",
+            "status": "found",
+            "matchedTitle": "超強掌控：如何迅速並深刻地影響他人",
+            "author": "（美）納瓦羅",
+            "score": 0.97,
+            "searchUrl": "https://search.books.com.tw/search/query/key/%E8%B6%85%E5%BC%B7%E6%8E%8C%E6%8E%A7/cat/all"
+      },
+      "極簡工作法": {
+            "url": "https://www.books.com.tw/img/CN1/194/51/CN11945137.jpg",
+            "source": "博客來",
+            "pageUrl": "https://www.books.com.tw/products/CN11945137",
+            "status": "found",
+            "matchedTitle": "極簡工作法",
+            "author": "興宸",
+            "score": 1,
+            "searchUrl": "https://search.books.com.tw/search/query/key/%E6%A5%B5%E7%B0%A1%E5%B7%A5%E4%BD%9C%E6%B3%95/cat/all"
+      },
+      "清單革命": {
+            "url": "https://www.books.com.tw/img/CN1/089/65/CN10896546.jpg",
+            "source": "博客來",
+            "pageUrl": "https://www.books.com.tw/products/CN10896546",
+            "status": "found",
+            "matchedTitle": "清單革命",
+            "author": "（美）葛文德",
+            "score": 1,
+            "searchUrl": "https://search.books.com.tw/search/query/key/%E6%B8%85%E5%96%AE%E9%9D%A9%E5%91%BD/cat/all"
+      },
+      "遠程工作法": {
+            "url": "https://www.books.com.tw/img/CN1/172/92/CN11729295.jpg",
+            "source": "博客來",
+            "pageUrl": "https://www.books.com.tw/products/CN11729295",
+            "status": "found",
+            "matchedTitle": "遠程工作法",
+            "author": "（美）戴維·布林庫什",
+            "score": 1,
+            "searchUrl": "https://search.books.com.tw/search/query/key/%E9%81%A0%E7%A8%8B%E5%B7%A5%E4%BD%9C%E6%B3%95/cat/all"
+      },
+      "何以為父": {
+            "url": "https://www.books.com.tw/img/CN1/319/00/CN13190083.jpg",
+            "source": "博客來",
+            "pageUrl": "https://www.books.com.tw/products/CN13190083",
+            "status": "found",
+            "matchedTitle": "何以為父",
+            "author": "謝普",
+            "score": 1,
+            "searchUrl": "https://search.books.com.tw/search/query/key/%E4%BD%95%E4%BB%A5%E7%82%BA%E7%88%B6/cat/all"
+      },
+      "如果父母老後難相處": {
+            "url": "https://www.books.com.tw/img/001/095/84/0010958456.jpg",
+            "source": "博客來",
+            "pageUrl": "https://www.books.com.tw/products/0010958456",
+            "status": "found",
+            "matchedTitle": "如果父母老後難相處：如何陪伴他們走過晚年，而不再彼此傷害?(二版)",
+            "author": "芭芭拉・肯恩 葛瑞絲・雷堡 劉慧玉",
+            "score": 0.97,
+            "searchUrl": "https://search.books.com.tw/search/query/key/%E5%A6%82%E6%9E%9C%E7%88%B6%E6%AF%8D%E8%80%81%E5%BE%8C%E9%9B%A3%E7%9B%B8%E8%99%95/cat/all"
+      },
+      "超級學習者": {
+            "url": "https://www.books.com.tw/img/CN1/175/18/CN11751880.jpg",
+            "source": "博客來",
+            "pageUrl": "https://www.books.com.tw/products/CN11751880",
+            "status": "found",
+            "matchedTitle": "超級學習者",
+            "author": "（加）斯科特·H.揚 姚育紅",
+            "score": 1,
+            "searchUrl": "https://search.books.com.tw/search/query/key/%E8%B6%85%E7%B4%9A%E5%AD%B8%E7%BF%92%E8%80%85/cat/all"
+      },
+      "創業36條軍規": {
+            "url": "https://www.books.com.tw/img/001/076/65/0010766537.jpg",
+            "source": "博客來",
+            "pageUrl": "https://www.books.com.tw/products/0010766537",
+            "status": "found",
+            "matchedTitle": "創業36條軍規",
+            "author": "孫陶然",
+            "score": 1,
+            "searchUrl": "https://search.books.com.tw/search/query/key/%E5%89%B5%E6%A5%AD36%E6%A2%9D%E8%BB%8D%E8%A6%8F/cat/all"
+      },
+      "我們為什麼吃太多": {
+            "url": "https://www.books.com.tw/img/CN1/189/93/CN11899319.jpg",
+            "source": "博客來",
+            "pageUrl": "https://www.books.com.tw/products/CN11899319",
+            "status": "found",
+            "matchedTitle": "我們為什麼吃(太多)：食慾的新科學",
+            "author": "（英）安德烈·詹金森 王寅軍",
+            "score": 0.97,
+            "searchUrl": "https://search.books.com.tw/search/query/key/%E6%88%91%E5%80%91%E7%82%BA%E4%BB%80%E9%BA%BC%E5%90%83%E5%A4%AA%E5%A4%9A/cat/all"
+      },
+      "吃的真相": {
+            "url": "https://www.books.com.tw/img/CN1/013/96/CN10139604.jpg",
+            "source": "博客來",
+            "pageUrl": "https://www.books.com.tw/products/CN10139604",
+            "status": "found",
+            "matchedTitle": "吃的真相",
+            "author": "雲無心",
+            "score": 1,
+            "searchUrl": "https://search.books.com.tw/search/query/key/%E5%90%83%E7%9A%84%E7%9C%9F%E7%9B%B8/cat/all"
+      },
+      "領導力": {
+            "url": "https://www.books.com.tw/img/001/012/84/0010128423.jpg",
+            "source": "博客來",
+            "pageUrl": "https://www.books.com.tw/products/0010128423",
+            "status": "candidate",
+            "matchedTitle": "領導力21法則：領導贏家",
+            "author": "約翰，麥斯威爾 蕭欣忠，林靜儀",
+            "score": 0.97,
+            "searchUrl": "https://search.books.com.tw/search/query/key/%E9%A0%98%E5%B0%8E%E5%8A%9B/cat/all"
+      },
+      "時間人格": {
+            "url": "https://www.books.com.tw/img/CN1/196/19/CN11961954.jpg",
+            "source": "博客來",
+            "pageUrl": "https://www.books.com.tw/products/CN11961954",
+            "status": "found",
+            "matchedTitle": "時間人格：為什麼你的時間管理沒有用",
+            "author": "（日）鈴木祐 孫穎",
+            "score": 0.97,
+            "searchUrl": "https://search.books.com.tw/search/query/key/%E6%99%82%E9%96%93%E4%BA%BA%E6%A0%BC/cat/all"
+      },
+      "注意力曲線": {
+            "url": "https://www.books.com.tw/img/CN1/013/97/CN10139769.jpg",
+            "source": "博客來",
+            "pageUrl": "https://www.books.com.tw/products/CN10139769",
+            "status": "found",
+            "matchedTitle": "注意力曲線︰打敗分心與焦慮",
+            "author": "露西‧喬‧帕拉迪諾（Lucy Jo Palladino） 苗娜",
+            "score": 0.97,
+            "searchUrl": "https://search.books.com.tw/search/query/key/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9B%B2%E7%B7%9A/cat/all"
+      },
+      "終生成長": {
+            "url": "https://www.books.com.tw/img/CN1/166/28/CN11662815.jpg",
+            "source": "博客來",
+            "pageUrl": "https://www.books.com.tw/products/CN11662815",
+            "status": "found",
+            "matchedTitle": "終生成長：用DISC打造你的美好人生",
+            "author": "陳韻棋（主編）",
+            "score": 0.97,
+            "searchUrl": "https://search.books.com.tw/search/query/key/%E7%B5%82%E7%94%9F%E6%88%90%E9%95%B7/cat/all"
+      },
+      "爆款": {
+            "url": "https://www.books.com.tw/img/001/102/69/0011026981.jpg",
+            "source": "博客來",
+            "pageUrl": "https://www.books.com.tw/products/0011026981",
+            "status": "candidate",
+            "matchedTitle": "爆款英語會話：零基礎到高階的速成捷徑；寫給學過多年英文，還是不敢開口的人 (附贈線上MP3)",
+            "author": "張瑪麗",
+            "score": 0.97,
+            "searchUrl": "https://search.books.com.tw/search/query/key/%E7%88%86%E6%AC%BE/cat/all"
+      },
+      "心流": {
+            "url": "https://www.books.com.tw/img/001/104/68/0011046863.jpg",
+            "source": "博客來",
+            "pageUrl": "https://www.books.com.tw/products/0011046863",
+            "status": "found",
+            "matchedTitle": "心流:高手都在研究的最優體驗心理學(繁體中文唯一全譯本,三版)",
+            "author": "米哈里．契克森米哈伊 張瓊懿",
+            "score": 0.97,
+            "searchUrl": "https://search.books.com.tw/search/query/key/%E5%BF%83%E6%B5%81/cat/all"
+      },
+      "自律力": {
+            "url": "https://www.books.com.tw/img/E05/018/31/E050183189.jpg",
+            "source": "博客來",
+            "pageUrl": "https://www.books.com.tw/products/E050183189",
+            "status": "found",
+            "matchedTitle": "自律力：培養意志力、自制力和自律的祕訣 (電子書)",
+            "author": "方士華 李奎",
+            "score": 0.97,
+            "searchUrl": "https://search.books.com.tw/search/query/key/%E8%87%AA%E5%BE%8B%E5%8A%9B/cat/all"
+      },
+      "韌性": {
+            "url": "https://www.books.com.tw/img/001/069/05/0010690537.jpg",
+            "source": "博客來",
+            "pageUrl": "https://www.books.com.tw/products/0010690537",
+            "status": "found",
+            "matchedTitle": "韌性：挺過挫折壓力，走出低潮逆境的神秘力量",
+            "author": "克莉絲蒂娜・伯恩特 王榮輝",
+            "score": 0.97,
+            "searchUrl": "https://search.books.com.tw/search/query/key/%E9%9F%8C%E6%80%A7/cat/all"
+      }
+};
+
+    const priorityCoverData = {
+      "馬斯克：世界上最酷的人": {
+        url: "https://covers.openlibrary.org/b/id/8463846-L.jpg",
+        source: "Open Library",
+        pageUrl: "https://openlibrary.org/works/OL17346289W/Elon_Musk",
+        status: "found",
+        matchedTitle: "Elon Musk: Tesla, SpaceX, and the Quest for a Fantastic Future"
+      },
+      "伊隆馬斯克傳": {
+        url: "https://covers.openlibrary.org/b/id/8463846-L.jpg",
+        source: "Open Library",
+        pageUrl: "https://openlibrary.org/works/OL17346289W/Elon_Musk",
+        status: "found",
+        matchedTitle: "Elon Musk: Tesla, SpaceX, and the Quest for a Fantastic Future"
+      },
+      "黑天鵝": {
+        url: "https://covers.openlibrary.org/b/id/5721840-L.jpg",
+        source: "Open Library",
+        pageUrl: "https://openlibrary.org/works/OL3295030W/The_Black_Swan",
+        status: "found",
+        matchedTitle: "The Black Swan"
+      },
+      "人性的弱點": {
+        url: "https://covers.openlibrary.org/b/id/13314878-L.jpg",
+        source: "Open Library",
+        pageUrl: "https://openlibrary.org/search?q=How+to+Win+Friends+and+Influence+People",
+        status: "found",
+        matchedTitle: "How to Win Friends and Influence People"
+      },
+      "系統之美": {
+        url: "https://covers.openlibrary.org/b/id/14420637-L.jpg",
+        source: "Open Library",
+        pageUrl: "https://openlibrary.org/works/OL3737036W/Thinking_in_systems",
+        status: "found",
+        matchedTitle: "Thinking in Systems"
+      },
+      "富爸爸窮爸爸": {
+        url: "https://covers.openlibrary.org/b/id/8315603-L.jpg",
+        source: "Open Library",
+        pageUrl: "https://openlibrary.org/works/OL2010879W/Rich_Dad_Poor_Dad",
+        status: "found",
+        matchedTitle: "Rich Dad Poor Dad"
+      },
+      "富爸爸投資指南": {
+        url: "https://covers.openlibrary.org/b/id/8013287-L.jpg",
+        source: "Open Library",
+        pageUrl: "https://openlibrary.org/works/OL2010894W/Rich_dad's_guide_to_investing",
+        status: "found",
+        matchedTitle: "Rich Dad's Guide to Investing"
+      },
+      "為什麼佛學是真的": {
+        url: "https://covers.openlibrary.org/b/id/10286374-L.jpg",
+        source: "Open Library",
+        pageUrl: "https://openlibrary.org/works/OL20917487W/Why_Buddhism_is_True",
+        status: "found",
+        matchedTitle: "Why Buddhism Is True"
+      },
+      "史蒂夫喬布斯傳": {
+        url: "https://covers.openlibrary.org/b/id/12374726-L.jpg",
+        source: "Open Library",
+        pageUrl: "https://openlibrary.org/works/OL16085155W/Steve_Jobs",
+        status: "found",
+        matchedTitle: "Steve Jobs"
+      },
+      "深度工作": {
+        url: "https://covers.openlibrary.org/b/id/7988607-L.jpg",
+        source: "Open Library",
+        pageUrl: "https://openlibrary.org/works/OL17713267W/Deep_Work",
+        status: "found",
+        matchedTitle: "Deep Work"
+      },
+      "原子習慣": {
+        url: "https://covers.openlibrary.org/b/id/12539702-L.jpg",
+        source: "Open Library",
+        pageUrl: "https://openlibrary.org/works/OL17930368W/Atomic_Habits",
+        status: "found",
+        matchedTitle: "Atomic Habits"
+      },
+      "刻意練習": {
+        url: "https://books.google.com/books/content?id=qy8mDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+        source: "Google Books",
+        pageUrl: "https://play.google.com/store/books/details?id=qy8mDwAAQBAJ",
+        status: "found",
+        matchedTitle: "刻意練習"
+      },
+      "好好說話": {
+        url: "https://books.google.com/books/content?id=EDMuDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+        source: "Google Books",
+        pageUrl: "https://play.google.com/store/books/details?id=EDMuDwAAQBAJ",
+        status: "found",
+        matchedTitle: "好好說話"
+      },
+      "英偉達之道": {
+        url: "https://books.google.com/books/content?id=clM7EQAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+        source: "Google Books",
+        pageUrl: "https://play.google.com/store/books/details?id=clM7EQAAQBAJ",
+        status: "found",
+        matchedTitle: "輝達之道：黃仁勳打造晶片帝國，引領AI 浪潮的祕密"
+      },
+      "松下幸之助": {
+        url: "https://books.google.com/books/content?id=sn0tDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+        source: "Google Books",
+        pageUrl: "https://play.google.com/store/books/details?id=sn0tDwAAQBAJ",
+        status: "found",
+        matchedTitle: "松下幸之助全傳"
+      },
+      "提問的藝術": {
+        url: "https://im1.book.com.tw/image/getImage?i=https://www.books.com.tw/img/CN1/184/66/CN11846602.jpg&w=374&h=374&v=642c6f1b",
+        source: "博客來",
+        pageUrl: "https://www.books.com.tw/products/CN11846602",
+        status: "found",
+        matchedTitle: "提問的藝術：為什麼你該這樣問(經典珍藏版)"
+      },
+      "認識自己接納自己": {
+        url: "https://im1.book.com.tw/image/getImage?i=https://www.books.com.tw/img/CN1/171/95/CN11719599.jpg&w=187&h=187&v=603387b5",
+        source: "博客來",
+        pageUrl: "https://www.books.com.tw/products/CN11719599",
+        status: "found",
+        matchedTitle: "認識自己，接納自己(珍藏版)"
+      },
+      "像哲學家一樣生活": {
+        url: "https://im1.book.com.tw/image/getImage?i=https://www.books.com.tw/img/001/047/99/0010479973.jpg&w=187&h=187&v=4c764298",
+        source: "博客來",
+        pageUrl: "https://www.books.com.tw/products/0010479973",
+        status: "found",
+        matchedTitle: "像哲學家一樣生活"
+      },
+      "像間諜一樣觀察": {
+        url: "https://im1.book.com.tw/image/getImage?i=https://www.books.com.tw/img/CN1/160/48/CN11604870.jpg&w=187&h=187&v=5f9beb5f",
+        source: "博客來",
+        pageUrl: "https://www.books.com.tw/products/CN11604870",
+        status: "found",
+        matchedTitle: "像間諜一樣觀察"
+      },
+      "華杉講透孫子兵法": {
+        url: "https://im1.book.com.tw/image/getImage?i=https://www.books.com.tw/img/001/076/48/0010764843.jpg&w=187&h=187&v=59b665ba",
+        source: "博客來",
+        pageUrl: "https://www.books.com.tw/products/0010764843",
+        status: "found",
+        matchedTitle: "華杉講透《孫子兵法》"
+      },
+      "成功者的大腦": {
+        url: "https://im1.book.com.tw/image/getImage?i=https://www.books.com.tw/img/CN1/106/17/CN11061710.jpg&w=187&h=187&v=52cbd743",
+        source: "博客來",
+        pageUrl: "https://www.books.com.tw/products/CN11061710",
+        status: "found",
+        matchedTitle: "成功者的大腦"
+      },
+      "復盤高手": {
+        url: "https://im1.book.com.tw/image/getImage?i=https://www.books.com.tw/img/CN1/181/83/CN11818345.jpg&w=187&h=187&v=637d17b0",
+        source: "博客來",
+        pageUrl: "https://www.books.com.tw/products/CN11818345",
+        status: "found",
+        matchedTitle: "復盤高手：自我認知與自我精進的底層邏輯"
+      },
+      "零售的哲學": {
+        url: "https://im1.book.com.tw/image/getImage?i=https://www.books.com.tw/img/CN1/120/10/CN11201005.jpg&w=187&h=187&v=54b3a28a",
+        source: "博客來",
+        pageUrl: "https://www.books.com.tw/products/CN11201005",
+        status: "found",
+        matchedTitle: "零售的哲學：7-Eleven便利店創始人自述"
+      },
+      "輕營銷": {
+        url: "https://im1.book.com.tw/image/getImage?i=https://www.books.com.tw/img/CN1/153/16/CN11531665.jpg&w=187&h=187&v=66a76fee",
+        source: "博客來",
+        pageUrl: "https://www.books.com.tw/products/CN11531665",
+        status: "found",
+        matchedTitle: "輕營銷：營銷要做輕，銷售要做實"
+      },
+      "生活不是擲骰子": {
+        url: "https://im1.book.com.tw/image/getImage?i=https://www.books.com.tw/img/CN1/196/64/CN11966489.jpg&w=187&h=187&v=66584724",
+        source: "博客來",
+        pageUrl: "https://www.books.com.tw/products/CN11966489",
+        status: "found",
+        matchedTitle: "生活不是擲骰子"
+      },
+      "學習力腦科學": {
+        url: "https://im1.book.com.tw/image/getImage?i=https://www.books.com.tw/img/CN1/184/14/CN11841466.jpg&w=187&h=187&v=6442d885",
+        source: "博客來",
+        pageUrl: "https://www.books.com.tw/products/CN11841466",
+        status: "found",
+        matchedTitle: "學習力腦科學"
+      },
+      "學會花錢": {
+        url: "https://im1.book.com.tw/image/getImage?i=https://www.books.com.tw/img/CN1/187/84/CN11878467.jpg&w=187&h=187&v=649dd00e",
+        source: "博客來",
+        pageUrl: "https://www.books.com.tw/products/CN11878467",
+        status: "found",
+        matchedTitle: "學會花錢"
+      },
+      "看見孩子": {
+        url: "https://im1.book.com.tw/image/getImage?i=https://www.books.com.tw/img/CN1/188/19/CN11881930.jpg&w=187&h=187&v=649c7e8b",
+        source: "博客來",
+        pageUrl: "https://www.books.com.tw/products/CN11881930",
+        status: "found",
+        matchedTitle: "看見孩子：洞察、共情與聯結"
+      },
+      "阿米巴經營": {
+        url: "https://im1.book.com.tw/image/getImage?i=https://www.books.com.tw/img/CN1/125/51/CN11255148.jpg&w=187&h=187&v=55daf24c",
+        source: "博客來",
+        pageUrl: "https://www.books.com.tw/products/CN11255148",
+        status: "found",
+        matchedTitle: "阿米巴經營"
+      },
+      "名創優品沒有秘密": {
+        url: "https://im1.book.com.tw/image/getImage?i=https://www.books.com.tw/img/CN1/140/02/CN11400219.jpg&w=187&h=187&v=5866291e",
+        source: "博客來",
+        pageUrl: "https://www.books.com.tw/products/CN11400219",
+        status: "found",
+        matchedTitle: "名創優品沒有秘密：通向未來的商業力量"
+      },
+      "迪士尼體驗": {
+        url: "https://im1.book.com.tw/image/getImage?i=https://www.books.com.tw/img/CN1/137/79/CN11377913.jpg&w=187&h=187&v=59dbc290",
+        source: "博客來",
+        pageUrl: "https://www.books.com.tw/products/CN11377913",
+        status: "found",
+        matchedTitle: "迪士尼體驗：米奇王國的魔法服務之道"
+      },
+      "硅谷超級家長課": {
+        url: "https://cdnec.sanmin.com.tw/product_images/711/711166562.jpg",
+        source: "三民網路書店",
+        pageUrl: "https://www.sanmin.com.tw/product/index/009074049",
+        status: "found",
+        matchedTitle: "矽谷超級家長課：教出矽谷三女傑的TRICK教養法"
+      },
+      "我是媽媽我需要鉑金包": {
+        url: "https://im1.book.com.tw/image/getImage?i=https://www.books.com.tw/img/001/096/94/0010969448.jpg&w=348&h=348",
+        source: "博客來",
+        pageUrl: "https://www.books.com.tw/products/0010969448",
+        status: "found",
+        matchedTitle: "我是一個媽媽，我需要柏金包！：耶魯人類學家的曼哈頓上東區臥底觀察"
+      },
+      "佛洛伊德的使命": {
+        url: "https://im1.book.com.tw/image/getImage?i=https://www.books.com.tw/img/001/001/22/0010012217.jpg&w=348&h=348",
+        source: "博客來",
+        pageUrl: "https://www.books.com.tw/products/0010012217",
+        status: "found",
+        matchedTitle: "弗洛依德的使命"
+      },
+      "大器晚成教你的事": {
+        url: "https://cdnec.sanmin.com.tw/product_images/755/755768469.jpg",
+        source: "三民網路書店",
+        pageUrl: "https://www.sanmin.com.tw/product/index/007939467",
+        status: "found",
+        matchedTitle: "大器晚成"
+      },
+      "我就是風口": {
+        url: "https://cdnec.sanmin.com.tw/product_images/750/750869701.jpg",
+        source: "三民網路書店",
+        pageUrl: "https://www.sanmin.com.tw/product/index/007014706",
+        status: "found",
+        matchedTitle: "我就是風口：維珍品牌創始人自述50年商業冒險"
+      },
+      "睡個好覺": {
+        url: "https://im1.book.com.tw/image/getImage?i=https://www.books.com.tw/img/CN1/167/14/CN11671456.jpg&w=348&h=348",
+        source: "博客來",
+        pageUrl: "https://www.books.com.tw/products/CN11671456",
+        status: "found",
+        matchedTitle: "如何睡個好覺：哈佛醫學院睡眠指導書"
+      },
+      "奇特的一生": {
+        url: "https://im1.book.com.tw/image/getImage?i=https://www.books.com.tw/img/CN1/193/71/CN11937105.jpg&w=348&h=348",
+        source: "博客來",
+        pageUrl: "https://www.books.com.tw/products/CN11937105",
+        status: "found",
+        matchedTitle: "奇特的一生"
+      },
+      "麥肯錫晉升法則": {
+        url: "https://covers.openlibrary.org/b/id/14386143-L.jpg",
+        source: "Open Library",
+        pageUrl: "https://openlibrary.org/works/OL21107910W/Mckinsey_Edge",
+        status: "found",
+        matchedTitle: "Mckinsey Edge"
+      },
+      "IBM 帝國締造者": {
+        url: "https://im1.book.com.tw/image/getImage?i=https://www.books.com.tw/img/CN1/127/51/CN11275154.jpg&w=348&h=348",
+        source: "博客來",
+        pageUrl: "https://www.books.com.tw/products/CN11275154",
+        status: "found",
+        matchedTitle: "IBM帝國締造者：小沃森自傳"
+      },
+      "成功的真諦零售的哲學": {
+        url: "https://im1.book.com.tw/image/getImage?i=https://www.books.com.tw/img/CN1/120/10/CN11201005.jpg&w=348&h=348",
+        source: "博客來",
+        pageUrl: "https://www.books.com.tw/products/CN11201005",
+        status: "found",
+        matchedTitle: "零售的哲學：7-Eleven便利店創始人自述"
+      },
+      "美國困局": {
+        url: "https://im1.book.com.tw/image/getImage?i=https://www.books.com.tw/img/CN1/008/99/CN10089951.jpg&w=348&h=348",
+        source: "博客來",
+        pageUrl: "https://www.books.com.tw/products/CN10089951",
+        status: "found",
+        matchedTitle: "美國的困局與出路：新世界的無序狀態與謊言"
+      },
+      "任天堂哲學": {
+        url: "https://im1.book.com.tw/image/getImage?i=https://www.books.com.tw/img/CN1/155/34/CN11553400.jpg&w=348&h=348",
+        source: "博客來",
+        pageUrl: "https://www.books.com.tw/products/CN11553400",
+        status: "found",
+        matchedTitle: "任天堂哲學"
+      },
+      "索尼秘史": {
+        url: "https://covers.openlibrary.org/b/id/1979-L.jpg",
+        source: "Open Library",
+        pageUrl: "https://openlibrary.org/works/OL7006887W/Sony",
+        status: "found",
+        matchedTitle: "Sony: The Private Life"
+      },
+      "騰訊傳": {
+        url: "https://im1.book.com.tw/image/getImage?i=https://www.books.com.tw/img/E05/001/59/E050015982.jpg&w=348&h=348",
+        source: "博客來",
+        pageUrl: "https://www.books.com.tw/products/E050015982",
+        status: "found",
+        matchedTitle: "騰訊傳"
+      },
+      "給久座的12堂體態糾正課": {
+        url: "https://platform-permanent.ddimg.cn/pt-media-info-soa-resource/digital/product/53/16/1901335316_ii_cover.jpg?version=f96ebf20-fa7b-4443-b895-eb089e6e966b",
+        source: "當當雲閱讀",
+        pageUrl: "https://e.dangdang.com/products/1901335316.html",
+        status: "found",
+        matchedTitle: "給久坐者的12堂體態糾正課"
+      },
+      "永樂帝": {
+        url: "https://im1.book.com.tw/image/getImage?i=https://www.books.com.tw/img/CN1/015/83/CN10158392.jpg&w=348&h=348",
+        source: "博客來",
+        pageUrl: "https://www.books.com.tw/products/CN10158392",
+        status: "found",
+        matchedTitle: "永樂大帝"
+      },
+      "論三國人物": {
+        url: "https://im1.book.com.tw/image/getImage?i=https://www.books.com.tw/img/001/083/04/0010830487.jpg&w=348&h=348",
+        source: "博客來",
+        pageUrl: "https://www.books.com.tw/products/0010830487",
+        status: "found",
+        matchedTitle: "論三國人物"
+      },
+      "日本漫畫60年": {
+        url: "https://im1.book.com.tw/image/getImage?i=https://www.books.com.tw/img/001/033/72/0010337264.jpg&w=348&h=348",
+        source: "博客來",
+        pageUrl: "https://www.books.com.tw/products/0010337264",
+        status: "found",
+        matchedTitle: "日本漫畫60年"
+      },
+      "聰明人的個人成長": {
+        url: "https://d2d3cphvemaan1.cloudfront.net/book/8d46a0da1bd04872a61175554dc445ca.webp",
+        source: "MeowBooks",
+        pageUrl: "https://meowbooks.tw/book/338805?tab=reviews",
+        status: "found",
+        matchedTitle: "聰明人的個人成長"
+      },
+      "高效人生的 12 個關鍵點": {
+        url: "https://im1.book.com.tw/image/getImage?i=https://www.books.com.tw/img/CN1/125/26/CN11252659.jpg&w=348&h=348",
+        source: "博客來",
+        pageUrl: "https://www.books.com.tw/products/CN11252659",
+        status: "found",
+        matchedTitle: "高效人生的12個關鍵點"
+      },
+      "認知操控": {
+        url: "https://im1.book.com.tw/image/getImage?i=https://www.books.com.tw/img/001/087/18/0010871878.jpg&w=348&h=348",
+        source: "博客來",
+        pageUrl: "https://www.books.com.tw/products/0010871878",
+        status: "found",
+        matchedTitle: "Mindf*ck：劍橋分析與川普、脫歐背後的新型態數位宣傳戰"
+      },
+      "堅持一種可以培養的習慣": {
+        url: "https://im1.book.com.tw/image/getImage?i=https://www.books.com.tw/img/CN1/133/63/CN11336326.jpg&w=348&h=348",
+        source: "博客來",
+        pageUrl: "https://www.books.com.tw/products/CN11336326",
+        status: "found",
+        matchedTitle: "堅持，一種可以養成的習慣"
+      },
+      "野蠻進化": {
+        url: "https://im1.book.com.tw/image/getImage?i=https://www.books.com.tw/img/CN1/112/29/CN11122939.jpg&w=348&h=348",
+        source: "博客來",
+        pageUrl: "https://www.books.com.tw/products/CN11122939",
+        status: "found",
+        matchedTitle: "野蠻進化：贏者法則"
+      },
+      "淺規則": {
+        url: "https://platform-permanent.ddimg.cn/pt-media-info-soa-resource/digital/product/36/94/1900083694_cc_cover.jpg?version=1431d970-daa8-4fb2-8904-fcc91698e392555",
+        source: "當當雲閱讀",
+        pageUrl: "https://e.dangdang.com/touch/products/1900083694.html",
+        status: "found",
+        matchedTitle: "潛規則：現實生活中的博弈法則"
+      },
+      "未來的處方": {
+        url: "https://books.google.com/books/content?id=8Eq1DQAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+        source: "Google Books",
+        pageUrl: "https://books.google.com.tw/books?id=8Eq1DQAAQBAJ",
+        status: "found",
+        matchedTitle: "Prescription for the Future"
+      },
+      "下一個倒下的會不會是華為": {
+        url: "https://im1.book.com.tw/image/getImage?i=https://www.books.com.tw/img/CN1/127/30/CN11273011.jpg&w=348&h=348",
+        source: "博客來",
+        pageUrl: "https://www.books.com.tw/products/CN11273011",
+        status: "found",
+        matchedTitle: "下一個倒下的會不會是華為"
+      },
+      "屍檢報告": {
+        url: "https://www.cite.com.my/images/p_download/1019031.jpg",
+        source: "城邦閱讀花園馬新站",
+        pageUrl: "https://www.cite.com.my/product_info.php?products_id=1019031",
+        status: "found",
+        matchedTitle: "屍檢報告"
+      },
+      "日本為何選擇戰爭": {
+        url: "https://s.eslite.com/Upload/Product/201611/o/636142771563378750.jpg",
+        source: "誠品線上",
+        pageUrl: "https://www.eslite.com/product/1001263382553312",
+        status: "found",
+        matchedTitle: "日本人為何選擇了戰爭"
+      },
+      "流媒體時代": {
+        url: "https://books.google.com/books/content?id=zChIDAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+        source: "Google Books",
+        pageUrl: "https://books.google.com.tw/books?id=zChIDAAAQBAJ",
+        status: "found",
+        matchedTitle: "Streaming, Sharing, Stealing"
+      },
+      "關羽": {
+        url: "https://im1.book.com.tw/image/getImage?i=https://www.books.com.tw/img/001/043/05/0010430548.jpg&w=348&h=348",
+        source: "博客來",
+        pageUrl: "https://www.books.com.tw/products/0010430548",
+        status: "found",
+        matchedTitle: "關羽"
+      },
+      "劉邦": {
+        url: "https://im1.book.com.tw/image/getImage?i=https://www.books.com.tw/img/001/056/73/0010567331.jpg&w=348&h=348",
+        source: "博客來",
+        pageUrl: "https://www.books.com.tw/products/0010567331",
+        status: "found",
+        matchedTitle: "劉邦"
+      },
+      "朱元璋": {
+        url: "https://im1.book.com.tw/image/getImage?i=https://www.books.com.tw/img/CN1/010/63/CN10106396.jpg&w=348&h=348",
+        source: "博客來",
+        pageUrl: "https://www.books.com.tw/products/CN10106396",
+        status: "found",
+        matchedTitle: "朱元璋"
+      },
+      "三國演義的世界": {
+        url: "https://media.taaze.tw/showLargeImage.html?sc=12100058423",
+        source: "讀冊生活",
+        pageUrl: "https://www.taaze.tw/products/12100058423.html",
+        status: "found",
+        matchedTitle: "三國演義的世界"
+      },
+      "三國誌的世界": {
+        url: "https://im1.book.com.tw/image/getImage?i=https://www.books.com.tw/img/001/078/28/0010782870.jpg&w=348&h=348",
+        source: "博客來",
+        pageUrl: "https://www.books.com.tw/products/0010782870",
+        status: "found",
+        matchedTitle: "三國志的世界"
+      },
+      "錦衣衛": {
+        url: "https://im1.book.com.tw/image/getImage?i=https://www.books.com.tw/img/001/093/83/0010938390.jpg&w=348&h=348",
+        source: "博客來",
+        pageUrl: "https://www.books.com.tw/products/0010938390",
+        status: "found",
+        matchedTitle: "錦衣衛"
+      },
+      "杜月笙正傳": {
+        url: "https://cdnec.sanmin.com.tw/product_images/710/710806336.jpg",
+        source: "三民網路書店",
+        pageUrl: "https://www.sanmin.com.tw/product/index/006966337",
+        status: "found",
+        matchedTitle: "杜月笙正傳"
+      },
+      "被劫持的私生活": {
+        url: "https://im1.book.com.tw/image/getImage?i=https://www.books.com.tw/img/CN1/049/81/CN10498152.jpg&w=348&h=348",
+        source: "博客來",
+        pageUrl: "https://www.books.com.tw/products/CN10498152",
+        status: "found",
+        matchedTitle: "被劫持的私生活：性、婚姻與愛情的歷史"
+      },
+      "99%的人一看就會的理財書": {
+        url: "https://cdnec.sanmin.com.tw/product_images/750/750866384.jpg",
+        source: "三民網路書店",
+        pageUrl: "https://www.sanmin.com.tw/product/index/005869030",
+        status: "found",
+        matchedTitle: "99%的人一看就會的理財書"
+      },
+      "洗腦術": {
+        url: "https://d2d3cphvemaan1.cloudfront.net/book/a37306fa5e194504a0acffe70ec8ed23.jpg",
+        source: "MeowBooks",
+        pageUrl: "https://meowbooks.tw/en-US/book/fill",
+        status: "found",
+        matchedTitle: "印象洗腦術"
+      },
+      "心智": {
+        url: "https://im1.book.com.tw/image/getImage?i=https://www.books.com.tw/img/CN1/166/30/CN11663077.jpg&w=348&h=348",
+        source: "博客來",
+        pageUrl: "https://www.books.com.tw/products/CN11663077",
+        status: "found",
+        matchedTitle: "心智：關於大腦、記憶、人格和幸福的新科學"
+      },
+      "記憶": {
+        url: "https://im1.book.com.tw/image/getImage?i=https://www.books.com.tw/img/001/090/94/0010909486.jpg&w=348&h=348",
+        source: "博客來",
+        pageUrl: "https://www.books.com.tw/products/0010909486",
+        status: "found",
+        matchedTitle: "記憶"
+      },
+      "馬斯洛需求層次": {
+        url: "https://im1.book.com.tw/image/getImage?i=https://www.books.com.tw/img/CN1/181/80/CN11818092.jpg&w=348&h=348",
+        source: "博客來",
+        pageUrl: "https://www.books.com.tw/products/CN11818092",
+        status: "found",
+        matchedTitle: "馬斯洛需求層次理論"
+      },
+      "牛頓力學": {
+        url: "https://im1.book.com.tw/image/getImage?i=https://www.books.com.tw/img/001/092/25/0010922513.jpg&w=348&h=348",
+        source: "博客來",
+        pageUrl: "https://www.books.com.tw/products/0010922513",
+        status: "found",
+        matchedTitle: "3小時讀通牛頓力學"
+      },
+      "商業模型": {
+        url: "https://covers.openlibrary.org/b/id/6675500-L.jpg",
+        source: "Open Library",
+        pageUrl: "https://openlibrary.org/search?title=Business+Model+Generation",
+        status: "found",
+        matchedTitle: "Business Model Generation"
+      },
+      "機會成本": {
+        url: "https://s.eslite.com/upload/product/o/2681851739004/20200117040836135213.jpg",
+        source: "誠品線上",
+        pageUrl: "https://www.eslite.com/product/1001241772822563",
+        status: "found",
+        matchedTitle: "懂得取捨的人生經營課：其實，沒有真正的放棄，而是更好的選擇"
+      },
+      "二八法則": {
+        url: "https://s.eslite.com/b2b/newItem/2025/02/06/8717_151827374_660_mainCoverImage1.jpg",
+        source: "誠品線上",
+        pageUrl: "https://www.eslite.com/product/10012011202682834339006",
+        status: "found",
+        matchedTitle: "二八定律"
+      },
+      "演化論": {
+        url: "https://im1.book.com.tw/image/getImage?i=https://www.books.com.tw/img/001/055/70/0010557058.jpg&w=348&h=348",
+        source: "博客來",
+        pageUrl: "https://www.books.com.tw/products/0010557058",
+        status: "found",
+        matchedTitle: "圖解演化論"
+      },
+      "大腦": {
+        url: "https://im1.book.com.tw/image/getImage?i=https://www.books.com.tw/img/CN1/196/22/CN11962249.jpg&w=348&h=348",
+        source: "博客來",
+        pageUrl: "https://www.books.com.tw/products/CN11962249",
+        status: "found",
+        matchedTitle: "大腦之書"
+      },
+      "好奇心": {
+        url: "https://im1.book.com.tw/image/getImage?i=https://www.books.com.tw/img/001/101/90/0011019047.jpg&w=348&h=348",
+        source: "博客來",
+        pageUrl: "https://www.books.com.tw/products/0011019047",
+        status: "found",
+        matchedTitle: "好奇心"
+      },
+      "3-5歲為什麼會問個不停": {
+        url: "https://piccdn3.umiwi.com/img/201904/17/201904171343458777004448.jpg?x-oss-process=image/resize,m_fill,h_320,w_240",
+        source: "得到電子書",
+        pageUrl: "https://www.dedao.cn/ebook/detail?id=5lZOKpMGr9mgdOvYa6Ej75XRo1NML3jokGwk8ZVzb2nqPpDxBeJlK4AyQ8RPQv2z",
+        status: "found",
+        matchedTitle: "3-5歲為什麼會問個不停"
+      },
+      "宮古島，沖繩": {
+        url: "https://im1.book.com.tw/image/getImage?i=https://www.books.com.tw/img/R03/010/43/R030104300.jpg&w=348&h=348",
+        source: "博客來",
+        pageUrl: "https://www.books.com.tw/products/R030104300",
+        status: "found",
+        matchedTitle: "PAPERSKY no.62：日本沖繩宮古島特集"
+      },
+      "爆款": {
+        url: "https://im1.book.com.tw/image/getImage?i=https://www.books.com.tw/img/CN1/131/60/CN11316090.jpg&w=348&h=348",
+        source: "博客來",
+        pageUrl: "https://www.books.com.tw/products/CN11316090",
+        status: "found",
+        matchedTitle: "爆款"
+      },
+      "冥想": {
+        url: "https://covers.openlibrary.org/b/id/13202688-L.jpg",
+        source: "Open Library",
+        pageUrl: "https://openlibrary.org/works/OL28521353W/Meditations",
+        status: "found",
+        matchedTitle: "Meditations"
+      },
+      "原則": {
+        url: "https://covers.openlibrary.org/b/id/8315355-L.jpg",
+        source: "Open Library",
+        pageUrl: "https://openlibrary.org/works/OL18147675W/Principles",
+        status: "found",
+        matchedTitle: "Principles"
+      },
+      "彼得林奇的成功投資": {
+        url: "https://covers.openlibrary.org/b/id/6241104-L.jpg",
+        source: "Open Library",
+        pageUrl: "https://openlibrary.org/works/OL2841891W/One_Up_On_Wall_Street",
+        status: "found",
+        matchedTitle: "One Up On Wall Street"
+      },
+      "股票作手回憶錄": {
+        url: "https://covers.openlibrary.org/b/id/300533-L.jpg",
+        source: "Open Library",
+        pageUrl: "https://openlibrary.org/works/OL3472215W/Reminiscences_of_a_stock_operator",
+        status: "found",
+        matchedTitle: "Reminiscences of a Stock Operator"
+      },
+      "學會提問": {
+        url: "https://covers.openlibrary.org/b/id/84917-L.jpg",
+        source: "Open Library",
+        pageUrl: "https://openlibrary.org/works/OL2689285W/Asking_the_right_questions",
+        status: "found",
+        matchedTitle: "Asking the Right Questions"
+      },
+      "錢：七步創造收入": {
+        url: "https://covers.openlibrary.org/b/id/8051347-L.jpg",
+        source: "Open Library",
+        pageUrl: "https://openlibrary.org/works/OL17768455W/Money",
+        status: "found",
+        matchedTitle: "Money: Master the Game"
+      },
+      "福特自傳": {
+        url: "https://covers.openlibrary.org/b/id/1200056-L.jpg",
+        source: "Open Library",
+        pageUrl: "https://openlibrary.org/works/OL4418043W/My_life_and_work",
+        status: "found",
+        matchedTitle: "My Life and Work"
+      },
+      "如何管理24小時": {
+        url: "https://covers.openlibrary.org/b/id/1760143-L.jpg",
+        source: "Open Library",
+        pageUrl: "https://openlibrary.org/works/OL109213W/How_to_live_on_24_hours_a_day",
+        status: "found",
+        matchedTitle: "How to Live on 24 Hours a Day"
+      },
+      "一網打盡": {
+        url: "https://covers.openlibrary.org/b/id/7264584-L.jpg",
+        source: "Open Library",
+        pageUrl: "https://openlibrary.org/works/OL16808249W/The_Everything_Store",
+        status: "found",
+        matchedTitle: "The Everything Store"
+      },
+      "矽谷鋼鐵俠": {
+        url: "https://covers.openlibrary.org/b/id/8463846-L.jpg",
+        source: "Open Library",
+        pageUrl: "https://openlibrary.org/works/OL17346289W/Elon_Musk",
+        status: "found",
+        matchedTitle: "Elon Musk: Tesla, SpaceX, and the Quest for a Fantastic Future"
+      },
+      "窮查理寶典": {
+        url: "https://covers.openlibrary.org/b/id/10084638-L.jpg",
+        source: "Open Library",
+        pageUrl: "https://openlibrary.org/works/OL20791443W/Poor_Charlie's_Almanack",
+        status: "found",
+        matchedTitle: "Poor Charlie's Almanack"
+      },
+      "巨人的工具": {
+        url: "https://covers.openlibrary.org/b/id/7902475-L.jpg",
+        source: "Open Library",
+        pageUrl: "https://openlibrary.org/works/OL17626490W/Tools_of_Titans",
+        status: "found",
+        matchedTitle: "Tools of Titans"
+      },
+      "團隊協作的五大障礙": {
+        url: "https://covers.openlibrary.org/b/id/10863273-L.jpg",
+        source: "Open Library",
+        pageUrl: "https://openlibrary.org/works/OL1835386W/The_Five_Dysfunctions_of_a_Team",
+        status: "found",
+        matchedTitle: "The Five Dysfunctions of a Team"
+      },
+      "設計你的工作和人生": {
+        url: "https://covers.openlibrary.org/b/id/8760239-L.jpg",
+        source: "Open Library",
+        pageUrl: "https://openlibrary.org/works/OL20033319W/Design_your_life",
+        status: "found",
+        matchedTitle: "Designing Your Life"
+      },
+      "管理實踐": {
+        url: "https://covers.openlibrary.org/b/id/6418448-L.jpg",
+        source: "Open Library",
+        pageUrl: "https://openlibrary.org/works/OL274337W/The_Practice_of_Management",
+        status: "found",
+        matchedTitle: "The Practice of Management"
+      },
+      "創業艱難": {
+        url: "https://covers.openlibrary.org/b/id/7279515-L.jpg",
+        source: "Open Library",
+        pageUrl: "https://openlibrary.org/works/OL16818208W/The_Hard_Thing_About_Hard_Things",
+        status: "found",
+        matchedTitle: "The Hard Thing About Hard Things"
+      },
+      "重來更為簡單有效的商業思維": {
+        url: "https://covers.openlibrary.org/b/id/6679955-L.jpg",
+        source: "Open Library",
+        pageUrl: "https://openlibrary.org/works/OL15168112W/Rework",
+        status: "found",
+        matchedTitle: "Rework"
+      }
+    };
+
+    const verifiedCoverData = {
+      "做自己擅長的事還是喜歡的事": {
+            "url": "https://www.books.com.tw/img/CN1/176/62/CN11766297.jpg",
+            "source": "博客來",
+            "pageUrl": "https://www.books.com.tw/products/CN11766297",
+            "status": "found",
+            "matchedTitle": "做自己擅長的事，還是喜歡的?：在打開招聘軟件之前，先要學習7堂擇業心理課",
+            "score": 1.0,
+            "searchUrl": "https://search.books.com.tw/search/query/key/%E5%81%9A%E8%87%AA%E5%B7%B1%E6%93%85%E9%95%B7%E7%9A%84%E4%BA%8B%E9%82%84%E6%98%AF%E5%96%9C%E6%AD%A1%E7%9A%84%E4%BA%8B/cat/all"
+      },
+      "為什麼學生不喜歡上學": {
+            "url": "https://www.books.com.tw/img/001/101/66/0011016693.jpg",
+            "source": "博客來",
+            "pageUrl": "https://www.books.com.tw/products/0011016693",
+            "status": "found",
+            "matchedTitle": "學生為什麼不喜歡上學?(全新增訂版)：認知心理學家解開大腦學習的運作結構，原來大腦喜歡這樣學",
+            "score": 1.0,
+            "searchUrl": "https://search.books.com.tw/search/query/key/%E7%82%BA%E4%BB%80%E9%BA%BC%E5%AD%B8%E7%94%9F%E4%B8%8D%E5%96%9C%E6%AD%A1%E4%B8%8A%E5%AD%B8/cat/all"
+      },
+      "良性增長": {
+            "url": "https://www.books.com.tw/img/CN1/167/36/CN11673620.jpg",
+            "source": "博客來",
+            "pageUrl": "https://www.books.com.tw/products/CN11673620",
+            "status": "found",
+            "matchedTitle": "良性增長：盈利性增長的底層邏輯",
+            "score": 0.98,
+            "searchUrl": "https://search.books.com.tw/search/query/key/%E8%89%AF%E6%80%A7%E5%A2%9E%E9%95%B7/cat/all"
+      },
+      "細節營銷": {
+            "url": "https://www.books.com.tw/img/CN1/047/04/CN10470490.jpg",
+            "source": "博客來",
+            "pageUrl": "https://www.books.com.tw/products/CN10470490",
+            "status": "found",
+            "matchedTitle": "細節營銷",
+            "score": 1.0,
+            "searchUrl": "https://search.books.com.tw/search/query/key/%E7%B4%B0%E7%AF%80%E7%87%9F%E9%8A%B7/cat/all"
+      },
+      "如何學習": {
+            "url": "https://www.books.com.tw/img/001/095/29/0010952983.jpg",
+            "source": "博客來",
+            "pageUrl": "https://www.books.com.tw/products/0010952983",
+            "status": "found",
+            "matchedTitle": "學習如何學習：補教界百億團隊培訓師，教你超高效的「知識變現」四步法",
+            "score": 0.98,
+            "searchUrl": "https://search.books.com.tw/search/query/key/%E5%A6%82%E4%BD%95%E5%AD%B8%E7%BF%92/cat/all"
+      },
+      "管理成就生活": {
+            "url": "https://www.books.com.tw/img/CN1/012/24/CN10122475.jpg",
+            "source": "博客來",
+            "pageUrl": "https://www.books.com.tw/products/CN10122475",
+            "status": "found",
+            "matchedTitle": "管理成就生活",
+            "score": 1.0,
+            "searchUrl": "https://search.books.com.tw/search/query/key/%E7%AE%A1%E7%90%86%E6%88%90%E5%B0%B1%E7%94%9F%E6%B4%BB/cat/all"
+      },
+      "富人的邏輯": {
+            "url": "https://www.books.com.tw/img/CN1/089/41/CN10894177.jpg",
+            "source": "博客來",
+            "pageUrl": "https://www.books.com.tw/products/CN10894177",
+            "status": "found",
+            "matchedTitle": "富人的邏輯",
+            "score": 1.0,
+            "searchUrl": "https://search.books.com.tw/search/query/key/%E5%AF%8C%E4%BA%BA%E7%9A%84%E9%82%8F%E8%BC%AF/cat/all"
+      },
+      "神奇女俠秘史": {
+            "url": "https://www.books.com.tw/img/CN1/144/59/CN11445935.jpg",
+            "source": "博客來",
+            "pageUrl": "https://www.books.com.tw/products/CN11445935",
+            "status": "found",
+            "matchedTitle": "神奇女俠秘史",
+            "score": 1.0,
+            "searchUrl": "https://search.books.com.tw/search/query/key/%E7%A5%9E%E5%A5%87%E5%A5%B3%E4%BF%A0%E7%A7%98%E5%8F%B2/cat/all"
+      },
+      "千面英雄": {
+            "url": "https://www.books.com.tw/img/CN1/205/55/CN12055540.jpg",
+            "source": "博客來",
+            "pageUrl": "https://www.books.com.tw/products/CN12055540",
+            "status": "found",
+            "matchedTitle": "千面英雄",
+            "score": 1.0,
+            "searchUrl": "https://search.books.com.tw/search/query/key/%E5%8D%83%E9%9D%A2%E8%8B%B1%E9%9B%84/cat/all"
+      },
+      "真實的幸福": {
+            "url": "https://www.books.com.tw/img/CN1/050/15/CN10501564.jpg",
+            "source": "博客來",
+            "pageUrl": "https://www.books.com.tw/products/CN10501564",
+            "status": "found",
+            "matchedTitle": "真實的幸福",
+            "score": 1.0,
+            "searchUrl": "https://search.books.com.tw/search/query/key/%E7%9C%9F%E5%AF%A6%E7%9A%84%E5%B9%B8%E7%A6%8F/cat/all"
+      },
+      "弦理論": {
+            "url": "https://www.books.com.tw/img/CN1/170/04/CN11700405.jpg",
+            "source": "博客來",
+            "pageUrl": "https://www.books.com.tw/products/CN11700405",
+            "status": "found",
+            "matchedTitle": "弦理論",
+            "score": 1.0,
+            "searchUrl": "https://search.books.com.tw/search/query/key/%E5%BC%A6%E7%90%86%E8%AB%96/cat/all"
+      },
+      "臥底經濟學": {
+            "url": "https://www.books.com.tw/img/001/086/82/0010868243.jpg",
+            "source": "博客來",
+            "pageUrl": "https://www.books.com.tw/products/0010868243",
+            "status": "found",
+            "matchedTitle": "誰賺走了你的咖啡錢：日常生活中的經濟賽局，臥底經濟學家完美破解(全新增訂版)",
+            "score": 0.98,
+            "searchUrl": "https://search.books.com.tw/search/query/key/%E8%87%A5%E5%BA%95%E7%B6%93%E6%BF%9F%E5%AD%B8/cat/all"
+      },
+      "超級符號就是超級創意": {
+            "url": "https://www.books.com.tw/img/CN1/189/51/CN11895181.jpg",
+            "source": "博客來",
+            "pageUrl": "https://www.books.com.tw/products/CN11895181",
+            "status": "found",
+            "matchedTitle": "超級符號就是超級創意(十周年紀念版)",
+            "score": 0.98,
+            "searchUrl": "https://search.books.com.tw/search/query/key/%E8%B6%85%E7%B4%9A%E7%AC%A6%E8%99%9F%E5%B0%B1%E6%98%AF%E8%B6%85%E7%B4%9A%E5%89%B5%E6%84%8F/cat/all"
+      },
+      "烹飪菜餚與階級": {
+            "url": "https://www.books.com.tw/img/001/053/87/0010538700.jpg",
+            "source": "博客來",
+            "pageUrl": "https://www.books.com.tw/products/0010538700",
+            "status": "found",
+            "matchedTitle": "烹飪、菜餚與階級",
+            "score": 1.0,
+            "searchUrl": "https://search.books.com.tw/search/query/key/%E7%83%B9%E9%A3%AA%E8%8F%9C%E9%A4%9A%E8%88%87%E9%9A%8E%E7%B4%9A/cat/all"
+      },
+      "探詢式領導": {
+            "url": "https://www.books.com.tw/img/CN1/129/62/CN11296265.jpg",
+            "source": "博客來",
+            "pageUrl": "https://www.books.com.tw/products/CN11296265",
+            "status": "found",
+            "matchedTitle": "探詢式領導：如何通過問題發現正確的解決方案",
+            "score": 0.98,
+            "searchUrl": "https://search.books.com.tw/search/query/key/%E6%8E%A2%E8%A9%A2%E5%BC%8F%E9%A0%98%E5%B0%8E/cat/all"
+      },
+      "狼的智慧": {
+            "url": "https://www.books.com.tw/img/CN1/171/13/CN11711325.jpg",
+            "source": "博客來",
+            "pageUrl": "https://www.books.com.tw/products/CN11711325",
+            "status": "found",
+            "matchedTitle": "狼的智慧：我的25年荒野觀狼之旅",
+            "score": 0.98,
+            "searchUrl": "https://search.books.com.tw/search/query/key/%E7%8B%BC%E7%9A%84%E6%99%BA%E6%85%A7/cat/all"
+      },
+      "張忠謀自傳": {
+            "url": "https://www.books.com.tw/img/001/100/55/0011005571.jpg",
+            "source": "博客來",
+            "pageUrl": "https://www.books.com.tw/products/0011005571",
+            "status": "found",
+            "matchedTitle": "張忠謀自傳全集(上下冊)",
+            "score": 0.98,
+            "searchUrl": "https://search.books.com.tw/search/query/key/%E5%BC%B5%E5%BF%A0%E8%AC%80%E8%87%AA%E5%82%B3/cat/all"
+      },
+      "提姆庫克": {
+            "url": "https://www.books.com.tw/img/001/055/63/0010556312.jpg",
+            "source": "博客來",
+            "pageUrl": "https://www.books.com.tw/products/0010556312",
+            "status": "found",
+            "matchedTitle": "蘋果掌門人提姆.庫克解密：三星最害怕的對手與他的新蘋果時代",
+            "score": 0.98,
+            "searchUrl": "https://search.books.com.tw/search/query/key/%E6%8F%90%E5%A7%86%E5%BA%AB%E5%85%8B/cat/all"
+      },
+      "給人好印象的秘訣": {
+            "url": "https://www.books.com.tw/img/CN1/133/11/CN11331123.jpg",
+            "source": "博客來",
+            "pageUrl": "https://www.books.com.tw/products/CN11331123",
+            "status": "found",
+            "matchedTitle": "給人好印象的秘訣：如何讓別人信任你、喜歡你、幫助你",
+            "score": 0.98,
+            "searchUrl": "https://search.books.com.tw/search/query/key/%E7%B5%A6%E4%BA%BA%E5%A5%BD%E5%8D%B0%E8%B1%A1%E7%9A%84%E7%A7%98%E8%A8%A3/cat/all"
+      },
+      "查理芒格": {
+            "url": "https://www.books.com.tw/img/001/104/62/0011046260.jpg",
+            "source": "博客來",
+            "pageUrl": "https://www.books.com.tw/products/0011046260",
+            "status": "found",
+            "matchedTitle": "查理.芒格給年輕人的忠告",
+            "score": 0.98,
+            "searchUrl": "https://search.books.com.tw/search/query/key/%E6%9F%A5%E7%90%86%E8%8A%92%E6%A0%BC/cat/all"
+      },
+      "高效管理者": {
+            "url": "https://www.books.com.tw/img/001/089/86/0010898623.jpg",
+            "source": "博客來",
+            "pageUrl": "https://www.books.com.tw/products/0010898623",
+            "status": "found",
+            "matchedTitle": "精準領導：高效管理者的六大課題",
+            "score": 0.98,
+            "searchUrl": "https://search.books.com.tw/search/query/key/%E9%AB%98%E6%95%88%E7%AE%A1%E7%90%86%E8%80%85/cat/all"
+      },
+      "領導力": {
+            "url": "https://covers.openlibrary.org/b/id/1465659-L.jpg",
+            "source": "Open Library",
+            "pageUrl": "https://openlibrary.org/works/OL28124W/The_21_Irrefutable_Laws_of_Leadership",
+            "status": "found",
+            "matchedTitle": "The 21 Irrefutable Laws of Leadership"
+      },
+      "微習慣": {
+            "url": "https://covers.openlibrary.org/b/id/8093714-L.jpg",
+            "source": "Open Library",
+            "pageUrl": "https://openlibrary.org/works/OL17807404W/Mini_Habits",
+            "status": "found",
+            "matchedTitle": "Mini Habits"
+      },
+      "孩子是如何學習的": {
+            "url": "https://covers.openlibrary.org/b/id/4276905-L.jpg",
+            "source": "Open Library",
+            "pageUrl": "https://openlibrary.org/works/OL2945071W/How_children_learn",
+            "status": "found",
+            "matchedTitle": "How Children Learn"
+      },
+      "品牌洗腦": {
+            "url": "https://covers.openlibrary.org/b/id/6946684-L.jpg",
+            "source": "Open Library",
+            "pageUrl": "https://openlibrary.org/works/OL16103976W/Brandwashed",
+            "status": "found",
+            "matchedTitle": "Brandwashed"
+      },
+      "注意力商人": {
+            "url": "https://covers.openlibrary.org/b/id/8868199-L.jpg",
+            "source": "Open Library",
+            "pageUrl": "https://openlibrary.org/works/OL19667653W/The_Attention_Merchants",
+            "status": "found",
+            "matchedTitle": "The Attention Merchants"
+      },
+      "有錢人和你想的不一樣": {
+            "url": "https://covers.openlibrary.org/b/id/492620-L.jpg",
+            "source": "Open Library",
+            "pageUrl": "https://openlibrary.org/works/OL275915W/Secrets_of_the_Millionaire_Mind",
+            "status": "found",
+            "matchedTitle": "Secrets of the Millionaire Mind"
+      },
+      "天才假象": {
+            "url": "https://covers.openlibrary.org/b/id/8329729-L.jpg",
+            "source": "Open Library",
+            "pageUrl": "https://openlibrary.org/works/OL15582671W/Bounce",
+            "status": "found",
+            "matchedTitle": "Bounce"
+      },
+      "為什麼偉大不能被計劃": {
+            "url": "https://covers.openlibrary.org/b/id/13824278-L.jpg",
+            "source": "Open Library",
+            "pageUrl": "https://openlibrary.org/works/OL20024858W/Why_greatness_cannot_be_planned",
+            "status": "found",
+            "matchedTitle": "Why Greatness Cannot Be Planned"
+      },
+      "自驅型成長": {
+            "url": "https://covers.openlibrary.org/b/id/8805007-L.jpg",
+            "source": "Open Library",
+            "pageUrl": "https://openlibrary.org/works/OL20159685W/The_Self-Driven_Child",
+            "status": "found",
+            "matchedTitle": "The Self-Driven Child"
+      },
+      "暗網": {
+            "url": "https://covers.openlibrary.org/b/id/11614802-L.jpg",
+            "source": "Open Library",
+            "pageUrl": "https://openlibrary.org/works/OL20006214W/The_dark_net",
+            "status": "found",
+            "matchedTitle": "The Dark Net"
+      },
+      "李光耀觀天下": {
+            "url": "https://covers.openlibrary.org/b/id/13135771-L.jpg",
+            "source": "Open Library",
+            "pageUrl": "https://openlibrary.org/works/OL20006568W/One_man%27s_view_of_the_world",
+            "status": "found",
+            "matchedTitle": "One Man's View of the World"
+      },
+      "網飛傳奇": {
+            "url": "https://covers.openlibrary.org/b/id/10663066-L.jpg",
+            "source": "Open Library",
+            "pageUrl": "https://openlibrary.org/works/OL21355998W/That_Will_Never_Work",
+            "status": "found",
+            "matchedTitle": "That Will Never Work"
+      },
+      "拖延心理學": {
+            "url": "https://covers.openlibrary.org/b/id/7261122-L.jpg",
+            "source": "Open Library",
+            "pageUrl": "https://openlibrary.org/works/OL5604201W/Procrastination",
+            "status": "found",
+            "matchedTitle": "Procrastination"
+      },
+      "規訓與懲罰": {
+            "url": "https://covers.openlibrary.org/b/id/5539160-L.jpg",
+            "source": "Open Library",
+            "pageUrl": "https://openlibrary.org/works/OL26841W/Discipline_and_Punish",
+            "status": "found",
+            "matchedTitle": "Discipline and Punish"
+      },
+      "重新思考": {
+            "url": "https://covers.openlibrary.org/b/id/10470266-L.jpg",
+            "source": "Open Library",
+            "pageUrl": "https://openlibrary.org/works/OL22484556W/Think_Again",
+            "status": "found",
+            "matchedTitle": "Think Again"
+      },
+      "可口可樂傳": {
+            "url": "https://covers.openlibrary.org/b/id/14235-L.jpg",
+            "source": "Open Library",
+            "pageUrl": "https://openlibrary.org/works/OL3508598W/For_God_country_and_Coca-Cola",
+            "status": "found",
+            "matchedTitle": "For God, Country and Coca-Cola"
+      },
+      "完美博弈": {
+            "url": "https://covers.openlibrary.org/b/id/12137979-L.jpg",
+            "source": "Open Library",
+            "pageUrl": "https://openlibrary.org/works/OL20023967W/The_perfect_bet",
+            "status": "found",
+            "matchedTitle": "The Perfect Bet"
+      },
+      "摩根財團": {
+            "url": "https://covers.openlibrary.org/b/id/11521264-L.jpg",
+            "source": "Open Library",
+            "pageUrl": "https://openlibrary.org/works/OL2665180W/The_House_of_Morgan",
+            "status": "found",
+            "matchedTitle": "The House of Morgan"
+      },
+      "足球經濟學": {
+            "url": "https://covers.openlibrary.org/b/id/7940983-L.jpg",
+            "source": "Open Library",
+            "pageUrl": "https://openlibrary.org/works/OL8369873W/Soccernomics",
+            "status": "found",
+            "matchedTitle": "Soccernomics"
+      },
+      "1929大崩盤": {
+            "url": "https://covers.openlibrary.org/b/id/6507896-L.jpg",
+            "source": "Open Library",
+            "pageUrl": "https://openlibrary.org/works/OL12578W/The_great_crash_1929",
+            "status": "found",
+            "matchedTitle": "The Great Crash 1929"
+      },
+      "發現心流": {
+            "url": "https://covers.openlibrary.org/b/id/298856-L.jpg",
+            "source": "Open Library",
+            "pageUrl": "https://openlibrary.org/works/OL506559W/Finding_flow",
+            "status": "found",
+            "matchedTitle": "Finding Flow"
+      },
+      "梳毛、八卦、語言的進化": {
+            "url": "https://covers.openlibrary.org/b/id/413288-L.jpg",
+            "source": "Open Library",
+            "pageUrl": "https://openlibrary.org/works/OL3264648W/Grooming_gossip_and_the_evolution_of_language",
+            "status": "found",
+            "matchedTitle": "Grooming, Gossip and the Evolution of Language"
+      },
+      "親密關係的購買": {
+            "url": "https://covers.openlibrary.org/b/id/444080-L.jpg",
+            "source": "Open Library",
+            "pageUrl": "https://openlibrary.org/works/OL2673090W/The_purchase_of_intimacy",
+            "status": "found",
+            "matchedTitle": "The Purchase of Intimacy"
+      },
+      "我得應許之地": {
+            "url": "https://covers.openlibrary.org/b/id/7387215-L.jpg",
+            "source": "Open Library",
+            "pageUrl": "https://openlibrary.org/works/OL17308291W/My_Promised_Land",
+            "status": "found",
+            "matchedTitle": "My Promised Land"
+      },
+      "黑金世界": {
+            "url": "https://covers.openlibrary.org/b/id/13466631-L.jpg",
+            "source": "Open Library",
+            "pageUrl": "https://openlibrary.org/works/OL21881293W/World_for_Sale",
+            "status": "found",
+            "matchedTitle": "The World for Sale"
+      },
+      "幹法": {
+            "url": "https://covers.openlibrary.org/b/id/1076453-L.jpg",
+            "source": "Open Library",
+            "pageUrl": "https://openlibrary.org/works/OL2907447W/A_passion_for_success",
+            "status": "found",
+            "matchedTitle": "A Passion for Success"
+      },
+      "每天最重要的兩小時": {
+            "url": "https://covers.openlibrary.org/b/id/8577472-L.jpg",
+            "source": "Open Library",
+            "pageUrl": "https://openlibrary.org/works/OL19667840W/Two_awesome_hours",
+            "status": "found",
+            "matchedTitle": "Two Awesome Hours"
+      },
+      "勇士王朝": {
+            "url": "https://covers.openlibrary.org/b/id/9339172-L.jpg",
+            "source": "Open Library",
+            "pageUrl": "https://openlibrary.org/works/OL20670473W/The_Victory_Machine",
+            "status": "found",
+            "matchedTitle": "The Victory Machine"
+      },
+      "夜腦": {
+            "url": "https://covers.openlibrary.org/b/id/10109860-L.jpg",
+            "source": "Open Library",
+            "pageUrl": "https://openlibrary.org/works/OL20809917W/The_Nocturnal_Brain",
+            "status": "found",
+            "matchedTitle": "The Nocturnal Brain"
+      },
+      "癌症的真相": {
+            "url": "https://covers.openlibrary.org/b/id/11320203-L.jpg",
+            "source": "Open Library",
+            "pageUrl": "https://openlibrary.org/works/OL15540668W/The_Emperor_of_All_Maladies",
+            "status": "found",
+            "matchedTitle": "The Emperor of All Maladies"
+      },
+      "豐田傳": {
+            "url": "https://covers.openlibrary.org/b/id/58049-L.jpg",
+            "source": "Open Library",
+            "pageUrl": "https://openlibrary.org/works/OL5756030W/The_Toyota_Way",
+            "status": "found",
+            "matchedTitle": "The Toyota Way"
+      },
+      "突破天性": {
+            "url": "https://covers.openlibrary.org/b/id/10195112-L.jpg",
+            "source": "Open Library",
+            "pageUrl": "https://openlibrary.org/works/OL20873964W/Personality_Isn%27t_Permanent",
+            "status": "found",
+            "matchedTitle": "Personality Isn't Permanent"
+      },
+      "隱形惡人": {
+            "url": "https://covers.openlibrary.org/b/id/1538373-L.jpg",
+            "source": "Open Library",
+            "pageUrl": "https://openlibrary.org/works/OL8024260W/The_Lucifer_Effect",
+            "status": "found",
+            "matchedTitle": "The Lucifer Effect"
+      },
+      "稀缺": {
+            "url": "https://covers.openlibrary.org/b/id/9896983-L.jpg",
+            "source": "Open Library",
+            "pageUrl": "https://openlibrary.org/works/OL19969724W/Scarcity",
+            "status": "found",
+            "matchedTitle": "Scarcity"
+      },
+      "交換之物": {
+            "url": "https://covers.openlibrary.org/b/id/6299464-L.jpg",
+            "source": "Open Library",
+            "pageUrl": "https://openlibrary.org/works/OL14909099W/Debt",
+            "status": "found",
+            "matchedTitle": "Debt"
+      },
+      "美國黑幫": {
+            "url": "https://covers.openlibrary.org/b/id/8353939-L.jpg",
+            "source": "Open Library",
+            "pageUrl": "https://openlibrary.org/works/OL18203067W/American_Kingpin",
+            "status": "found",
+            "matchedTitle": "American Kingpin"
+      },
+      "空王冠": {
+            "url": "https://covers.openlibrary.org/b/id/8471859-L.jpg",
+            "source": "Open Library",
+            "pageUrl": "https://openlibrary.org/works/OL19357431W/The_Hollow_Crown",
+            "status": "found",
+            "matchedTitle": "The Hollow Crown"
+      },
+      "莫札特的成敗": {
+            "url": "https://covers.openlibrary.org/b/id/12291497-L.jpg",
+            "source": "Open Library",
+            "pageUrl": "https://openlibrary.org/works/OL10604335W/Mozart",
+            "status": "found",
+            "matchedTitle": "Mozart: Portrait of a Genius"
+      },
+      "無價": {
+            "url": "https://covers.openlibrary.org/b/id/9101797-L.jpg",
+            "source": "Open Library",
+            "pageUrl": "https://openlibrary.org/works/OL20435171W/Priceless",
+            "status": "found",
+            "matchedTitle": "Priceless"
+      },
+      "B 選項": {
+            "url": "https://covers.openlibrary.org/b/id/7984710-L.jpg",
+            "source": "Open Library",
+            "pageUrl": "https://openlibrary.org/works/OL17710048W/Option_B",
+            "status": "found",
+            "matchedTitle": "Option B"
+      },
+      "壞血": {
+            "url": "https://covers.openlibrary.org/b/id/12735651-L.jpg",
+            "source": "Open Library",
+            "pageUrl": "https://openlibrary.org/works/OL17892614W/Bad_Blood",
+            "status": "found",
+            "matchedTitle": "Bad Blood"
+      }
+};
+
+    const fallbackCovers = {
+      系統思維: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=500&q=80",
+      管理經營: "https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=500&q=80",
+      創業商業: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=500&q=80",
+      財商投資: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=500&q=80",
+      決策思維: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=500&q=80",
+      自我管理: "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?auto=format&fit=crop&w=500&q=80",
+      工作方法: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=500&q=80",
+      流程系統: "https://images.unsplash.com/photo-1506784365847-bbad939e9335?auto=format&fit=crop&w=500&q=80",
+      家庭親子: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=500&q=80",
+      學習教育: "https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?auto=format&fit=crop&w=500&q=80",
+      溝通談判: "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=500&q=80",
+      行銷品牌: "https://images.unsplash.com/photo-1495020689067-958852a7765e?auto=format&fit=crop&w=500&q=80",
+      歷史人物: "https://images.unsplash.com/photo-1461360370896-922624d12aa1?auto=format&fit=crop&w=500&q=80",
+      心理哲學: "https://images.unsplash.com/photo-1495446815901-a7297e633e8d?auto=format&fit=crop&w=500&q=80",
+      社會文化: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?auto=format&fit=crop&w=500&q=80",
+      健康生活: "https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=500&q=80",
+      科學經濟: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=500&q=80",
+      知識觀念: "https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=500&q=80"
+    };
+
+    const sourceGroups = ["連接組", "決策組", "書讀完了"];
+
+    const categoryTemplates = {
+      系統思維: {
+        core: (title) => "這本書適合拿來訓練『看見整體』的能力：不要只盯單一事件，而是看它背後的結構、關係與槓桿。",
+        action: (title) => "讀 " + title + " 時，先畫一張三層圖：現象是什麼、背後系統是什麼、我能改動哪個槓桿。",
+        postAngle: (title) => "把 " + title + " 改成一篇『普通人如何用系統思維少走彎路』的貼文。"
+      },
+      管理經營: {
+        core: (title) => "管理不是把人管死，而是讓目標、責任、流程與回饋變清楚。",
+        action: (title) => "用 " + title + " 檢查一件工作：目標是否清楚、誰負責、怎麼回報、哪裡會卡住。",
+        postAngle: (title) => "從 " + title + " 拆一篇『小老闆不要再靠自己硬撐』的管理文。"
+      },
+      創業商業: {
+        core: (title) => "商業不是只靠熱血，而是看見需求、資源、風險與可複製的模式。",
+        action: (title) => "讀 " + title + " 後，挑一個自己的產品或服務，寫下它的客戶、痛點、交付方式與風險。",
+        postAngle: (title) => "把 " + title + " 變成一篇『創業前先看懂這個商業常識』的貼文。"
+      },
+      財商投資: {
+        core: (title) => "財商的底層不是賺快錢，而是理解現金流、風險、誘因與長期複利。",
+        action: (title) => "用 " + title + " 檢查自己的錢：哪些是資產、哪些是負債、哪些決策只是情緒消費。",
+        postAngle: (title) => "從 " + title + " 寫一篇『台灣普通人也能懂的金錢觀』貼文。"
+      },
+      決策思維: {
+        core: (title) => "好決策不是找完美答案，而是在資訊有限時提升勝率、降低代價。",
+        action: (title) => "用 " + title + " 建一張決策表：目標、選項、風險、可逆程度、下一個小實驗。",
+        postAngle: (title) => "把 " + title + " 拆成『做選擇前先問自己的 3 個問題』。"
+      },
+      自我管理: {
+        core: (title) => "自我管理不是逼自己變強，而是設計環境、節奏與回饋，讓好行為更容易發生。",
+        action: (title) => "讀 " + title + " 後，只選一個今天能做的小動作，連續做 7 天再加難度。",
+        postAngle: (title) => "把 " + title + " 變成一篇『不用意志力也能開始改變』的短文。"
+      },
+      工作方法: {
+        core: (title) => "好的工作方法會讓輸出更穩，不是讓日程表看起來更滿。",
+        action: (title) => "用 " + title + " 重排今天工作：先做高價值輸出，再處理低價值雜事。",
+        postAngle: (title) => "用 " + title + " 寫一篇『忙到沒成果的人可以先改哪裡』。"
+      },
+      流程系統: {
+        core: (title) => "流程是為了降低疏漏與重工，讓能力可以被重複使用。",
+        action: (title) => "讀 " + title + " 後，把一件常出錯的事做成 5 到 9 步清單。",
+        postAngle: (title) => "把 " + title + " 改成一篇『可靠的人不是記性好，是有系統』。"
+      },
+      家庭親子: {
+        core: (title) => "家庭關係的難點不只在道理，而在情緒、角色、界線與長期陪伴。",
+        action: (title) => "用 " + title + " 選一段關係練習：少說教，多問一句『你現在最需要的是什麼？』",
+        postAngle: (title) => "把 " + title + " 寫成台灣家庭看得懂的關係貼文，不說教，只給一個可做動作。"
+      },
+      學習教育: {
+        core: (title) => "學習不是吸收更多資料，而是建立輸出、回饋與修正的循環。",
+        action: (title) => "讀 " + title + " 後，選一個技能做一個小作品，不再只收藏筆記。",
+        postAngle: (title) => "把 " + title + " 變成一篇『學習慢不是笨，是方法沒有形成回饋』的貼文。"
+      },
+      溝通談判: {
+        core: (title) => "溝通不是把話講贏，而是讓對方需求、限制與交換條件浮上來。",
+        action: (title) => "用 " + title + " 練一次溝通：先重述對方在意什麼，再提出自己的選項。",
+        postAngle: (title) => "從 " + title + " 寫一篇『不要急著說服，先聽懂對方在怕什麼』。"
+      },
+      行銷品牌: {
+        core: (title) => "行銷的核心是讓人更快理解、記住並願意行動。",
+        action: (title) => "讀 " + title + " 後，替自己的產品寫一句能被記住的主張，並做成一張圖。",
+        postAngle: (title) => "把 " + title + " 拆成一篇『為什麼你的內容沒被記住』的貼文。"
+      },
+      歷史人物: {
+        core: (title) => "人物與歷史不是背年份，而是看人在權力、資源、時代壓力下如何選擇。",
+        action: (title) => "讀 " + title + " 時，抓三件事：他面對什麼局、手上有什麼牌、最後付出什麼代價。",
+        postAngle: (title) => "把 " + title + " 改成一篇『從歷史人物學現代選擇』的故事貼文。"
+      },
+      心理哲學: {
+        core: (title) => "心理與哲學書的價值，是幫你看清自己的念頭、欲望、恐懼與判斷。",
+        action: (title) => "用 " + title + " 寫一段自我觀察：今天哪個情緒最影響我，我能不能先不被它帶走。",
+        postAngle: (title) => "從 " + title + " 寫一篇『普通人如何把抽象思想變成一天的練習』。"
+      },
+      社會文化: {
+        core: (title) => "社會文化書讓你看懂：很多個人選擇背後，其實有制度、階級、媒體與集體想像。",
+        action: (title) => "讀 " + title + " 後，觀察一個日常現象：誰得利、誰被定義、誰的聲音不見了。",
+        postAngle: (title) => "把 " + title + " 改成一篇『你以為是個人選擇，其實是社會設計』的貼文。"
+      },
+      健康生活: {
+        core: (title) => "健康不是單點技巧，而是飲食、睡眠、身體節奏與環境選擇的長期總和。",
+        action: (title) => "用 " + title + " 選一個最容易開始的改變：吃、睡、動、坐姿，只改一項。",
+        postAngle: (title) => "把 " + title + " 寫成『台灣忙碌上班族今天就能做的一個健康微調』。"
+      },
+      科學經濟: {
+        core: (title) => "科學與經濟思維會逼你離開直覺，改用證據、模型與誘因理解世界。",
+        action: (title) => "讀 " + title + " 時，整理一個模型：它解釋什麼、限制在哪、能不能套到生活或商業。",
+        postAngle: (title) => "從 " + title + " 寫一篇『不用專業背景也能懂的底層模型』。"
+      },
+      知識觀念: {
+        core: (title) => "這本書先放在通用知識類：重點是抽出一個可被生活、工作或內容使用的觀念。",
+        action: (title) => "讀 " + title + " 後，先寫三句：它在講什麼、我能用在哪、能不能變成一篇貼文。",
+        postAngle: (title) => "把 " + title + " 做成一篇『我從一本書拿到的一個可用觀念』。"
+      }
+    };
+
+    function displayTitleFor(title) {
+      const fixes = {
+        '如果父母老後難想處': '如果父母老後難相處',
+        '做自己擅長的事還是喜歡的是': '做自己擅長的事還是喜歡的事',
+        'ＡＩ生成如和改變世界': 'AI 生成如何改變世界',
+        '高效人生的12的關鍵點': '高效人生的 12 個關鍵點',
+        '規訓與逞罰': '規訓與懲罰',
+        'Ｂ選項': 'B 選項',
+        'ibm帝國締造者': 'IBM 帝國締造者',
+        '梳毛.八卦語言的進化': '梳毛、八卦、語言的進化',
+        '硅谷鋼鐵俠': '矽谷鋼鐵俠',
+        '做手回憶錄': '股票作手回憶錄',
+        '亞馬遜（一網打盡）': '一網打盡',
+        '佛學是真的': '為什麼佛學是真的',
+        '男女童心裡': '男女童心理'
+      };
+      return fixes[title] || title;
+    }
+
+    function mergeBookEntries(entries) {
+      const byTitle = new Map();
+      entries.forEach((entry) => {
+        const normalized = typeof entry === 'string' ? { title: entry } : entry;
+        const title = displayTitleFor(normalized.title);
+        const sourcePage = normalized.sourcePage || '2026書';
+        const sourceType = normalized.sourceType || '書摘';
+        if (!byTitle.has(title)) {
+          byTitle.set(title, {
+            ...normalized,
+            title,
+            originalTitle: normalized.originalTitle || normalized.title,
+            sourcePage,
+            sourceType,
+            sourcePages: [sourcePage],
+            sourceTypes: [sourceType]
+          });
+          return;
+        }
+        const current = byTitle.get(title);
+        if (!current.sourcePages.includes(sourcePage)) current.sourcePages.push(sourcePage);
+        if (!current.sourceTypes.includes(sourceType)) current.sourceTypes.push(sourceType);
+        if (!current.author && normalized.author) current.author = normalized.author;
+        if (!current.originalTitle && normalized.originalTitle) current.originalTitle = normalized.originalTitle;
+      });
+      return [...byTitle.values()];
+    }
+
+    const allBookEntries = mergeBookEntries([
+      ...rawBookTitles.map((title) => ({ title, sourcePage: "2026書", sourceType: "書摘" })),
+      ...extraBookEntries
+    ]);
+
+    const seedBooks = allBookEntries.map((entry, index) => buildBook(entry, index));
+
+    function buildBook(entry, index) {
+      const rawEntry = typeof entry === 'string' ? { title: entry, sourcePage: '2026書', sourceType: '書摘' } : entry;
+      const displayTitle = displayTitleFor(rawEntry.title);
+      const detailed = detailedBooks[displayTitle] || detailedBooks[rawEntry.title];
+      const category = normalizeCategory(detailed?.category || categoryFor(displayTitle), displayTitle);
+      const level = detailed?.level || levelFor(displayTitle, category);
+      const template = categoryTemplates[category] || categoryTemplates.知識觀念;
+      const coverMeta = booksComCoverData[displayTitle] || coverData[displayTitle] || {};
+      const author = rawEntry.author || detailed?.author || authorOverrides[displayTitle] || coverMeta.author || '待補';
+      const related = detailed?.related || relatedFor(category, displayTitle);
+      return {
+        id: 'book-' + String(index + 1).padStart(3, '0'),
+        title: displayTitle,
+        originalTitle: rawEntry.originalTitle || rawEntry.title,
+        author,
+        category,
+        level,
+        sourcePage: rawEntry.sourcePage || '2026書',
+        sourceType: rawEntry.sourceType || '書摘',
+        sourcePages: rawEntry.sourcePages || [rawEntry.sourcePage || '2026書'],
+        sourceTypes: rawEntry.sourceTypes || [rawEntry.sourceType || '書摘'],
+        learningPathIds: learningPathsFor(displayTitle, category, related),
+        core: detailed?.core || template.core(displayTitle),
+        action: detailed?.action || template.action(displayTitle),
+        postAngle: detailed?.postAngle || template.postAngle(displayTitle),
+        related,
+        ...coverForBook(displayTitle, category),
+        tone: index % 5
+      };
+    }
+
+    function booksComSearchUrl(title) {
+      return 'https://search.books.com.tw/search/query/key/' + encodeURIComponent(title) + '/cat/all';
+    }
+
+    function normalizeForMatch(value) {
+      return String(value || '')
+        .toLowerCase()
+        .replace(/[Ａ-Ｚａ-ｚ０-９]/g, (ch) => String.fromCharCode(ch.charCodeAt(0) - 0xfee0))
+        .replace(/[《》「」『』（）()：:，,。．.、\s\-–—_!！?？]/g, '')
+        .replace(/硅谷/g, '矽谷');
+    }
+
+    function coverQuality(title, found) {
+      if (!found?.url) return 'missing';
+      if (priorityCoverData[title]) return found.status || 'found';
+      if (verifiedCoverData[title]) return found.status || 'found';
+      const trustedTranslatedCoverTitles = [
+        '馬斯克：世界上最酷的人',
+        '伊隆馬斯克傳',
+        '黑天鵝',
+        '人性的弱點',
+        '系統之美',
+        '富爸爸窮爸爸',
+        '富爸爸投資指南',
+        '為什麼佛學是真的',
+        '史蒂夫喬布斯傳',
+        '深度工作',
+        '原子習慣'
+      ];
+      if (trustedTranslatedCoverTitles.includes(title)) return found.status || 'found';
+      const matched = normalizeForMatch(found.matchedTitle || '');
+      const current = normalizeForMatch(title);
+      if (!matched) return found.status || 'found';
+      if (/summary|摘要|讀後感|解讀/i.test(found.matchedTitle || '')) return 'candidate';
+      if (matched.includes(current) || current.includes(matched)) return found.status || 'found';
+      if (['沈思錄', '冥想', '特斯拉自傳', '深度工作', '自控力'].includes(title)) return found.status || 'found';
+      return 'candidate';
+    }
+
+    function xmlEscape(value) {
+      return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    function wrapCoverText(value, maxChars = 9, maxLines = 5) {
+      const compact = String(value || "").replace(/\s+/g, "");
+      const chars = Array.from(compact);
+      const lines = [];
+      for (let i = 0; i < chars.length && lines.length < maxLines; i += maxChars) {
+        lines.push(chars.slice(i, i + maxChars).join(""));
+      }
+      if (chars.length > maxChars * maxLines && lines.length) {
+        lines[lines.length - 1] = lines[lines.length - 1].slice(0, Math.max(0, maxChars - 1)) + "…";
+      }
+      return lines.length ? lines : ["待補書名"];
+    }
+
+    function conceptCoverUrl(title, category) {
+      const palette = {
+        系統思維: ["#0f766e", "#315d8c"],
+        管理經營: ["#315d8c", "#1f2937"],
+        創業商業: ["#bd5b48", "#754b0d"],
+        財商投資: ["#4d7c38", "#0f766e"],
+        決策思維: ["#7253a6", "#315d8c"],
+        自我管理: ["#0f766e", "#4d7c38"],
+        家庭親子: ["#bd5b48", "#a66b12"],
+        心理哲學: ["#523b79", "#18211f"],
+        社會文化: ["#5b6470", "#18211f"],
+        知識觀念: ["#18211f", "#66736d"]
+      };
+      const [start, end] = palette[category] || ["#18211f", "#66736d"];
+      const lines = wrapCoverText(title);
+      const titleText = lines.map((line, index) => `<text x="42" y="${190 + index * 48}" class="title">${xmlEscape(line)}</text>`).join("");
+      const svg = `
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 620">
+          <defs>
+            <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="${start}"/>
+              <stop offset="100%" stop-color="${end}"/>
+            </linearGradient>
+            <style>
+              .kicker{font:700 22px sans-serif;letter-spacing:3px;fill:#dff7f2}
+              .title{font:900 34px sans-serif;fill:#ffffff}
+              .meta{font:800 22px sans-serif;fill:#d7dfdc}
+              .rule{stroke:#ffffff;stroke-opacity:.5;stroke-width:3}
+            </style>
+          </defs>
+          <rect width="420" height="620" rx="28" fill="url(#bg)"/>
+          <rect x="24" y="24" width="372" height="572" rx="22" fill="none" stroke="#ffffff" stroke-opacity=".28" stroke-width="3"/>
+          <text x="42" y="86" class="kicker">CONCEPT COVER</text>
+          <line x1="42" y1="120" x2="260" y2="120" class="rule"/>
+          ${titleText}
+          <text x="42" y="532" class="meta">${xmlEscape(category || "閱讀筆記")}</text>
+          <text x="42" y="568" class="meta">待對照真書封</text>
+        </svg>
+      `;
+      return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
+    }
+
+    function coverForBook(title, category) {
+      const found = priorityCoverData[title] || verifiedCoverData[title] || booksComCoverData[title] || coverData[title];
+      const status = coverQuality(title, found);
+      if (found?.url && status === 'found') {
+        return {
+          coverUrl: found.url,
+          coverSource: found.source,
+          coverPageUrl: found.pageUrl || booksComSearchUrl(title),
+          coverStatus: status,
+          coverMatchedTitle: found.matchedTitle || ''
+        };
+      }
+      return {
+        coverUrl: conceptCoverUrl(title, category),
+        coverSource: status === 'candidate' ? '候選待確認' : '概念封面',
+        coverPageUrl: found?.pageUrl || found?.searchUrl || booksComSearchUrl(title),
+        coverStatus: status === 'candidate' ? 'candidate' : 'concept',
+        coverMatchedTitle: found?.matchedTitle || ''
+      };
+    }
+
+    function coverStatusLabel(status) {
+      if (status === 'found') return '真書封';
+      if (status === 'candidate') return '候選';
+      if (status === 'concept') return '概念封面';
+      return '待補封面';
+    }
+
+    function learningPathsFor(title, category, related = []) {
+      const haystack = [title, category, ...(related || [])].join(' ');
+      return learningPaths
+        .filter((path) => path.categories.includes(category) || path.keywords.some((keyword) => haystack.includes(keyword)))
+        .map((path) => path.id);
+    }
+
+    function pathLabelsFor(book) {
+      return (book.learningPathIds || [])
+        .map((id) => learningPaths.find((path) => path.id === id)?.label)
+        .filter(Boolean);
+    }
+
+    function normalizeCategory(category, title) {
+      const map = {
+        管理: "管理經營",
+        領導力: "管理經營",
+        家庭: "家庭親子",
+        學習方法: "學習教育",
+        財商: "財商投資",
+        決策: "決策思維",
+        社會觀察: "社會文化",
+        文化故事: "社會文化",
+        故事力: "行銷品牌",
+        心理學: "心理哲學",
+        哲學: "心理哲學",
+        神經科學: "科學經濟",
+        商業警示: "創業商業",
+        經濟學: "科學經濟",
+        科學思維: "科學經濟"
+      };
+      return map[category] || category || categoryFor(title);
+    }
+
+    function categoryFor(title) {
+      const rules = [
+        ["家庭親子", ["父", "母", "家長", "媽媽", "孩子"]],
+        ["健康生活", ["吃", "睡個好覺", "身心", "體態", "未來的處方"]],
+        ["學習教育", ["學習", "學生", "天才", "終生成長", "如何學習", "自驅型成長", "刻意練習"]],
+        ["自我管理", ["自律", "自控", "韌性", "心流", "深度工作", "注意力曲線", "拖延", "微習慣", "時間人格", "奇特的一生", "堅持一種", "最強身心"]],
+        ["管理經營", ["管理", "團隊", "阿米巴", "麥肯錫", "IBM", "帝國締造者", "零售", "名創", "迪士尼", "良性增長", "領導力"]],
+        ["創業商業", ["創業", "重來", "風口", "網飛", "騰訊", "索尼", "任天堂", "可口可樂", "華為", "特斯拉", "馬斯克", "商業思維", "硅谷", "偉大不能被計劃"]],
+        ["財商投資", ["富爸爸", "有錢", "富人", "花錢", "投資", "彼得林奇", "1929", "摩根", "財團", "足球經濟", "無價", "交換之物", "理財"]],
+        ["決策思維", ["決策", "原則", "完美博弈", "系統之美", "生活不是擲骰子", "重新思考"]],
+        ["溝通談判", ["談判", "好好說話", "間諜", "觀察", "淺規則"]],
+        ["行銷品牌", ["品牌", "營銷", "符號", "爆款", "注意力商人", "洗腦"]],
+        ["歷史人物", ["關羽", "劉邦", "朱元璋", "永樂帝", "三國", "李光耀", "杜月笙", "錦衣衛", "日本為何", "空王冠", "美國困局", "美國黑幫", "屍檢報告", "2049", "論三國人物", "特斯拉自傳", "莫札特", "史蒂夫喬布斯", "我得應許之地"]],
+        ["心理哲學", ["心智", "夢的解析", "冥想", "佛洛伊德", "佛學", "沈思錄", "幸福", "心靈", "認識自己", "接納自己", "B 選項", "突破天性", "認知操控", "馬斯洛", "心理"]],
+        ["社會文化", ["親密關係", "神奇女俠", "烹飪", "階級", "漫畫", "梳毛", "八卦", "稀缺", "私生活", "規訓", "懲罰", "野蠻", "流媒體", "隱形惡人"]],
+        ["科學經濟", ["弦理論", "臥底經濟學", "AI", "生成", "暗網", "記憶", "腦科學", "大腦", "牛頓", "演化論"]]
+      ];
+      const hit = rules.find(([, keywords]) => keywords.some((keyword) => title.includes(keyword)));
+      return hit?.[0] || "知識觀念";
+    }
+
+    function levelFor(title, category) {
+      const hardKeywords = ["弦理論", "規訓", "摩根財團", "1929", "日本為何選擇戰爭", "被劫持的私生活", "親密關係", "空王冠", "2049", "屍檢報告", "美國困局", "交換之物", "梳毛"];
+      const beginnerKeywords = ["微習慣", "好好說話", "睡個好覺", "學會花錢", "自控力", "心流", "自律力", "爆款", "何以為父"];
+      if (hardKeywords.some((keyword) => title.includes(keyword))) return "硬核";
+      if (beginnerKeywords.some((keyword) => title.includes(keyword))) return "入門";
+      if (["財商投資", "管理經營", "創業商業", "決策思維", "歷史人物", "心理哲學", "社會文化", "科學經濟"].includes(category)) return "進階";
+      return "入門";
+    }
+
+    function relatedFor(category, title) {
+      const map = {
+        系統思維: ["系統設計", "一人公司", "AI 工作流"],
+        管理經營: ["團隊管理", "制度", "授權"],
+        創業商業: ["商業模式", "創業", "產品驗證"],
+        財商投資: ["財商", "現金流", "風險"],
+        決策思維: ["決策", "模型思維", "小實驗"],
+        自我管理: ["習慣", "專注", "長期主義"],
+        工作方法: ["效率", "深度工作", "輸出"],
+        流程系統: ["SOP", "清單", "防漏"],
+        家庭親子: ["親子", "關係", "界線"],
+        學習教育: ["自學", "輸出", "回饋"],
+        溝通談判: ["說服", "合作", "談判"],
+        行銷品牌: ["品牌", "內容", "短影音"],
+        歷史人物: ["人物傳記", "權力", "時代判斷"],
+        心理哲學: ["自我認識", "情緒", "人生策略"],
+        社會文化: ["社會觀察", "文化", "制度"],
+        健康生活: ["身體", "飲食", "睡眠"],
+        科學經濟: ["模型", "證據", "世界觀"],
+        知識觀念: ["觀念卡", "貼文素材", "生活實驗"]
+      };
+      return map[category] || map.知識觀念;
+    }
+
+    let books = loadBooks();
+    let selectedId = books[0]?.id || "";
+    let currentPage = 1;
+    const selectedFilters = {
+      path: "",
+      categories: new Set(),
+      levels: new Set(),
+      source: "",
+      coverStatus: ""
+    };
+
+    const els = {
+      search: document.querySelector("#search"),
+      path: document.querySelector("#path-filter"),
+      category: document.querySelector("#category-filter"),
+      level: document.querySelector("#level-filter"),
+      source: document.querySelector("#source-filter"),
+      cover: document.querySelector("#cover-filter"),
+      bookList: document.querySelector("#book-list"),
+      pagination: document.querySelector("#pagination"),
+      bookCount: document.querySelector("#book-count"),
+      libraryTotal: document.querySelector("#library-total"),
+      libraryRoutes: document.querySelector("#library-routes"),
+      detailPanel: document.querySelector(".detail"),
+      detail: document.querySelector("#detail-body"),
+      detailToggle: document.querySelector("#detail-toggle"),
+      selectedLevel: document.querySelector("#selected-level"),
+      libraryFound: document.querySelector("#library-found"),
+      libraryPending: document.querySelector("#library-pending"),
+      coverQualityNote: document.querySelector("#cover-quality-note"),
+      form: document.querySelector("#book-form")
+    };
+
+    function loadBooks() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) return mergeStoredBooks(JSON.parse(raw));
+        for (const key of LEGACY_STORAGE_KEYS) {
+          const legacyRaw = localStorage.getItem(key);
+          if (legacyRaw) {
+            const migrated = mergeStoredBooks(JSON.parse(legacyRaw));
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(migrated));
+            return migrated;
+          }
+        }
+      } catch (error) {
+        console.warn(error);
+      }
+      return structuredClone(seedBooks);
+    }
+
+    function saveBooks() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(books));
+    }
+
+    function mergeStoredBooks(storedBooks) {
+      if (!Array.isArray(storedBooks)) return structuredClone(seedBooks);
+      const storedByTitle = new Map(storedBooks.map((book) => [book.title, book]));
+      const freshByTitle = new Map(seedBooks.map((book) => [book.title, book]));
+      const merged = seedBooks.map((fresh) => mergeStoredBook(fresh, storedByTitle.get(fresh.title)));
+      storedBooks
+        .filter((book) => !freshByTitle.has(book.title))
+        .forEach((book) => merged.unshift(enrichStandaloneBook(book)));
+      return merged;
+    }
+
+    function mergeStoredBook(fresh, stored) {
+      if (!stored) return structuredClone(fresh);
+      const merged = { ...stored, ...fresh };
+      if ((!stored.author || stored.author === '待補' || stored.author === '版本待確認' || stored.author === '書目待確認') && fresh.author && fresh.author !== '待補') {
+        merged.author = fresh.author;
+      }
+      merged.category = fresh.category;
+      merged.level = fresh.level;
+      merged.learningPathIds = fresh.learningPathIds;
+      merged.coverUrl = fresh.coverUrl;
+      merged.coverSource = fresh.coverSource;
+      merged.coverPageUrl = fresh.coverPageUrl;
+      merged.coverStatus = fresh.coverStatus;
+      merged.coverMatchedTitle = fresh.coverMatchedTitle;
+      return merged;
+    }
+
+    function enrichStandaloneBook(book) {
+      const cover = book.coverUrl ? {} : coverForBook(book.title, book.category);
+      return {
+        ...book,
+        sourcePages: book.sourcePages || [book.sourcePage || '手動新增'],
+        sourceTypes: book.sourceTypes || [book.sourceType || '手動'],
+        learningPathIds: book.learningPathIds?.length ? book.learningPathIds : learningPathsFor(book.title, book.category, book.related || []),
+        ...cover
+      };
+    }
+
+    function uid() {
+      return `book-${Math.random().toString(36).slice(2, 9)}`;
+    }
+
+    function escapeHtml(value) {
+      return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
+    function authorMetaFor(book) {
+      const author = String(book.author || "").trim();
+      const sourceTypes = book.sourceTypes || [book.sourceType].filter(Boolean);
+      if (sourceTypes.includes("概念筆記")) return { label: "資料類型", value: "概念筆記" };
+      if (sourceTypes.includes("生活知識")) return { label: "資料類型", value: "生活知識" };
+      if (author && author !== "待補" && author !== "版本待確認" && author !== "書目待確認") {
+        return { label: "作者", value: author };
+      }
+      if (sourceTypes.includes("人物筆記")) return { label: "資料類型", value: "人物筆記" };
+      return { label: "資料類型", value: "書目待確認" };
+    }
+
+    function authorLineFor(book) {
+      const meta = authorMetaFor(book);
+      return `${meta.label}：${meta.value}`;
+    }
+
+    function levelTone(level) {
+      if (level === "硬核") return "violet";
+      if (level === "進階") return "blue";
+      return "teal";
+    }
+
+    function countBy(list, getter) {
+      return list.reduce((acc, item) => {
+        const values = getter(item);
+        (Array.isArray(values) ? values : [values]).filter(Boolean).forEach((value) => {
+          acc[value] = (acc[value] || 0) + 1;
+        });
+        return acc;
+      }, {});
+    }
+
+    function renderChipGroup(container, items, isActive, onClick) {
+      container.innerHTML = items.map((item) => `
+            <button class="filter-chip ${isActive(item.id) ? 'is-active' : ''}" type="button" data-id="${escapeHtml(item.id)}">
+              ${escapeHtml(item.label)}<span class="count">${item.count}</span>
+            </button>
+          `).join('');
+      container.querySelectorAll('button').forEach((button) => {
+        button.addEventListener('click', () => onClick(button.dataset.id));
+      });
+    }
+
+    function renderLibraryStats() {
+      const foundCount = books.filter((book) => book.coverStatus === 'found').length;
+      const candidateCount = books.filter((book) => book.coverStatus === 'candidate').length;
+      const conceptCount = books.filter((book) => book.coverStatus === 'concept').length;
+      if (els.libraryTotal) els.libraryTotal.textContent = books.length;
+      if (els.libraryRoutes) els.libraryRoutes.textContent = learningPaths.length;
+      if (els.libraryFound) els.libraryFound.textContent = foundCount;
+      if (els.libraryPending) els.libraryPending.textContent = candidateCount + conceptCount;
+      if (els.coverQualityNote) {
+        els.coverQualityNote.textContent = `目前真書封 ${foundCount} 本；候選 ${candidateCount} 本、概念封面 ${conceptCount} 本仍待補真書封。`;
+      }
+    }
+
+    function renderFilters() {
+      renderLibraryStats();
+      const categoryCounts = countBy(books, (book) => book.category);
+      const levelCounts = countBy(books, (book) => book.level);
+      const sourceCounts = countBy(books, (book) => book.sourcePages || book.sourcePage);
+      const pathCounts = countBy(books, (book) => book.learningPathIds || []);
+      const coverStatusCounts = countBy(books, (book) => book.coverStatus);
+      renderChipGroup(
+        els.path,
+        [{ id: '', label: '全部路線', count: books.length }, ...learningPaths.map((path) => ({ id: path.id, label: path.label, count: pathCounts[path.id] || 0 }))],
+        (id) => selectedFilters.path === id,
+        (id) => { selectedFilters.path = id; currentPage = 1; renderFilters(); renderBooks(); }
+      );
+      renderChipGroup(
+        els.category,
+        [{ id: '', label: '全部分類', count: books.length }, ...Object.keys(categoryCounts).sort().map((category) => ({ id: category, label: category, count: categoryCounts[category] }))],
+        (id) => id === '' ? selectedFilters.categories.size === 0 : selectedFilters.categories.has(id),
+        (id) => {
+          if (id === '') selectedFilters.categories.clear();
+          else if (selectedFilters.categories.has(id)) selectedFilters.categories.delete(id);
+          else selectedFilters.categories.add(id);
+          currentPage = 1;
+          renderFilters();
+          renderBooks();
+        }
+      );
+      renderChipGroup(
+        els.level,
+        [{ id: '', label: '全部難度', count: books.length }, ...Object.keys(levelCounts).map((level) => ({ id: level, label: level, count: levelCounts[level] }))],
+        (id) => id === '' ? selectedFilters.levels.size === 0 : selectedFilters.levels.has(id),
+        (id) => {
+          if (id === '') selectedFilters.levels.clear();
+          else if (selectedFilters.levels.has(id)) selectedFilters.levels.delete(id);
+          else selectedFilters.levels.add(id);
+          currentPage = 1;
+          renderFilters();
+          renderBooks();
+        }
+      );
+      renderChipGroup(
+        els.source,
+        [{ id: '', label: '全部來源', count: books.length }, ...sourcePages.map((page) => ({ id: page.label, label: page.label, count: sourceCounts[page.label] || 0 }))],
+        (id) => selectedFilters.source === id,
+        (id) => { selectedFilters.source = id; currentPage = 1; renderFilters(); renderBooks(); }
+      );
+      renderChipGroup(
+        els.cover,
+        [
+          { id: '', label: '全部封面', count: books.length },
+          { id: 'found', label: '真書封', count: coverStatusCounts.found || 0 },
+          { id: 'pending', label: '待補真書封', count: (coverStatusCounts.candidate || 0) + (coverStatusCounts.concept || 0) },
+          { id: 'candidate', label: '候選', count: coverStatusCounts.candidate || 0 },
+          { id: 'concept', label: '概念封面', count: coverStatusCounts.concept || 0 }
+        ],
+        (id) => selectedFilters.coverStatus === id,
+        (id) => { selectedFilters.coverStatus = id; currentPage = 1; renderFilters(); renderBooks(); }
+      );
+    }
+
+    function filteredBooks() {
+      const query = els.search.value.trim().toLowerCase();
+      return books.filter((book) => {
+        const pathLabels = pathLabelsFor(book);
+        const haystack = [
+          book.title,
+          book.author,
+          book.category,
+          book.level,
+          book.sourcePage,
+          ...(book.sourcePages || []),
+          ...pathLabels,
+          book.core,
+          book.action,
+          book.postAngle,
+          ...(book.related || [])
+        ].join(' ').toLowerCase();
+        const matchQuery = !query || haystack.includes(query);
+        const matchPath = !selectedFilters.path || (book.learningPathIds || []).includes(selectedFilters.path);
+        const matchCategory = selectedFilters.categories.size === 0 || selectedFilters.categories.has(book.category);
+        const matchLevel = selectedFilters.levels.size === 0 || selectedFilters.levels.has(book.level);
+        const matchSource = !selectedFilters.source || (book.sourcePages || [book.sourcePage]).includes(selectedFilters.source);
+        const matchCoverStatus = !selectedFilters.coverStatus
+          || book.coverStatus === selectedFilters.coverStatus
+          || (selectedFilters.coverStatus === 'pending' && book.coverStatus !== 'found');
+        return matchQuery && matchPath && matchCategory && matchLevel && matchSource && matchCoverStatus;
+      });
+    }
+
+    function renderPagination(total, totalPages) {
+      if (!els.pagination) return;
+      if (totalPages <= 1) {
+        els.pagination.innerHTML = total ? `<span class="page-info">共 ${total} 筆</span>` : '';
+        return;
+      }
+      const pages = Array.from({ length: totalPages }, (_, index) => index + 1);
+      els.pagination.innerHTML = `
+        <button class="page-button" type="button" data-page="${currentPage - 1}" ${currentPage === 1 ? 'disabled' : ''}>上一頁</button>
+        ${pages.map((page) => `
+          <button class="page-button ${page === currentPage ? 'is-active' : ''}" type="button" data-page="${page}" aria-current="${page === currentPage ? 'page' : 'false'}">${page}</button>
+        `).join('')}
+        <button class="page-button" type="button" data-page="${currentPage + 1}" ${currentPage === totalPages ? 'disabled' : ''}>下一頁</button>
+        <span class="page-info">第 ${currentPage} / ${totalPages} 頁，共 ${total} 筆</span>
+      `;
+      els.pagination.querySelectorAll('button[data-page]').forEach((button) => {
+        button.addEventListener('click', () => {
+          const nextPage = Number(button.dataset.page);
+          if (!Number.isFinite(nextPage) || nextPage < 1 || nextPage > totalPages || nextPage === currentPage) return;
+          currentPage = nextPage;
+          renderBooks();
+          els.bookList.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      });
+    }
+
+    function renderBooks() {
+      const list = filteredBooks();
+      const totalPages = Math.max(1, Math.ceil(list.length / PAGE_SIZE));
+      currentPage = Math.min(Math.max(currentPage, 1), totalPages);
+      const pageItems = list.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
+      if (!pageItems.some((book) => book.id === selectedId) && pageItems[0]) selectedId = pageItems[0].id;
+      else if (!list.some((book) => book.id === selectedId) && list[0]) selectedId = list[0].id;
+      els.bookCount.textContent = `${list.length} 筆｜第 ${currentPage}/${totalPages} 頁`;
+      els.bookList.innerHTML = pageItems.map((book) => {
+        const hasImage = Boolean(book.coverUrl);
+        const authorMeta = authorMetaFor(book);
+        return `
+            <button class="book-card ${book.id === selectedId ? 'is-active' : ''}" data-id="${book.id}" type="button" aria-pressed="${book.id === selectedId ? 'true' : 'false'}" aria-label="查看 ${escapeHtml(book.title)}">
+              <div class="book-cover cover-${book.tone ?? 0} ${hasImage ? 'has-image' : ''}" data-status="${escapeHtml(book.coverStatus)}">
+                <div class="book-cover-fallback">
+                  <strong>${escapeHtml(book.title)}</strong>
+                  <span>${escapeHtml(book.category)}</span>
+                </div>
+                ${hasImage ? `<img class="book-cover-image" src="${escapeHtml(book.coverUrl)}" alt="${escapeHtml(book.title)} 封面" loading="lazy" onerror="this.closest('.book-cover').classList.remove('has-image'); this.closest('.book-cover').classList.add('has-fallback'); this.remove();">` : ''}
+                <span class="cover-source">${coverStatusLabel(book.coverStatus)}</span>
+              </div>
+              <div class="book-copy">
+                <div class="tag-row">
+                  <span class="tag" data-tone="${levelTone(book.level)}">${escapeHtml(book.level)}</span>
+                  <span class="tag" data-tone="amber">${escapeHtml(book.category)}</span>
+                </div>
+                <h3>${escapeHtml(book.title)}</h3>
+                <p>${escapeHtml(authorMeta.label + '：' + authorMeta.value)}</p>
+                <p>${escapeHtml(book.core)}</p>
+              </div>
+            </button>`;
+      }).join('') || `<div class="empty">沒有符合的書籍</div>`;
+      renderPagination(list.length, totalPages);
+    
+      els.bookList.querySelectorAll('[data-id]').forEach((card) => {
+        card.addEventListener('click', () => {
+          selectedId = card.dataset.id;
+          if (els.detailPanel.classList.contains('is-collapsed')) {
+            els.detailPanel.classList.remove('is-collapsed');
+            els.detailToggle.textContent = '收起';
+          }
+          renderBooks();
+          if (window.matchMedia('(max-width: 1180px)').matches) {
+            els.detailPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      });
+      renderDetail();
+    }
+
+    function currentBook() {
+      const list = filteredBooks();
+      return list.find((book) => book.id === selectedId) || list[0] || null;
+    }
+
+    function renderDetail() {
+      const book = currentBook();
+      if (!book) {
+        els.selectedLevel.textContent = '';
+        els.detail.innerHTML = `<div class="empty">沒有符合的書籍，請放寬搜尋或取消部分篩選。</div>`;
+        return;
+      }
+      els.selectedLevel.textContent = book.level;
+      els.selectedLevel.dataset.tone = levelTone(book.level);
+      const hasImage = Boolean(book.coverUrl);
+      const pathLabels = pathLabelsFor(book);
+      const sourceLabels = (book.sourcePages || [book.sourcePage]).join('、');
+      const authorMeta = authorMetaFor(book);
+      els.detail.innerHTML = `
+            <div class="detail-cover cover-${book.tone ?? 0} ${hasImage ? 'has-image' : ''}">
+              <div class="book-cover-fallback">
+                <strong>${escapeHtml(book.title)}</strong>
+                <span>${escapeHtml(book.category)}</span>
+              </div>
+              ${hasImage ? `<img src="${escapeHtml(book.coverUrl)}" alt="${escapeHtml(book.title)} 封面" loading="lazy" onerror="this.closest('.detail-cover').classList.remove('has-image'); this.closest('.detail-cover').classList.add('has-fallback'); this.remove();">` : ''}
+            </div>
+            <div class="detail-section">
+              <strong>書名</strong>
+              <h2>${escapeHtml(book.title)}</h2>
+            </div>
+            <div class="detail-meta">
+              <div><strong>${escapeHtml(authorMeta.label)}：</strong>${escapeHtml(authorMeta.value)}</div>
+              <div><strong>Notion 來源：</strong>${escapeHtml(sourceLabels)}｜${escapeHtml((book.sourceTypes || [book.sourceType]).join('、'))}</div>
+              <div><strong>學習路線：</strong>${escapeHtml(pathLabels.join('、') || '未分類路線')}</div>
+              <div><strong>書封狀態：</strong>${escapeHtml(coverStatusLabel(book.coverStatus))}${book.coverMatchedTitle ? `｜對照：${escapeHtml(book.coverMatchedTitle)}` : ''}</div>
+            </div>
+            <div class="tag-row">
+              <span class="tag" data-tone="amber">${escapeHtml(book.category)}</span>
+              <span class="tag" data-tone="green">${escapeHtml(book.coverSource)}</span>
+              ${(book.related || []).map((item) => `<span class="tag">${escapeHtml(item)}</span>`).join('')}
+            </div>
+            <div class="detail-section">
+              <strong>一句話核心</strong>
+              <p>${escapeHtml(book.core)}</p>
+            </div>
+            <div class="detail-section">
+              <strong>適合誰先讀</strong>
+              <p>${escapeHtml(audienceFor(book))}</p>
+            </div>
+            <div class="detail-section">
+              <strong>今天可以做的一件小事</strong>
+              <p>${escapeHtml(book.action)}</p>
+            </div>
+            <div class="detail-section">
+              <strong>貼文角度</strong>
+              <p>${escapeHtml(book.postAngle)}</p>
+            </div>
+            <div class="copy-actions">
+              <button type="button" class="primary" data-copy="summary">複製書籍摘要</button>
+              <button type="button" data-copy="post">複製貼文 Prompt</button>
+              <button type="button" data-copy="merge">複製融合 Prompt</button>
+              <p id="copy-status" class="copy-status muted" aria-live="polite"></p>
+              <textarea id="manual-copy" class="manual-copy" readonly></textarea>
+            </div>
+          `;
+    
+      document.querySelectorAll('[data-copy]').forEach((button) => {
+        button.addEventListener('click', () => {
+          if (button.dataset.copy === 'summary') copyOut(bookSummary(book));
+          if (button.dataset.copy === 'post') copyOut(postPrompt(book));
+          if (button.dataset.copy === 'merge') copyOut(mergePrompt(book));
+        });
+      });
+    }
+
+    function bookSummary(book) {
+      return `${book.title}\n${authorLineFor(book)}\n分類：${book.category}\n難度：${book.level}\n來源：${(book.sourcePages || [book.sourcePage]).join('、')}\n學習路線：${pathLabelsFor(book).join('、') || '未分類'}\n\n核心觀念：${book.core}\n\n適合誰先讀：${audienceFor(book)}\n\n今天可以做的一件小事：${book.action}\n\n貼文角度：${book.postAngle}\n\n可連到：${(book.related || []).join('、')}\n博客來搜尋：${booksComSearchUrl(book.title)}`;
+    }
+
+    function postPrompt(book) {
+      return `你是台灣繁體中文社群編輯。請把這本書的觀念改成一篇普通人看得懂的貼文。\n\n書名：${book.title}\n${authorLineFor(book)}\n分類：${book.category}\n學習路線：${pathLabelsFor(book).join('、') || '未分類'}\n核心觀念：${book.core}\n現實應用：${book.action}\n貼文角度：${book.postAngle}\n\n請輸出：\n1. Threads 版本\n2. IG caption\n3. 30 秒短影音腳本\n4. 5 張輪播圖大綱\n5. 讓台灣上班族/學生/小老闆看得懂的例子\n\n限制：不要翻譯腔，不要硬塞名詞，不要成功學。`;
+    }
+
+    function mergePrompt(book) {
+      return `你是我的知識整合助理。請把以下書籍觀念融合進「世界高手資料庫」。\n\n書名：${book.title}\n${authorLineFor(book)}\n學習路線：${pathLabelsFor(book).join('、') || '未分類'}\n核心觀念：${book.core}\n我可以怎麼用：${book.action}\n可連到：${(book.related || []).join('、')}\n\n請幫我輸出：\n1. 這本書適合連到哪一類高手\n2. 可以新增成哪些 episode / idea cards\n3. 可以變成哪些產品、服務、內容或生活實驗\n4. 從簡單到難的學習路線\n5. 3 個台灣觀眾看得懂的例子`;
+    }
+
+    function audienceFor(book) {
+      const category = book.category || "";
+      if (category.includes("財商")) return "適合想把錢管清楚、但不想一開始就碰複雜投資的人。";
+      if (category.includes("家庭")) return "適合正在平衡工作、家庭、親子或照護壓力的人。";
+      if (category.includes("學習")) return "適合想自學新技能，卻常常只收藏課程、沒有真的輸出的人。";
+      if (category.includes("工作") || category.includes("自我") || category.includes("流程")) return "適合覺得自己很忙、但每天結束又說不出成果的人。";
+      if (category.includes("行銷") || category.includes("故事") || category.includes("文化")) return "適合想做內容、品牌、短影音，卻不知道怎麼把觀念講好的人。";
+      if (category.includes("管理") || category.includes("決策") || category.includes("談判") || category.includes("領導")) return "適合需要做選擇、帶人、談合作，想少靠情緒多靠方法的人。";
+      return "適合想把抽象觀念變成生活行動與內容素材的人。";
+    }
+
+    async function copyOut(text) {
+      const manual = document.querySelector("#manual-copy");
+      const status = document.querySelector("#copy-status");
+      manual.classList.remove("is-visible");
+      manual.value = text;
+      if (status) status.textContent = "";
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(text);
+          if (status) status.textContent = "已複製到剪貼簿。";
+          return;
+        }
+        const temp = document.createElement("textarea");
+        temp.value = text;
+        temp.setAttribute("readonly", "");
+        temp.style.position = "fixed";
+        temp.style.left = "-9999px";
+        document.body.appendChild(temp);
+        temp.select();
+        const ok = document.execCommand("copy");
+        temp.remove();
+        if (ok) {
+          if (status) status.textContent = "已複製到剪貼簿。";
+          return;
+        }
+      } catch (error) {}
+      if (status) status.textContent = "瀏覽器阻擋自動複製，文字已放在下方，可手動複製。";
+      manual.classList.add("is-visible");
+      manual.focus();
+      manual.select();
+    }
+
+    document.querySelector("#copy-system").addEventListener("click", () => {
+      copyOut(`你是我的讀書資料庫整理助理。請把一本書整理成可以放進「世界高手資料庫」的 JSON。\n\n請輸出欄位：title, author, category, level, core, action, postAngle, related, coverUrl, coverSource, coverPageUrl, coverStatus。\n\n規則：\n1. 用繁體中文。\n2. 從簡單到難，不要學術腔。\n3. 每本書都要有現實行動與貼文角度。\n4. 不要只摘要，要說明如何接到高手、事業、生活或內容輸出。\n5. 書封優先用出版社、博客來、Open Library 或 Google Books 這類可追溯來源。\n6. 如果原始資料來自私人 Notion，不要公開原始連結。`);
+    });
+
+    els.form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const fd = new FormData(event.currentTarget);
+      books.unshift({
+        id: uid(),
+        title: fd.get("title").trim(),
+        category: fd.get("category").trim(),
+        author: fd.get("author").trim(),
+        level: fd.get("level"),
+        sourcePage: "手動新增",
+        sourceType: "手動",
+        sourcePages: ["手動新增"],
+        sourceTypes: ["手動"],
+        core: fd.get("core").trim(),
+        action: fd.get("action").trim(),
+        postAngle: fd.get("postAngle").trim(),
+        related: [],
+        learningPathIds: learningPathsFor(fd.get("title").trim(), fd.get("category").trim(), []),
+        ...coverForBook(fd.get("title").trim(), fd.get("category").trim()),
+        tone: books.length % 5
+      });
+      selectedId = books[0].id;
+      currentPage = 1;
+      event.currentTarget.reset();
+      saveBooks();
+      renderFilters();
+      renderBooks();
+    });
+
+    els.search.addEventListener("input", () => {
+      currentPage = 1;
+      renderBooks();
+    });
+    els.detailToggle.addEventListener("click", () => {
+      els.detailPanel.classList.toggle("is-collapsed");
+      els.detailToggle.textContent = els.detailPanel.classList.contains("is-collapsed") ? "展開" : "收起";
+    });
+
+    renderFilters();
+    renderBooks();
+  </script>
+</body>
+</html>

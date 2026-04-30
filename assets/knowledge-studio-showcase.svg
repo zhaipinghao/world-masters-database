@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 700" role="img" aria-labelledby="title desc">
+  <title id="title">知識視覺工作室作品展示</title>
+  <desc id="desc">把書籍、高手內容、貼文腳本與知識圖卡整理成有辨識度的視覺系統</desc>
+  <defs>
+    <linearGradient id="studio-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0a1f1c"/>
+      <stop offset=".5" stop-color="#17332f"/>
+      <stop offset="1" stop-color="#463121"/>
+    </linearGradient>
+    <linearGradient id="mint" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#dff7f2"/>
+      <stop offset="1" stop-color="#91ddd3"/>
+    </linearGradient>
+    <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fffaf0"/>
+      <stop offset="1" stop-color="#eef3ee"/>
+    </linearGradient>
+    <linearGradient id="coral" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f8c7b7"/>
+      <stop offset="1" stop-color="#bd5b48"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="24" stdDeviation="22" flood-color="#07110f" flood-opacity=".38"/>
+    </filter>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M48 0H0V48" fill="none" stroke="#dff7f2" stroke-width="1" stroke-opacity=".08"/>
+    </pattern>
+  </defs>
+
+  <rect width="980" height="700" rx="42" fill="url(#studio-bg)"/>
+  <rect x="24" y="24" width="932" height="652" rx="34" fill="url(#grid)"/>
+  <path d="M80 582H900" stroke="#dff7f2" stroke-opacity=".16" stroke-width="2"/>
+  <path d="M80 118H900" stroke="#dff7f2" stroke-opacity=".12" stroke-width="2"/>
+
+  <g transform="translate(64 64)">
+    <rect width="242" height="76" rx="24" fill="#dff7f2" fill-opacity=".12" stroke="#dff7f2" stroke-opacity=".28"/>
+    <text x="28" y="33" fill="#dff7f2" font-family="Noto Sans TC, Arial, sans-serif" font-size="18" font-weight="900">VISUAL SYSTEM</text>
+    <text x="28" y="58" fill="#ffffff" font-family="Noto Sans TC, Arial, sans-serif" font-size="17" font-weight="800">不是套版，是一套風格</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="82" y="184" width="248" height="354" rx="28" fill="url(#paper)"/>
+    <rect x="106" y="212" width="200" height="294" rx="18" fill="#17312e"/>
+    <rect x="126" y="236" width="92" height="24" rx="12" fill="#91ddd3" fill-opacity=".25"/>
+    <text x="126" y="316" fill="#ffffff" font-family="Noto Sans TC, Arial, sans-serif" font-size="38" font-weight="950">書封</text>
+    <text x="126" y="360" fill="#ffffff" font-family="Noto Sans TC, Arial, sans-serif" font-size="38" font-weight="950">變圖卡</text>
+    <rect x="126" y="398" width="136" height="10" rx="5" fill="#91ddd3"/>
+    <rect x="126" y="426" width="104" height="10" rx="5" fill="#f3c77c"/>
+    <text x="126" y="476" fill="#d7dfdc" font-family="Noto Sans TC, Arial, sans-serif" font-size="18" font-weight="800">每本書都有可被分享的畫面</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="390" y="126" width="276" height="190" rx="28" fill="#ffffff"/>
+    <rect x="418" y="154" width="132" height="30" rx="15" fill="#e3f3f1"/>
+    <text x="438" y="176" fill="#0f766e" font-family="Noto Sans TC, Arial, sans-serif" font-size="16" font-weight="900">一句話核心</text>
+    <text x="418" y="238" fill="#17201d" font-family="Noto Sans TC, Arial, sans-serif" font-size="34" font-weight="950">把概念講到</text>
+    <text x="418" y="280" fill="#17201d" font-family="Noto Sans TC, Arial, sans-serif" font-size="34" font-weight="950">別人看得懂</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="704" y="138" width="186" height="350" rx="34" fill="#111c1a"/>
+    <rect x="724" y="166" width="146" height="260" rx="24" fill="url(#coral)"/>
+    <text x="746" y="226" fill="#ffffff" font-family="Noto Sans TC, Arial, sans-serif" font-size="28" font-weight="950">短影音</text>
+    <text x="746" y="266" fill="#ffffff" font-family="Noto Sans TC, Arial, sans-serif" font-size="28" font-weight="950">腳本卡</text>
+    <rect x="746" y="334" width="88" height="10" rx="5" fill="#ffffff" fill-opacity=".8"/>
+    <rect x="746" y="360" width="106" height="10" rx="5" fill="#ffffff" fill-opacity=".55"/>
+    <rect x="768" y="446" width="58" height="12" rx="6" fill="#91ddd3"/>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="392" y="368" width="276" height="178" rx="28" fill="#fff2d4"/>
+    <text x="424" y="424" fill="#754b0d" font-family="Noto Sans TC, Arial, sans-serif" font-size="32" font-weight="950">學習路線</text>
+    <text x="424" y="466" fill="#17201d" font-family="Noto Sans TC, Arial, sans-serif" font-size="22" font-weight="850">談判・自我管理・財商</text>
+    <rect x="424" y="496" width="184" height="12" rx="6" fill="#bd5b48" fill-opacity=".78"/>
+  </g>
+
+  <g fill="none" stroke="#91ddd3" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" stroke-opacity=".9">
+    <path d="M330 362 C358 310 364 248 390 222"/>
+    <path d="M666 232 C690 232 692 250 704 280"/>
+    <path d="M530 316 V368"/>
+  </g>
+
+  <g transform="translate(642 570)">
+    <rect width="260" height="64" rx="22" fill="url(#mint)"/>
+    <text x="31" y="41" fill="#073f3a" font-family="Noto Sans TC, Arial, sans-serif" font-size="24" font-weight="950">Made as a system</text>
+  </g>
+</svg>

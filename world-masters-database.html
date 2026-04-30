@@ -132,6 +132,32 @@
       white-space: nowrap;
     }
 
+    .sync-banner {
+      grid-column: 1 / -1;
+      display: grid;
+      gap: 4px;
+      border: 1px solid #b8d8d4;
+      border-left: 6px solid var(--teal);
+      border-radius: 8px;
+      padding: 12px 14px;
+      background: #eff9f7;
+      color: #143f3a;
+      box-shadow: var(--shadow);
+    }
+
+    .sync-banner strong {
+      font-size: 15px;
+      line-height: 1.35;
+    }
+
+    .sync-banner span,
+    .form-note {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 750;
+      line-height: 1.55;
+    }
+
     .layout {
       display: grid;
       grid-template-columns: 330px minmax(0, 1fr);
@@ -516,14 +542,18 @@
       <input id="search" class="search" type="search" placeholder="搜尋高手、領域、觀點、來源">
       <div class="top-actions">
         <button id="copy-system" type="button">複製整理 Prompt</button>
-        <button id="export-json" type="button">匯出 JSON</button>
-        <button id="import-json" type="button">匯入 JSON</button>
-        <button id="reset-sample" class="danger" type="button">重置範例</button>
+        <button id="export-json" type="button">匯出本機備份</button>
+        <button id="import-json" type="button">匯入本機備份</button>
+        <button id="reset-sample" class="danger" type="button">重置本機範例</button>
         <input id="import-file" type="file" accept="application/json" hidden>
       </div>
     </header>
 
     <main class="layout">
+      <div class="sync-banner">
+        <strong>新增功能是真的，但目前保存範圍是這台電腦的這個瀏覽器。</strong>
+        <span>重新整理還會在；換裝置、換瀏覽器或朋友打開公開網址，不會自動同步。要公開給別人看，請先匯出本機備份，再把資料整合進網站重新發布。</span>
+      </div>
       <aside class="sidebar">
         <div class="sidebar-head">
           <h2>高手清單</h2>
@@ -531,7 +561,8 @@
         </div>
         <div id="master-list" class="master-list"></div>
         <form id="master-form" class="sidebar-form">
-          <h3>新增高手</h3>
+          <h3>新增高手到本機</h3>
+          <p class="form-note">送出後會真的存在本機瀏覽器資料庫，不是雲端共用資料。公開前請先匯出備份。</p>
           <label>姓名
             <input name="name" required placeholder="例如：Naval Ravikant">
           </label>
@@ -547,7 +578,7 @@
           <label>一句話摘要
             <textarea name="summary" placeholder="他最值得研究的是什麼？"></textarea>
           </label>
-          <button class="primary" type="submit">新增人物</button>
+          <button class="primary" type="submit">新增到本機資料庫</button>
         </form>
       </aside>
 
@@ -999,4 +1030,3 @@
   </script>
 </body>
 </html>
-

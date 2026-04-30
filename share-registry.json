@@ -25,6 +25,15 @@
       "public_url": "https://zhaipinghao.github.io/world-masters-database/dan-koe-database/post-slices-readable.html",
       "status": "published",
       "notes": "Dan Koe 人物簡介、YouTube 封面、內容切片與 AI Prompt 工作台。"
+    },
+    {
+      "id": "reading-library",
+      "title": "閱讀書庫",
+      "local_path": "reading-library.html",
+      "local_url": "file:///Users/linyuchen/Documents/New%20project/public-site/reading-library.html",
+      "public_url": "https://zhaipinghao.github.io/world-masters-database/reading-library.html",
+      "status": "local_ready",
+      "notes": "由 Notion 讀書頁整理成觀念卡、行動卡與貼文素材；發布前需再次確認。"
     }
   ]
 }

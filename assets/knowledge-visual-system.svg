@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 620" role="img" aria-labelledby="title desc">
+  <title id="title">知識視覺系統</title>
+  <desc id="desc">把書籍、觀念、行動與貼文素材轉成可視化知識產品的示意圖</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0d3f3b"/>
+      <stop offset="0.52" stop-color="#17201d"/>
+      <stop offset="1" stop-color="#8f4f3f"/>
+    </linearGradient>
+    <linearGradient id="mint" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#dff7f2"/>
+      <stop offset="1" stop-color="#91ddd3"/>
+    </linearGradient>
+    <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fffaf0"/>
+      <stop offset="1" stop-color="#e8eee9"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#07110f" flood-opacity=".35"/>
+    </filter>
+  </defs>
+
+  <rect width="920" height="620" rx="38" fill="url(#bg)"/>
+  <circle cx="92" cy="76" r="120" fill="#91ddd3" opacity=".14"/>
+  <circle cx="820" cy="528" r="160" fill="#ffcc8a" opacity=".12"/>
+  <path d="M74 472 C210 370 270 460 404 352 S655 246 834 122" fill="none" stroke="#dff7f2" stroke-width="3" stroke-opacity=".18"/>
+
+  <g filter="url(#shadow)">
+    <rect x="70" y="78" width="218" height="320" rx="22" fill="url(#paper)"/>
+    <rect x="92" y="104" width="174" height="270" rx="14" fill="#17312e"/>
+    <rect x="112" y="126" width="134" height="32" rx="16" fill="#dff7f2" opacity=".18"/>
+    <text x="112" y="202" fill="#ffffff" font-family="Noto Sans TC, Arial, sans-serif" font-size="30" font-weight="900">書籍</text>
+    <text x="112" y="244" fill="#dff7f2" font-family="Noto Sans TC, Arial, sans-serif" font-size="20" font-weight="800">195 張精讀卡</text>
+    <text x="112" y="318" fill="#d7dfdc" font-family="Noto Sans TC, Arial, sans-serif" font-size="18" font-weight="700">不是收藏</text>
+    <text x="112" y="346" fill="#d7dfdc" font-family="Noto Sans TC, Arial, sans-serif" font-size="18" font-weight="700">是轉成行動</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="352" y="118" width="238" height="370" rx="26" fill="#fbfcfa"/>
+    <rect x="382" y="150" width="178" height="34" rx="17" fill="#e3f3f1"/>
+    <text x="404" y="174" fill="#0f766e" font-family="Noto Sans TC, Arial, sans-serif" font-size="18" font-weight="900">VISUAL ENGINE</text>
+    <text x="392" y="250" fill="#17201d" font-family="Noto Sans TC, Arial, sans-serif" font-size="42" font-weight="900">觀念</text>
+    <text x="392" y="302" fill="#17201d" font-family="Noto Sans TC, Arial, sans-serif" font-size="42" font-weight="900">變成圖</text>
+    <rect x="392" y="344" width="150" height="12" rx="6" fill="#0f766e"/>
+    <rect x="392" y="372" width="100" height="12" rx="6" fill="#bd5b48"/>
+    <rect x="392" y="400" width="126" height="12" rx="6" fill="#a66b12"/>
+    <text x="392" y="452" fill="#66736d" font-family="Noto Sans TC, Arial, sans-serif" font-size="20" font-weight="800">封面・輪播・短影音</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="642" y="66" width="210" height="144" rx="22" fill="#dff7f2"/>
+    <text x="670" y="116" fill="#0b4f49" font-family="Noto Sans TC, Arial, sans-serif" font-size="30" font-weight="900">貼文素材</text>
+    <text x="670" y="158" fill="#315d8c" font-family="Noto Sans TC, Arial, sans-serif" font-size="20" font-weight="850">一句話核心</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="654" y="244" width="176" height="176" rx="22" fill="#fff2d4"/>
+    <text x="686" y="310" fill="#754b0d" font-family="Noto Sans TC, Arial, sans-serif" font-size="34" font-weight="900">行動卡</text>
+    <text x="686" y="358" fill="#8f4f3f" font-family="Noto Sans TC, Arial, sans-serif" font-size="20" font-weight="850">今天能做</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="612" y="456" width="252" height="92" rx="22" fill="#ffffff"/>
+    <text x="640" y="514" fill="#17201d" font-family="Noto Sans TC, Arial, sans-serif" font-size="30" font-weight="900">可賣的知識產品</text>
+  </g>
+
+  <g fill="none" stroke="#dff7f2" stroke-width="6" stroke-linecap="round" stroke-opacity=".9">
+    <path d="M288 234 H344"/>
+    <path d="M590 292 H642"/>
+    <path d="M590 390 C616 418 626 438 642 462"/>
+  </g>
+</svg>
